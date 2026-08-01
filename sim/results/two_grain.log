@@ -1,0 +1,46 @@
+======================================================================
+(A) ZERO-CONTRAST CONTROL  -  measuring the numerical coda floor
+======================================================================
+C:\Users\Jerome\AppData\Roaming\Python\Python312\site-packages\cupy\_environment.py:284: UserWarning: CUDA path could not be detected. Set CUDA_PATH environment variable if CuPy fails to load.
+  warnings.warn(
+    az 0 uniform-axes: 6434 steps, 101 s
+  az   0:  real fabric  -63.61 dB   zero-contrast  -68.36 dB   difference  +4.75 dB
+    az 60 uniform-axes: 6534 steps, 102 s
+  az  60:  real fabric  -62.47 dB   zero-contrast  -73.71 dB   difference +11.23 dB
+    az 120 uniform-axes: 6376 steps, 100 s
+  az 120:  real fabric  -59.37 dB   zero-contrast  -67.63 dB   difference  +8.26 dB
+    az 180 uniform-axes: 6434 steps, 103 s
+  az 180:  real fabric  -64.84 dB   zero-contrast  -68.48 dB   difference  +3.64 dB
+    az 240 uniform-axes: 6534 steps, 106 s
+  az 240:  real fabric  -62.74 dB   zero-contrast  -73.23 dB   difference +10.49 dB
+    az 300 uniform-axes: 6376 steps, 105 s
+  az 300:  real fabric  -58.50 dB   zero-contrast  -67.55 dB   difference  +9.05 dB
+
+  MEAN real -61.92 dB   MEAN zero-contrast -69.83 dB
+  numerical floor sits 7.90 dB below the real coda
+  => 16.2% of the ppw8 coda POWER is numerical, 83.8% is physical
+
+======================================================================
+(B) BICRYSTAL  -  measured echo vs the closed-form reflection coefficient
+======================================================================
+  grid (171, 442, 442), boundary at 40 mm depth, echo expected at 21.4 us
+    psi 0/0: 6788 steps, 107 s
+  psi   0.0/  0.0  v 4045.8/4045.8  R_theory +0.00000   Eb/E1 0.00067
+    psi 0/20: 6788 steps, 108 s
+  psi   0.0/ 20.0  v 4045.8/3961.9  R_theory -0.01047   Eb/E1 0.03627
+    psi 0/35: 6788 steps, 110 s
+  psi   0.0/ 35.0  v 4045.8/3840.0  R_theory -0.02610   Eb/E1 0.12939
+    psi 0/51: 6788 steps, 107 s
+  psi   0.0/ 51.0  v 4045.8/3776.1  R_theory -0.03448   Eb/E1 0.22169
+    psi 0/90: 6788 steps, 109 s
+  psi   0.0/ 90.0  v 4045.8/3897.5  R_theory -0.01867   Eb/E1 0.09107
+    psi 90/51: 6788 steps, 109 s
+  psi  90.0/ 51.0  v 3897.5/3776.1  R_theory -0.01582   Eb/E1 0.10211
+
+  |R_theory| vs measured Eb/E1 :  slope 7.021, intercept -0.03209, r = +0.9661  (n=5)
+  zero-contrast pair (0/0) gave Eb/E1 = 0.00067 <- must be ~0
+  implied backwall reference: slope x (d_b/d_1) = 2.8085
+  a slope that is CONSTANT across R (r near 1) validates the model's form;
+  the zero pair validates that nothing is manufactured.
+
+DONE

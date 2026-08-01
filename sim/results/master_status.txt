@@ -1,0 +1,46 @@
+04:26:19  ============================================================
+04:26:19  MASTER RUN: bicrystal ladder + 17 sweeps
+04:26:19  [0] bicrystal resolution ladder
+04:26:44      bicrystal ppw  4.0 : mean |error|  8.94 dB
+04:27:12      bicrystal ppw  5.0 : mean |error|  6.29 dB
+04:27:46      bicrystal ppw  6.0 : mean |error|  5.04 dB
+04:28:40      bicrystal ppw  8.0 : mean |error|  3.05 dB
+04:30:07      bicrystal ppw 10.0 : mean |error|  2.18 dB
+04:32:20      bicrystal ppw 12.0 : mean |error|  1.80 dB
+04:35:49      bicrystal ppw 14.0 : mean |error|  1.52 dB
+04:35:49      fitted convergence order: h^1.15  (first order = 1.00)
+04:35:49  [1/17] lic_girdle_s11_ppw10  (ppw 10, seed 11, normal)
+04:36:02    lic_girdle_s11_ppw10: 30/30 azimuths to run, h=0.193 mm
+04:56:48      lic_girdle_s11_ppw10 az  48 (5/30) 249 s  ~104 min left
+05:17:34      lic_girdle_s11_ppw10 az 108 (10/30) 249 s  ~83 min left
+05:38:20      lic_girdle_s11_ppw10 az 168 (15/30) 249 s  ~62 min left
+05:59:04      lic_girdle_s11_ppw10 az 228 (20/30) 249 s  ~42 min left
+06:19:50      lic_girdle_s11_ppw10 az 288 (25/30) 249 s  ~21 min left
+06:40:36      lic_girdle_s11_ppw10 az 348 (30/30) 249 s  ~0 min left
+06:40:36  [2/17] mx_girdle_s23_ppw8  (ppw 8, seed 23, normal)
+06:40:48    mx_girdle_s23_ppw8: 30/30 azimuths to run, h=0.241 mm
+06:49:55      mx_girdle_s23_ppw8 az  48 (5/30) 109 s  ~46 min left
+06:59:03      mx_girdle_s23_ppw8 az 108 (10/30) 110 s  ~36 min left
+07:08:10      mx_girdle_s23_ppw8 az 168 (15/30) 110 s  ~27 min left
+07:17:17      mx_girdle_s23_ppw8 az 228 (20/30) 109 s  ~18 min left
+07:26:25      mx_girdle_s23_ppw8 az 288 (25/30) 110 s  ~9 min left
+07:35:32      mx_girdle_s23_ppw8 az 348 (30/30) 109 s  ~0 min left
+07:35:32  [3/17] mx_girdle_s41_ppw8  (ppw 8, seed 41, normal)
+07:35:48    mx_girdle_s41_ppw8: 30/30 azimuths to run, h=0.241 mm
+07:44:56      mx_girdle_s41_ppw8 az  48 (5/30) 109 s  ~46 min left
+07:54:03      mx_girdle_s41_ppw8 az 108 (10/30) 109 s  ~36 min left
+08:03:10      mx_girdle_s41_ppw8 az 168 (15/30) 110 s  ~27 min left
+08:12:18      mx_girdle_s41_ppw8 az 228 (20/30) 110 s  ~18 min left
+08:21:27      mx_girdle_s41_ppw8 az 288 (25/30) 110 s  ~9 min left
+08:30:36      mx_girdle_s41_ppw8 az 348 (30/30) 110 s  ~0 min left
+08:30:36  [4/17] mx_girdle_s17_ppw8  (ppw 8, seed 17, normal)
+08:30:48    mx_girdle_s17_ppw8: 30/30 azimuths to run, h=0.241 mm
+08:39:57      mx_girdle_s17_ppw8 az  48 (5/30) 109 s  ~46 min left
+08:49:07      mx_girdle_s17_ppw8 az 108 (10/30) 110 s  ~37 min left
+08:58:16      mx_girdle_s17_ppw8 az 168 (15/30) 110 s  ~27 min left
+09:07:26      mx_girdle_s17_ppw8 az 228 (20/30) 110 s  ~18 min left
+09:16:37      mx_girdle_s17_ppw8 az 288 (25/30) 110 s  ~9 min left
+09:25:49      mx_girdle_s17_ppw8 az 348 (30/30) 111 s  ~0 min left
+09:25:49  [5/17] mx_girdle_s7_ppw8  (ppw 8, seed 7, normal)
+09:26:08    mx_girdle_s7_ppw8: 30/30 azimuths to run, h=0.241 mm
+09:35:28      mx_girdle_s7_ppw8 az  48 (5/30) 112 s  ~47 min left

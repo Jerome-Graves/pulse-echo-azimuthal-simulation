@@ -1,0 +1,20 @@
+C:\Users\Jerome\AppData\Roaming\Python\Python312\site-packages\cupy\_environment.py:284: UserWarning: CUDA path could not be detected. Set CUDA_PATH environment variable if CuPy fails to load.
+  warnings.warn(
+ROTATED staggered grid   c-axes 0/51
+
+  ppw    tilt        echo   vs tilt0 (dB)      s
+    6     0.0  1.1598e-11           0.00    190
+    6    15.0  5.6751e-12          -6.21    188
+    6    22.5  6.8172e-12          -4.62    185
+    6    30.0  7.5145e-12          -3.77    185
+    6    45.0  1.9565e-11           4.54    190
+C:\Users\Jerome\AppData\Roaming\Python\Python312\site-packages\cupy\_environment.py:284: UserWarning: CUDA path could not be detected. Set CUDA_PATH environment variable if CuPy fails to load.
+  warnings.warn(
+treatment naive   c-axes 0/51 deg
+
+  ppw    tilt        echo   vs tilt0 (dB)      s
+    6     0.0  4.2396e-04           0.00      7
+    6    15.0  2.2699e-04          -5.43      7
+    6    22.5  2.1184e-04          -6.03      7
+    6    30.0  2.2249e-04          -5.60      7
+    6    45.0  2.9663e-04          -3.10      7

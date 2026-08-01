@@ -1,0 +1,26 @@
+C:\Users\Jerome\AppData\Roaming\Python\Python312\site-packages\cupy\_environment.py:284: UserWarning: CUDA path could not be detected. Set CUDA_PATH environment variable if CuPy fails to load.
+  warnings.warn(
+
+=== zerocontrast_ppw6: ppw 6, 60 az, h=0.321 mm, ZERO-CONTRAST
+  zerocontrast_ppw6 az   0 (1/60) grid (136, 338, 338) 4825 steps 38 s  ~38 min left
+  zerocontrast_ppw6 az   6 (2/60) grid (136, 338, 338) 4797 steps 38 s  ~37 min left
+  zerocontrast_ppw6 az  12 (3/60) grid (136, 338, 338) 4774 steps 38 s  ~36 min left
+  zerocontrast_ppw6 az  18 (4/60) grid (136, 338, 338) 4758 steps 38 s  ~35 min left
+  zerocontrast_ppw6 az  24 (5/60) grid (136, 338, 338) 4763 steps 38 s  ~35 min left
+  zerocontrast_ppw6 az  30 (6/60) grid (136, 338, 338) 4782 steps 38 s  ~34 min left
+  zerocontrast_ppw6 az  36 (7/60) grid (136, 338, 338) 4808 steps 38 s  ~34 min left
+  zerocontrast_ppw6 az  42 (8/60) grid (136, 338, 338) 4836 steps 38 s  ~33 min left
+  zerocontrast_ppw6 az  48 (9/60) grid (136, 338, 338) 4864 steps 39 s  ~32 min left
+  zerocontrast_ppw6 az  54 (10/60) grid (136, 338, 338) 4886 steps 39 s  ~32 min left
+  zerocontrast_ppw6 az  60 (11/60) grid (136, 338, 338) 4901 steps 39 s  ~31 min left
+  zerocontrast_ppw6 az  66 (12/60) grid (136, 338, 338) 4904 steps 39 s  ~31 min left
+  zerocontrast_ppw6 az  72 (13/60) grid (136, 338, 338) 4896 steps 39 s  ~30 min left
+  zerocontrast_ppw6 az  78 (14/60) grid (136, 338, 338) 4879 steps 39 s  ~29 min left
+  zerocontrast_ppw6 az  84 (15/60) grid (136, 338, 338) 4854 steps 38 s  ~29 min left
+  zerocontrast_ppw6 az  90 (16/60) grid (136, 338, 338) 4825 steps 38 s  ~28 min left
+  zerocontrast_ppw6 az  96 (17/60) grid (136, 338, 338) 4797 steps 38 s  ~27 min left
+  zerocontrast_ppw6 az 102 (18/60) grid (136, 338, 338) 4774 steps 38 s  ~27 min left
+  zerocontrast_ppw6 az 108 (19/60) grid (136, 338, 338) 4758 steps 38 s  ~26 min left
+  zerocontrast_ppw6 az 114 (20/60) grid (136, 338, 338) 4763 steps 37 s  ~25 min left
+  zerocontrast_ppw6 az 120 (21/60) grid (136, 338, 338) 4782 steps 38 s  ~25 min left
+  zerocontrast_ppw6 az 126 (22/60) grid (136, 338, 338) 4808 steps 38 s  ~24 min left
