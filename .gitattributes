@@ -1,0 +1,60 @@
+# ---------------------------------------------------------------------
+#  Line endings and diff behaviour.
+#
+#  Why this file exists: the repository was authored entirely on Windows
+#  with core.autocrlf=true. The index is already clean (every text file is
+#  stored LF), but without an explicit policy that depends on each
+#  contributor's local git config. The first person to edit on Linux or
+#  macOS without the same setting would produce a diff touching every line
+#  of the file, which buries the real change and makes review impossible.
+#
+#  Policy: git normalises text to LF in the repository and checks it out
+#  in the platform's native form. Windows working copies keep CRLF, so
+#  nothing on disk changes today.
+# ---------------------------------------------------------------------
+
+*                       text=auto
+
+# --- Source and prose ------------------------------------------------
+*.py                    text diff=python
+*.md                    text
+*.txt                   text
+*.toml                  text
+*.cfg                   text
+*.json                  text
+*.yml                   text
+*.yaml                  text
+*.cff                   text
+*.log                   text
+
+# --- Files that break if they ever get CRLF --------------------------
+#  Shell scripts must be LF on every platform or the interpreter fails on
+#  the trailing carriage return.
+*.sh                    text eol=lf
+*.bash                  text eol=lf
+
+# --- Windows-only scripts --------------------------------------------
+*.ps1                   text eol=crlf
+*.bat                   text eol=crlf
+*.cmd                   text eol=crlf
+
+# --- Binary. Never normalise, never attempt a text diff --------------
+*.npz                   binary
+*.npy                   binary
+*.png                   binary
+*.jpg                   binary
+*.jpeg                  binary
+*.pdf                   binary
+*.msh                   binary
+*.vtu                   binary
+*.pkl                   binary
+*.pt                    binary
+
+# --- Release hygiene --------------------------------------------------
+#  Kept out of the source archive that GitHub builds for a tagged
+#  release, so a referee downloading the zip gets the code and not the
+#  repository's own scaffolding.
+.gitattributes          export-ignore
+.gitignore              export-ignore
+.vscode/                export-ignore
+.streamlit/             export-ignore
