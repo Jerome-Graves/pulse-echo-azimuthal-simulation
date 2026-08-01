@@ -1,0 +1,17 @@
+# Auto-reload when a file under sim/ or gui/ changes. Without runOnSave,
+# editing a module that app.py imports leaves the OLD copy cached in
+# sys.modules, and you get "module has no attribute ..." until the server is
+# restarted by hand.
+[server]
+runOnSave = true
+fileWatcherType = "auto"
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "dark"
+primaryColor = "#54a8d6"
+backgroundColor = "#0a1017"
+secondaryBackgroundColor = "#121d2a"
+textColor = "#e8f1f8"

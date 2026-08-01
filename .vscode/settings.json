@@ -1,0 +1,10 @@
+{
+  "VsCodeTaskButtons.showCounter": false,
+  "VsCodeTaskButtons.tasks": [
+    {
+      "label": "$(play) COF Studio",
+      "task": "Run Pulse-Echo COF Studio (Streamlit)",
+      "tooltip": "Launch the Pulse-Echo COF Studio GUI (Streamlit)"
+    }
+  ]
+}

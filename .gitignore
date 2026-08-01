@@ -1,0 +1,56 @@
+# ---------------------------------------------------------------------
+#  pulse-echo-cof-sim
+#
+#  The rule that matters here: large binary artefacts must never enter
+#  git history. Once committed they are permanent even if deleted in a
+#  later commit, and GitHub hard-rejects any single file over 100 MB.
+#
+#  As of the baseline commit, sim/ holds roughly 1.2 GB of finite-element
+#  mesh and trace .npz files written next to the source, six of which are
+#  individually over the limit. out/ holds the simulated trace archive,
+#  which is deposited to a data repository rather than versioned.
+# ---------------------------------------------------------------------
+
+# --- Python ----------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Environments ----------------------------------------------------
+.venv/
+venv/
+env/
+.python-version
+
+# --- Solver artefacts written beside the source ----------------------
+#  Finite-element meshes and solver dumps. Regenerable, and the largest
+#  are 284, 241, 241 and 195 MB. Note this rule is anchored to sim/ only,
+#  so the small reference data in sim/ref/ is still tracked.
+/sim/*.npz
+/sim/*.npy
+
+# --- Simulated trace archive -----------------------------------------
+#  About 60 MB across the sweep directories and growing with every run.
+#  Deposited alongside the paper, not versioned.
+/out/
+
+# --- Generated figures -----------------------------------------------
+/figures/*.png
+/figures/*.pdf
+/figures/*.svg
+/figures/*.eps
+
+# --- Secrets ---------------------------------------------------------
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# --- Editor and OS ---------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
