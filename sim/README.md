@@ -82,6 +82,7 @@ Chronological evidence chain; each file's docstring records its verdict.
 | `fe_p2_floor.py`, `fe_p2plus_floor.py` | Remesh texture floors. Punchline: floors were solver-independent → not dispersion but box reverberation. |
 | `fe_p2plus_ab.py` … `ab5.py` | The five cross-check rounds: −19.5 → −19.1 → −22.9 → −35.4 → **−46.2 dB vs FDTD −43.2 = PASS (2.9 dB; early window 0.9 dB)**. Fix per round: (2) padded box + quartic shell, (3) monopole source ends S-wave contamination + **attenuation cross-validated to 0.03 dB**, (4) deep src/rec kills wall mirrors, (5) Gaussian-ball source kills numerical S leak. |
 | `fe_ab_forensics.py` | Bin-by-bin trace forensics used to diagnose every round. Run on any `fe_p2plus_ab*_traces.npz`. |
+| `analysis/fe_direct_attenuation.py` | Recomputes the direct-arrival attenuation from the five archives, the numbers Appendix A quotes. Three valid comparisons over **two** src/rec placements: 6-15 mm gives FDTD −1.367 vs FE −1.341 (0.027 dB); 12-21 mm gives −1.805 vs −1.737 (round 4, 0.068) and −1.805 vs −1.791 (round 5, 0.014). FDTD is the more attenuated in all three. Rounds 1-2 (point force) are 1.05 dB out and are the multipole-mismatch evidence, not agreement. |
 | `fe_crosscheck.py` | The original harness (geometry, seeds, FDTD reference runner) the rounds build on. |
 
 ## Other reference runners / studies

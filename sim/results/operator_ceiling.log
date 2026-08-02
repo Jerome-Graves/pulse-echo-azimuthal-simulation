@@ -1,0 +1,24 @@
+====================================================================
+Operator ceiling against order. Observed pileup at kh = 2.55;
+the half-spectral rule sits at pi/2 = 1.5708 for every order.
+
+order    max k_eff h      at kh   2 sum|c_n|  vs observed
+4             2.3333     3.1416       2.3333      -0.2167
+6             2.4833     3.1416       2.4833      -0.0667
+8             2.5726     3.1416       2.5726      +0.0226
+10            2.6334     3.1416       2.6334      +0.0834
+12            2.6781     3.1416       2.6781      +0.1281
+16            2.7408     3.1416       2.7408      +0.1908
+
+The ceiling moves by 0.407 in kh across orders 4 to 16, while the
+half-spectral rule does not move at all. The observed pileup is
+0.979 above pi/2, which is 98 per cent of the way from pi/2 to
+the eighth-order ceiling, so the two hypotheses are far apart in
+kh even though the numbers 2.573 and 1.571 look similar on a page.
+
+CONCLUSION. The pileup at kh = 2.55 lies within 0.023 of the
+eighth-order ceiling and 0.979 above the half-spectral limit. It is
+the operator ceiling. A simulation at a different order would move
+the pileup by the amounts tabulated above and is the confirming
+experiment, but the arithmetic already separates the hypotheses:
+pi/2 is not close to 2.55 by any measure.
