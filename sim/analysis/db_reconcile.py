@@ -26,8 +26,11 @@ GATE, BAND = (24e-6, 36e-6), (0.8e6, 3.0e6)
 
 # fixed-code-path sweeps of the SAME specimen (seed 11, girdle k=-8)
 REAL = {6: "girdle_perp", 8: "girdle_perp_ppw8", 10: "lic_girdle_s11_ppw10"}
-FLOOR = {6: "zerocontrast_ppw6", 8: "zerocontrast_ppw8",
-         10: "zc_s11_ppw10"}
+# Zero-contrast controls. All three are seed 11 on the same code path as
+# the specimen sweeps, so the floor is measured on the geometry it is
+# being compared against. zerocontrast_ppw6 is deliberately NOT used: it
+# predates the production programme and holds only 22 of 30 azimuths.
+FLOOR = {6: "zc_s11_ppw6", 8: "zerocontrast_ppw8", 10: "zc_s11_ppw10"}
 
 
 def load(name):

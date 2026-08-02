@@ -15,6 +15,13 @@ because a spherical incident wave cannot use more of a flat facet than that.
 Both the capped and uncapped answers are reported - the cap widens the lobe
 for the big facets and materially changes the census.
 """
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('facet_model',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import os
 import sys
 

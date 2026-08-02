@@ -13,7 +13,7 @@ import numpy as np
 from scipy.stats import norm
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from t1_core import (SWEEPS, OUT, build_cached, measure, preds,  # noqa
+from facet_predictors import (SWEEPS, OUT, build_cached, measure, preds,  # noqa
                      strip)
 
 INFO = {s[0]: dict(ppw=s[1], kap=s[2], ax=s[3], seed=s[4], iso=s[5],

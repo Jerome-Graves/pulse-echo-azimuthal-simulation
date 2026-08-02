@@ -1,5 +1,5 @@
 import numpy as np
-from disp import optimised_coeffs, taylor_coeffs, keff, dkeff
+from dispersion_coeffs import optimised_coeffs, taylor_coeffs, keff, dkeff
 print(" ord | CFL_lim | ph.err@ppw6  ph.err@ppw3  ph.err@ppw2.5  vg@2.5 | ppw for 0.1% err")
 for o in (4,6,8,10,12,16,20):
     for tag,c in (("opt",optimised_coeffs(o)),("tay",taylor_coeffs(o))):

@@ -1,0 +1,38 @@
+02:00:58  ================================================================
+02:00:58  Table 2 regeneration: 4 treatments x 3 resolutions x 5 tilts
+02:01:37    naive_ppw6                          5.04 dB   (+0.00 -5.43 -6.03 -5.60 -3.10)   0.7 min
+02:01:38  resuming, 1 cell(s) already done
+02:01:38  ================================================================
+02:01:38  Table 2 regeneration: 4 treatments x 3 resolutions x 5 tilts
+02:01:38    naive_ppw6                         already done, 5.04 dB
+02:03:15    naive_ppw8                          3.05 dB   (+0.00 -3.17 -3.61 -3.48 -1.95)   1.6 min
+02:03:15    naive_ppw8                          3.05 dB   (+0.00 -3.17 -3.61 -3.48 -1.95)   1.6 min
+02:06:19    naive_ppw10                         2.18 dB   (+0.00 -2.51 -2.38 -2.66 -1.17)   3.1 min
+02:06:19    naive_ppw10                         2.18 dB   (+0.00 -2.51 -2.38 -2.66 -1.17)   3.1 min
+02:07:21    aa_ppw6                             8.60 dB   (+0.00 -9.00 -9.44 -9.62 -6.33)   1.0 min
+02:07:21    aa_ppw6                             8.60 dB   (+0.00 -9.00 -9.44 -9.62 -6.33)   1.0 min
+02:09:07    aa_ppw8                             5.15 dB   (+0.00 -5.09 -5.84 -5.47 -4.20)   1.8 min
+02:09:07    aa_ppw8                             5.15 dB   (+0.00 -5.09 -5.84 -5.47 -4.20)   1.8 min
+02:12:08    aa_ppw10                            3.35 dB   (+0.00 -3.32 -3.79 -3.60 -2.69)   3.0 min
+02:12:08    aa_ppw10                            3.35 dB   (+0.00 -3.32 -3.79 -3.60 -2.69)   3.0 min
+02:13:10    sm_ppw6                             8.50 dB   (+0.00 -8.79 -9.26 -9.47 -6.48)   1.0 min
+02:13:10    sm_ppw6                             8.50 dB   (+0.00 -8.79 -9.26 -9.47 -6.48)   1.0 min
+02:14:55    sm_ppw8                             5.07 dB   (+0.00 -5.06 -5.77 -5.41 -4.03)   1.7 min
+02:14:55    sm_ppw8                             5.07 dB   (+0.00 -5.06 -5.77 -5.41 -4.03)   1.7 min
+02:16:54    sm_ppw10                            3.28 dB   (+0.00 -3.25 -3.75 -3.53 -2.58)   2.0 min
+02:32:08    rsg_ppw6                            4.78 dB   (+0.00 -6.21 -4.62 -3.77 +4.54)   15.2 min
+03:22:36    rsg_ppw8                            5.99 dB   (+0.00 -7.07 -2.83 -3.83 +10.23)   50.5 min
+05:10:58    rsg_ppw10                           8.12 dB   (+0.00 -9.54 -2.93 -10.03 +9.97)   108.4 min
+05:10:58  
+05:10:58  TABLE 2, mean absolute error in dB over tilts >= 15 degrees
+05:10:58                                                  ppw 6    ppw 8   ppw 10
+05:10:58  standard staggered grid, nearest-neighbour       5.04     3.05     2.18
+05:10:58  anti-aliased medium                              8.60     5.15     3.35
+05:10:58  Schoenberg-Muir equivalent medium                8.50     5.07     3.28
+05:10:58  rotated staggered grid                           4.78     5.99     8.12
+05:10:58  
+05:10:58  LaTeX rows:
+05:10:58  standard staggered grid, nearest--neighbour & \SI{5.04}{\decibel} & \SI{3.05}{\decibel} & \SI{2.18}{\decibel} \\
+05:10:58  anti--aliased medium                       & \SI{8.60}{\decibel} & \SI{5.15}{\decibel} & \SI{3.35}{\decibel} \\
+05:10:58  Schoenberg--Muir equivalent medium         & \SI{8.50}{\decibel} & \SI{5.07}{\decibel} & \SI{3.28}{\decibel} \\
+05:10:58  rotated staggered grid                     & \SI{4.78}{\decibel} & \SI{5.99}{\decibel} & \SI{8.12}{\decibel} \\

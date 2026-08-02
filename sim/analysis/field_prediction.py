@@ -1,8 +1,8 @@
 """TEST 2 main run: does the facet model predict WHEN each echo arrives?"""
 import numpy as np
 
-import t2_common as C
-import t2_stats as S
+import _t2_common as C
+import shift_null_2d as S
 
 CASES = [("girdle_perp_ppw8", "gp8", "correct"),
          ("singlemax_ppw8", "sm8", "correct"),

@@ -9,6 +9,13 @@ material interpolation is needed anywhere, and a non-grid-aligned interface
 is represented without the component-by-component mixing that the standard
 staggered grid suffers.
 """
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('..',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import argparse
 import os
 import sys

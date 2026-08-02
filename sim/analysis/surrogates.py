@@ -8,7 +8,7 @@ while destroying any link to the specimen.  Run the identical 44-candidate
 identification on each surrogate and count how often the TRUE candidate
 ranks 1st.  Expectation under a valid null: 1/44 = 2.27 %.
 """
-import numpy as np, sk_lib as S
+import numpy as np, _sk_lib as S
 rng=np.random.default_rng(7)
 CANDS=[11,17,23,41]+list(range(100,140))
 tgrid=np.arange(12e-6,48e-6,S.TBIN)

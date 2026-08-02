@@ -2,7 +2,7 @@
 If candidates with more grains (denser boundaries) systematically score
 higher, and the true seeds happen to be grain-rich, the 1/44 rank p is
 biased.  Check n_grains for every candidate and its correlation with r."""
-import numpy as np, sk_lib as S
+import numpy as np, _sk_lib as S
 CANDS=[11,17,23,41]+list(range(100,140))
 tgrid=np.arange(12e-6,48e-6,S.TBIN)
 ng={c:len(S.cand_sw(c)[0]) for c in CANDS}

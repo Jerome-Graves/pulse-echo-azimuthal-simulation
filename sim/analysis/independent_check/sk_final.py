@@ -1,7 +1,14 @@
 """Final independent tally: the 4 INDEPENDENT tessellations, all statistics."""
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('..',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import os, numpy as np
 from scipy.stats import rankdata
-import sk_lib as S
+import _sk_lib as S
 CANDS=[11,17,23,41]+list(range(100,140))
 tgrid=np.arange(12e-6,48e-6,S.TBIN)
 SW=[("girdle_perp_ppw8",11,1),("singlemax_ppw8",11,1),("girdle_par",11,1),

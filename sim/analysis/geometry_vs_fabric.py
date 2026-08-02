@@ -28,8 +28,8 @@ sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
 sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import forward as F                                   # noqa: E402
-from cone_specular import DG, HALF, K, build, shift_p, strip   # noqa: E402
-from directional import OUT                           # noqa: E402
+from length_scales import DG, HALF, K, build, shift_p, strip   # noqa: E402
+from beam_descriptors import OUT                           # noqa: E402
 
 C_REF, F0, DIA = 3850.0, 2.0e6, 0.100
 CODA_W, BAND = (24e-6, 36e-6), (0.8e6, 3.0e6)

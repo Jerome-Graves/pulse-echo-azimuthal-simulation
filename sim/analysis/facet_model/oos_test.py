@@ -10,6 +10,13 @@ same tessellation, same ppw 8, same single-raster code path, same solver.
 Identical grain GEOMETRY, only the c-axis orientations differ.  So the
 facet layout is common and any level difference is fabric.
 """
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('..',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import os
 import sys
 
@@ -20,8 +27,8 @@ sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
 sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import forward as F                                   # noqa: E402
-from cone_specular import build, cone, shift_p, strip  # noqa: E402
-from directional import OUT                           # noqa: E402
+from length_scales import build, cone, shift_p, strip  # noqa: E402
+from beam_descriptors import OUT                           # noqa: E402
 
 C_REF, F0, DIA = 3850.0, 2.0e6, 0.100
 CODA_W, BAND = (24e-6, 36e-6), (0.8e6, 3.0e6)

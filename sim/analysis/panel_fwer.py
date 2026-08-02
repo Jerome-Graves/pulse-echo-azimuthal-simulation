@@ -3,8 +3,8 @@ import os, sys, json
 import numpy as np
 from scipy.stats import t as tdist
 sys.path.insert(0, r"C:\Users\Jerome\AppData\Local\Temp\claude\C--Users-Jerome\72aa31c0-c0c1-48de-881e-9470fe03e8ba\scratchpad")
-import panel as P
-from panel import load_sweep, fabric_pred, CACHE
+import observable_panel as P
+from observable_panel import load_sweep, fabric_pred, CACHE
 
 OUT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
 SNAP = os.path.join(CACHE, "snap_girdle_perp_ppw8")

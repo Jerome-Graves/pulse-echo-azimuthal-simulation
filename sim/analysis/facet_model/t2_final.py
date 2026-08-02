@@ -4,12 +4,19 @@ The centring used ('harm') commutes with BOTH cyclic rolls, so the null over
 every one of the n_az x n_t joint shifts can be evaluated exactly by FFT
 cross-correlation instead of being sub-sampled.  p floor = 1/(60*600).
 """
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('..',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import os
 
 import numpy as np
 
-import t2_common as C
-import t2_stats as S
+import _t2_common as C
+import shift_null_2d as S
 
 MODE = "harm"
 CASES = [

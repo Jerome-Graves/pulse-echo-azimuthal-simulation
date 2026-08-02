@@ -9,6 +9,13 @@ Differences from t4_range.py (deliberate, so this is a genuine second route):
 Same physics: two-way time 2L/c_az with c_az = 2D/t1 measured, two-way
 Gaussian beam weight, optional exact facet directivity |2J1(x)/x|^2.
 """
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('facet_model',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import os, sys
 import numpy as np
 from scipy.special import j1

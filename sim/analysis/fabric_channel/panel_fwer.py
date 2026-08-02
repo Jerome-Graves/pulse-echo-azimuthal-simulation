@@ -1,7 +1,14 @@
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('..',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import numpy as np, os
-import panel as P
-from panel import load_sweep, fabric_pred, CACHE
-from run import zs, design, harm_amp
+import observable_panel as P
+from observable_panel import load_sweep, fabric_pred, CACHE
+from panel_run import zs, design, harm_amp
 SNAP=os.path.join(CACHE,"snap_girdle_perp_ppw8")
 
 def cyc_one_sided(y, pred, half=True):

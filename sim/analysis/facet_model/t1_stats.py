@@ -15,13 +15,20 @@ Also:
   * correct-vs-wrong tessellation rank test
   * equivalence / power test: is the seed-11 effect size EXCLUDED elsewhere?
 """
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('..',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import os
 import sys
 
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from t1_core import (SWEEPS, OUT, build_cached, measure, preds,  # noqa
+from facet_predictors import (SWEEPS, OUT, build_cached, measure, preds,  # noqa
                      shift_p, strip, neff, fisher_ci)
 
 FRAC = 360

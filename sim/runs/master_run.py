@@ -18,6 +18,13 @@ without losing work.
 
 Total about 17 GPU hours. Progress is written to master_status.txt.
 """
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('../validation',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import json
 import os
 import sys

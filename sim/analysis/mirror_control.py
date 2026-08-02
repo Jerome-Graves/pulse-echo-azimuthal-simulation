@@ -8,7 +8,7 @@ correlation that knows the specimen's handedness.  If the identification is
 candidate must win on d, not only on r_fwd.
 Also: azimuth jackknife (how many azimuths is rank-1 hostage to).
 """
-import numpy as np, sk_lib as S
+import numpy as np, _sk_lib as S
 CANDS=[11,17,23,41]+list(range(100,140))
 tgrid=np.arange(12e-6,48e-6,S.TBIN)
 

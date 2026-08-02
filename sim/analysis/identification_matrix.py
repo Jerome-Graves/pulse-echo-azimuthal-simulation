@@ -16,6 +16,13 @@ Two nulls:
   rotation             the specimen's OWN map rotated by 72 non-zero angles
                        (keeps its texture, destroys registration only)
 """
+import os as _os
+import sys as _sys
+# helper modules shared with sibling directories
+for _d in ('facet_model',):
+    _p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _d)
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
 import os
 import sys
 

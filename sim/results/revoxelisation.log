@@ -1,0 +1,20 @@
+====================================================================
+Re-voxelisation of the seed 11 girdle specimen
+ppw      h (mm)        faces    area (cm^2)       normal mix x:y:z
+====================================================================
+Re-voxelisation of the seed 11 girdle specimen
+ppw      h (mm)        faces    area (cm^2)       normal mix x:y:z
+6         0.321       634360          653.0   0.345 0.345 0.310   (10 s)
+8         0.241      1127234          652.7   0.344 0.345 0.311   (11 s)
+10        0.193      1761010          652.6   0.344 0.345 0.311   (12 s)
+
+Referred to the finest grid, 10 ppw:
+  ppw 6    area  +0.01 dB   largest normal-mix shift +0.0006
+  ppw 8    area  +0.00 dB   largest normal-mix shift +0.0002
+  ppw 10   area  +0.00 dB   largest normal-mix shift +0.0000
+
+The scattered field changes by 7.98 dB between ppw 6 and 8 and
+2.21 dB between 8 and 10 (Table 4). Compare those with the area
+column above: if the represented boundary area moves by a small
+fraction of a decibel the ladder is comparing one specimen at
+three resolutions, which is what the convergence claim assumes.

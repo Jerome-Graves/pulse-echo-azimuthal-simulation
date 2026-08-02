@@ -5,7 +5,7 @@ import time
 
 import numpy as np
 
-import t2_common as C
+import _t2_common as C
 
 TG_LO, TG_HI = 20e-6, 42e-6
 TG = np.arange(TG_LO, TG_HI, C.DT_C)

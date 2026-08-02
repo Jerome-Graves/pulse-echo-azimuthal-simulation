@@ -8,7 +8,7 @@ import os
 
 import numpy as np
 
-import t2_common as C
+import _t2_common as C
 
 EPS = 1e-30
 

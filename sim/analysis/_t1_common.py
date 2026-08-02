@@ -13,7 +13,7 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from t1_core import (SWEEPS, OUT, build_cached, measure, preds,  # noqa
+from facet_predictors import (SWEEPS, OUT, build_cached, measure, preds,  # noqa
                      strip)
 
 AZ30 = np.arange(0, 360, 12)      # exactly present in EVERY sweep, no interp

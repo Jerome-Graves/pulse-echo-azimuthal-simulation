@@ -1,4 +1,4 @@
-import os,sys,numpy as np, sk_lib as S
+import os,sys,numpy as np, _sk_lib as S
 CANDS=[11,17,23,41]+list(range(100,140))
 tgrid=np.arange(12e-6,48e-6,S.TBIN)
 nm,own,sub,spec = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), bool(int(sys.argv[4]))
