@@ -7,7 +7,6 @@ import observable_panel as P
 from observable_panel import load_sweep, fabric_pred, CACHE
 
 OUT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
-SNAP = os.path.join(CACHE, "snap_girdle_perp_ppw8")
 P.CODA = (24e-6, 36e-6)
 
 def zs(x):
@@ -15,7 +14,7 @@ def zs(x):
 
 cfgA, rotA, XA, _, _ = load_sweep("girdle_perp")       # ppw6, fabric in plane
 cfgB, rotB, XB, _, _ = load_sweep("girdle_par")        # ppw6, SAME config, no in-plane fabric
-cfg8, rot8, X8, _, _ = load_sweep("girdle_perp_ppw8", SNAP)
+cfg8, rot8, X8, _, _ = load_sweep("girdle_perp_ppw8")
 predA, _ = fabric_pred(cfgA, rotA)
 pred8, _ = fabric_pred(cfg8, rot8)
 keys = sorted(k for k in XA if not k.startswith("_"))
@@ -48,13 +47,28 @@ print("  (the same-observable null has only 30 draws -> floor 1/30 = 0.033)")
 
 print()
 print("="*100)
-print("D2. ARITHMETIC CHECK ON THE HEADLINE SENTENCE")
+print("D2. FAMILY-WISE ERROR RATE OF THE LARGEST |r|, CIRCULAR-SHIFT MAX STATISTIC")
+print("    Recomputed here from the sweeps on disc. The superseded 0.300 was printed")
+print("    by a module pointed at an unfinished 33-azimuth snapshot of the ppw8 run;")
+print("    the completed 60-azimuth sweep is used below.")
 print("="*100)
-print("  reported: 'the largest effect (|r|=0.717) is SMALLER than the median of")
-print("  the chance maximum (0.599)'   ->  0.717 > 0.599 is %s" % (0.717 > 0.599))
-print("  their own final.py prints FWER p = 0.300, i.e. the observed max sits at the")
-print("  70th percentile of the null max distribution, ABOVE the median. The prose")
-print("  and the computed p-value contradict each other.")
+
+def fw_cyc(Xd, predd, kk):
+    """observed max |r| over the panel, and its FWER under the shift null."""
+    Z = np.column_stack([zs(Xd[k]) for k in kk]); zp = zs(predd)
+    n = len(zp); nd = n // 2          # predictor 180 deg periodic
+    obs = np.abs(Z.T @ zp / n)
+    cyc = np.array([[float(np.mean(np.roll(Z[:, j], s)*zp)) for j in range(Z.shape[1])]
+                    for s in range(nd)])
+    mx = np.abs(cyc).max(1)
+    return obs.max(), float(np.mean(mx >= obs.max()-1e-12)), float(np.median(mx)), nd
+
+print("  %-22s %5s %7s %9s %9s %10s" % ("sweep", "n", "shifts", "max|r|", "p_fw", "med null"))
+for lab, Xd, predd in (("girdle_perp (ppw6)", XA, predA),
+                       ("girdle_perp_ppw8", X8, pred8)):
+    mo, pf, md, nd = fw_cyc(Xd, predd, keys)
+    print("  %-22s %5d %7d %9.3f %9.4f %10.3f   observed max %s the median chance max"
+          % (lab, len(predd), nd, mo, pf, md, "exceeds" if mo > md else "is below"))
 
 print()
 print("="*100)
@@ -65,16 +79,17 @@ def A2(z, rot):
     D = np.column_stack([np.ones_like(a), np.cos(2*a), np.sin(2*a)])
     c = np.linalg.pinv(D) @ z
     return np.hypot(c[1], c[2])
-m8 = rot8 <= 174
-print("  ppw8, n=30. A2 of the observable is invariant under cyclic shift, so the")
-print("  cyclic null only randomises the PHASE. Check invariance and the r-range:")
+ND = len(rot8)//2      # predictor is 180 deg periodic -> n/2 distinct alignments
+print("  ppw8, the COMPLETE n=%d full circle (%d distinct alignments). A2 of the" % (len(rot8), ND))
+print("  observable is invariant under cyclic shift, so the cyclic null only")
+print("  randomises the PHASE. Check invariance and the r-range:")
 for k in ("t_centroid", "decay", "early_late", "lvl_early", "lvl_rms"):
-    z = zs(X8[k][m8])
-    a0 = A2(z, rot8[m8]); a5 = A2(np.roll(z, 7), rot8[m8])
-    rs = np.array([float(np.mean(np.roll(z, s)*zs(pred8[m8]))) for s in range(30)])
-    r0 = float(np.mean(z*zs(pred8[m8])))
-    print("  %-12s A2=%.3f (shifted %.3f)  r_obs=%+.3f  shift-null r in [%+.3f,%+.3f] rank %d/30"
-          % (k, a0, a5, r0, rs.min(), rs.max(), int(np.sum(np.abs(rs) >= abs(r0)))))
+    z = zs(X8[k])
+    a0 = A2(z, rot8); a5 = A2(np.roll(z, 7), rot8)
+    rs = np.array([float(np.mean(np.roll(z, s)*zs(pred8))) for s in range(ND)])
+    r0 = float(np.mean(z*zs(pred8)))
+    print("  %-12s A2=%.3f (shifted %.3f)  r_obs=%+.3f  shift-null r in [%+.3f,%+.3f] rank %d/%d"
+          % (k, a0, a5, r0, rs.min(), rs.max(), int(np.sum(np.abs(rs) >= abs(r0))), ND))
 print("  => a large 2-theta amplitude cannot ever be 'significant' under this null;")
 print("     only its phase can be. The unconditional information is discarded.")
 

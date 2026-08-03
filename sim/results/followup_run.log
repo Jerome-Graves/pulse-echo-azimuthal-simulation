@@ -1,0 +1,53 @@
+12:34:33  ============================================================
+12:34:33  FOLLOWUP RUN: 6 sweeps (ladder on seed 23, four single maxima)
+12:34:33  [1/6] lad_girdle_s23_ppw6  (ppw 6, seed 23, normal)
+C:\Users\Jerome\AppData\Roaming\Python\Python312\site-packages\cupy\_environment.py:284: UserWarning: CUDA path could not be detected. Set CUDA_PATH environment variable if CuPy fails to load.
+  warnings.warn(
+12:34:45    lad_girdle_s23_ppw6: 30/30 azimuths to run, h=0.321 mm
+12:38:00      lad_girdle_s23_ppw6 az  48 (5/30) 40 s  ~16 min left
+12:41:17      lad_girdle_s23_ppw6 az 108 (10/30) 39 s  ~13 min left
+12:44:33      lad_girdle_s23_ppw6 az 168 (15/30) 39 s  ~10 min left
+12:47:48      lad_girdle_s23_ppw6 az 228 (20/30) 39 s  ~7 min left
+12:51:03      lad_girdle_s23_ppw6 az 288 (25/30) 39 s  ~3 min left
+12:54:17      lad_girdle_s23_ppw6 az 348 (30/30) 39 s  ~0 min left
+12:54:17  [2/6] lad_girdle_s23_ppw10  (ppw 10, seed 23, normal)
+12:54:31    lad_girdle_s23_ppw10: 30/30 azimuths to run, h=0.193 mm
+13:15:24      lad_girdle_s23_ppw10 az  48 (5/30) 250 s  ~104 min left
+13:36:19      lad_girdle_s23_ppw10 az 108 (10/30) 251 s  ~84 min left
+13:57:10      lad_girdle_s23_ppw10 az 168 (15/30) 251 s  ~63 min left
+14:18:03      lad_girdle_s23_ppw10 az 228 (20/30) 249 s  ~42 min left
+14:38:55      lad_girdle_s23_ppw10 az 288 (25/30) 251 s  ~21 min left
+14:59:48      lad_girdle_s23_ppw10 az 348 (30/30) 250 s  ~0 min left
+14:59:48  [3/6] mx_single_s7_ppw8  (ppw 8, seed 7, normal)
+15:00:00    mx_single_s7_ppw8: 30/30 azimuths to run, h=0.241 mm
+15:09:11      mx_single_s7_ppw8 az  48 (5/30) 110 s  ~46 min left
+15:18:21      mx_single_s7_ppw8 az 108 (10/30) 110 s  ~37 min left
+15:27:33      mx_single_s7_ppw8 az 168 (15/30) 110 s  ~28 min left
+15:36:45      mx_single_s7_ppw8 az 228 (20/30) 110 s  ~18 min left
+15:45:55      mx_single_s7_ppw8 az 288 (25/30) 110 s  ~9 min left
+15:55:07      mx_single_s7_ppw8 az 348 (30/30) 111 s  ~0 min left
+15:55:07  [4/6] mx_single_s53_ppw8  (ppw 8, seed 53, normal)
+15:55:20    mx_single_s53_ppw8: 30/30 azimuths to run, h=0.241 mm
+16:04:36      mx_single_s53_ppw8 az  48 (5/30) 111 s  ~46 min left
+16:13:58      mx_single_s53_ppw8 az 108 (10/30) 111 s  ~37 min left
+16:23:16      mx_single_s53_ppw8 az 168 (15/30) 112 s  ~28 min left
+16:32:35      mx_single_s53_ppw8 az 228 (20/30) 111 s  ~19 min left
+16:41:44      mx_single_s53_ppw8 az 288 (25/30) 110 s  ~9 min left
+16:51:00      mx_single_s53_ppw8 az 348 (30/30) 112 s  ~0 min left
+16:51:00  [5/6] mx_single_s71_ppw8  (ppw 8, seed 71, normal)
+16:51:14    mx_single_s71_ppw8: 30/30 azimuths to run, h=0.241 mm
+17:00:36      mx_single_s71_ppw8 az  48 (5/30) 113 s  ~47 min left
+17:09:58      mx_single_s71_ppw8 az 108 (10/30) 112 s  ~37 min left
+17:19:09      mx_single_s71_ppw8 az 168 (15/30) 110 s  ~28 min left
+17:28:20      mx_single_s71_ppw8 az 228 (20/30) 110 s  ~19 min left
+17:37:42      mx_single_s71_ppw8 az 288 (25/30) 115 s  ~9 min left
+17:47:18      mx_single_s71_ppw8 az 348 (30/30) 113 s  ~0 min left
+17:47:18  [6/6] mx_single_s89_ppw8  (ppw 8, seed 89, normal)
+17:47:35    mx_single_s89_ppw8: 30/30 azimuths to run, h=0.241 mm
+17:57:11      mx_single_s89_ppw8 az  48 (5/30) 115 s  ~48 min left
+18:06:50      mx_single_s89_ppw8 az 108 (10/30) 112 s  ~38 min left
+18:16:05      mx_single_s89_ppw8 az 168 (15/30) 111 s  ~29 min left
+18:25:17      mx_single_s89_ppw8 az 228 (20/30) 110 s  ~19 min left
+18:34:30      mx_single_s89_ppw8 az 288 (25/30) 110 s  ~9 min left
+18:43:40      mx_single_s89_ppw8 az 348 (30/30) 110 s  ~0 min left
+18:43:40  FOLLOWUP DONE in 6.2 h

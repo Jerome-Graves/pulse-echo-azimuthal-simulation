@@ -8,8 +8,7 @@ for _d in ('..',):
 import numpy as np, os
 import observable_panel as P
 from observable_panel import load_sweep, fabric_pred, CACHE
-from panel_run import zs, design, harm_amp
-SNAP=os.path.join(CACHE,"snap_girdle_perp_ppw8")
+from panel_run import zs, design, harm_amp, n_distinct_shifts
 
 def cyc_one_sided(y, pred, half=True):
     """one-sided cyclic-shift p: fraction of distinct rotations with r >= r_obs."""
@@ -38,16 +37,18 @@ for k in ("lvl_rms","lvl_early","f_centroid","decay"):
     print("  %-12s n=%d  r=%+.3f | naive-perm p<1e-4 | cyclic(1-sided,%d rot) p=%.3f | n_eff=%.1f -> parametric p=%.3f"
           %(k,len(rot),r,nd,p,ne,pp))
 
-print("\nSAME TEST ON THE ppw8 SWEEP (n=30, az 0-174), pre-registered 24-36 us window")
-cfg8,rot8,X8,_,_ = load_sweep("girdle_perp_ppw8",SNAP)
-m=rot8<=174; rot8_=rot8[m]
-pred8,_=fabric_pred(cfg8,rot8); pred8=pred8[m]
+print("\nSAME TEST ON THE ppw8 SWEEP (the COMPLETE 60-azimuth full circle, az 0-354),")
+print("pre-registered 24-36 us window.  A cyclic shift is a rigid rotation of the")
+print("specimen only on a uniformly sampled full circle, so no half-circle subset.")
+cfg8,rot8,X8,_,_ = load_sweep("girdle_perp_ppw8")
+nd0 = n_distinct_shifts(rot8)
+pred8,_=fabric_pred(cfg8,rot8)
 keys=sorted(k for k in X8 if not k.startswith("_"))
 from scipy.stats import t as tdist
 print("  %-14s %8s %10s %10s %9s %10s"%("observable","r","p_cyc1","n_eff","p_param","p_holm(22)"))
 res=[]
 for k in keys:
-    y=X8[k][m]; r,p,nd=cyc_one_sided(y,pred8); ne=neff(y)
+    y=X8[k]; r,p,nd=cyc_one_sided(y,pred8); ne=neff(y)
     tt=abs(r)*np.sqrt(max(ne-2,1))/np.sqrt(max(1-r*r,1e-9)); pp=2*(1-tdist.cdf(tt,max(ne-2,1)))
     res.append((k,r,p,ne,pp))
 res.sort(key=lambda z:-abs(z[1]))
@@ -56,5 +57,7 @@ for i,idx in enumerate(o):
     run=max(run,(mN-i)*pv[idx]); hol[idx]=min(run,1)
 for (k,r,p,ne,pp),h in zip(res,hol):
     print("  %-14s %+8.3f %10.3f %10.1f %9.3f %10.3f"%(k,r,p,ne,pp,h))
-print("\n  (p_cyc1 floor with %d distinct rotations = %.3f)"%(len(rot8_)//2,2.0/len(rot8_)))
+print("\n  (p_cyc1 floor with %d distinct rotations = %.3f)"%(nd0,1.0/nd0))
 print("  Holm across the 22 pre-registered observables at the single 24-36 us window.")
+print("  With %d distinct alignments the smallest attainable raw p is %.3f, so no"%(nd0,1.0/nd0))
+print("  Holm-adjusted p over 22 observables can fall below 22/%d = %.3f."%(nd0,22.0/nd0))

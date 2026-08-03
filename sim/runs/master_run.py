@@ -111,7 +111,8 @@ def run_job(job):
            "record_factor": RECF, "fluid_damp": DAMP, "sponge": SPONGE,
            "element_d_mm": 6.35, "diameter_mm": 100.0, "thickness_mm": 35.0,
            "n_grains": NG, "size_cv": CV, "concentration": job["kappa"],
-           "spatial_corr": 0.0, "fabric_axis": list(job["axis"]),
+           "spatial_corr": job.get("spatial_corr", 0.0),
+           "fabric_axis": list(job["axis"]),
            "seed": job["seed"], "axes_convention": "rigid2",
            "fd_kh_max": KHM, "rasterise": "single", "name": job["name"],
            "treatment": job["mode"]}
@@ -129,7 +130,8 @@ def run_job(job):
     co = fdtd.optimised_coeffs(ORDER, kh_max=KHM, multistart=True)
     build = DiskSpecimen(diameter_m=DIA, thickness_m=THK, n_grains=NG,
                          size_cv=CV, concentration=job["kappa"],
-                         spatial_corr=0.0, fabric_axis=job["axis"],
+                         spatial_corr=job.get("spatial_corr", 0.0),
+                         fabric_axis=job["axis"],
                          seed=job["seed"]).build(h)
     note("  %s: %d/%d azimuths to run, h=%.3f mm"
          % (job["name"], len(todo), len(az), h * 1e3))

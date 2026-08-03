@@ -1,0 +1,43 @@
+
+===============================================================================
+BOUNDARY AREA, three estimators of the same surface
+===============================================================================
+  seed     MC 0.15mm   MC 0.30mm      raster  raster*2/3 d_mean mm
+  11           429.1      420.28      652.67      435.12    15.455
+  7           419.07      411.49      627.61      418.41    15.593
+  17           427.5      422.28      657.56      438.38    15.258
+  23          435.56      429.54      661.02      440.68    15.509
+  41           430.2      423.65      646.95       431.3    15.455
+  53          416.41      408.67      631.24      420.83    15.612
+  71          428.28      416.53      642.59      428.39    15.498
+  89          435.65      428.55      660.54      440.36    15.485
+  areas in cm^2. The voxel face count of an isotropic surface
+  on a cubic grid overestimates its area by 3/2 (Cauchy), so
+  raster*2/3 is an independent estimator of the Monte Carlo
+  column: mean MC 423.9 cm^2, mean raster*2/3 431.7 cm^2, ratio 1.0183.
+  disc volume 274.89 cm^3, mean grain diameter 15.48 mm, lambda 1.925 mm
+
+===============================================================================
+THE MILLIMETRE CONVERSION, CHECKED WITHOUT AN AREA ESTIMATE
+===============================================================================
+  seed   level    f V / A mm   direct mm  reverse mm     n shell
+  11     0.01         0.1355      0.1548      0.1569       28173
+  11     0.02         0.2737      0.2684      0.2698       28231
+  11     0.03         0.4060      0.3695      0.3651       28207
+  11     0.05         0.6404      0.5362      0.5276       28301
+  11     0.1          1.2935      1.0261      1.0395       28152
+  7      0.01         0.1340      0.1450      0.1437       27138
+  7      0.02         0.2600      0.2702      0.2719       27302
+  7      0.03         0.3928      0.3657      0.3709       27490
+  7      0.05         0.6469      0.6445      0.6509       27246
+  7      0.1          1.2521      1.0587      1.0296       27268
+  17     0.01         0.1309      0.1504      0.1514       28053
+  17     0.02         0.2780      0.2730      0.2807       27958
+  17     0.03         0.4098      0.3803      0.3785       28213
+  17     0.05         0.6804      0.5871      0.5804       28421
+  17     0.1          1.3035      1.0351      1.0199       28288
+  the two columns measure the same displacement by routes that
+  share no arithmetic. ratio direct / swept-volume: mean 0.952, range 0.793 to 1.150
+  the direct estimate is biased HIGH by up to the shell half-
+  thickness of 0.15 mm because a shell point is that far off
+  the surface it stands for.

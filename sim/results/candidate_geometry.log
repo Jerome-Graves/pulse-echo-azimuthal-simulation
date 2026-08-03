@@ -1,0 +1,164 @@
+===============================================================================
+GEOMETRIC SEPARATION OF THE 48 CANDIDATE TESSELLATIONS
+===============================================================================
+  48 candidates: 8 specimens that were scanned and 40 synthetic
+  distractors. 800000 Monte Carlo points in the disc, shared by all.
+
+  generators replayed for 48 candidates in 587 s
+  the cached grain list is an exact increasing subsequence of
+  the replayed generator list for 48 of 48 candidates
+  the one tessellation whose weights were also cached reproduces them bit-exactly: 1 of 1
+  cloud points owned by a generator that owns no voxel: 0.00e+00 of the disc, worst case 0.00e+00
+
+===============================================================================
+VALIDATION: the closed form against the cached label volumes
+===============================================================================
+  seed  11  h 0.2406 mm  cell assignment agrees 0.99079  beyond one voxel of a facet 1.000000  (n = 799060)
+  seed   7  h 0.2406 mm  cell assignment agrees 0.99103  beyond one voxel of a facet 1.000000  (n = 799060)
+  seed  17  h 0.2406 mm  cell assignment agrees 0.99080  beyond one voxel of a facet 1.000000  (n = 799060)
+  seed  23  h 0.2406 mm  cell assignment agrees 0.99053  beyond one voxel of a facet 1.000000  (n = 799060)
+  The residual is a voxel-snapping effect and not a
+  disagreement: it lives within one voxel of a facet, where the
+  snap to the nearest cell centre crosses the boundary. Beyond
+  one voxel the closed form and the raster agree.
+
+===============================================================================
+SCALE OF ONE TESSELLATION
+===============================================================================
+  grains per disc                      103.40 +- 3.06
+  grain-boundary area                  425.4 +- 7.3 cm^2
+  disc volume / boundary area          6.462 mm
+  mean distance from a random point
+  to the nearest grain boundary        2.614 +- 0.088 mm
+  wavelength at 2 MHz, c = 3850 m/s    1.925 mm
+
+  The point-to-boundary figure is the CEILING of the boundary
+  offset: two tessellations that know nothing about each other
+  put the boundary of one at a typical interior position of the
+  other, so no pair can be much farther apart than that. The
+  question is how close the pairs come to the ceiling.
+
+===============================================================================
+PAIRWISE DISTANCES, all 1128 unordered pairs
+===============================================================================
+  boundary points per candidate: 24907 at eps = 0.10 mm and 49251 at eps = 0.20 mm
+
+  quantity, mm                 mean       sd      min       p5      p50      p95      max
+  boundary offset d_bnd       2.557    0.100    2.267    2.405    2.550    2.742    2.950
+    the same, eps 0.20        2.557    0.099    2.272    2.407    2.551    2.740    2.947
+    median, not mean          1.963    0.072    1.757    1.851    1.961    2.084    2.225
+  Hausdorff, sampled         15.768    1.860   11.360   13.012   15.619   18.892   20.813
+    95th percentile           7.286    0.557    6.159    6.631    7.173    8.452    9.536
+    99th percentile          10.595    1.219    8.189    9.092   10.300   13.234   14.320
+  volume disagreement         0.638    0.019    0.565    0.606    0.638    0.669    0.695
+    the same, in mm           4.122    0.123    3.651    3.917    4.125    4.323    4.494
+  seed cloud W1              11.685    0.990    9.604   10.351   11.512   13.529   16.171
+  seed cloud W2              12.253    1.191    9.779   10.648   12.080   14.481   17.783
+
+  the two shell thicknesses give boundary offsets differing by
+  0.0055 mm on average, 0.22 per cent of the value, so the shell
+  is thin enough for this to be a property of the surface.
+
+===============================================================================
+THE NUMBER THE OBJECTION ASKS FOR: nearest wrong candidate
+===============================================================================
+  seed    nearest   which d/lambda  two-way mean over   nearest   nearest
+         d_bnd mm    cand            cycles  47 wrong     f_mis     W1 mm
+  11        2.361      89    1.227    2.453     2.551    0.6048    10.829
+  7         2.425     126    1.260    2.520     2.575    0.6094    11.548
+  17        2.310     113    1.200    2.400     2.527    0.5917    11.396
+  23        2.354     103    1.223    2.445     2.537    0.6096    12.603
+  41        2.366     119    1.229    2.458     2.526    0.6092    10.351
+  53        2.390     108    1.242    2.483     2.604    0.5994    10.902
+  71        2.370     114    1.231    2.462     2.541    0.5919    10.850
+  89        2.267     108    1.178    2.355     2.471    0.5953    10.686
+
+  nearest wrong candidate over the eight specimens:
+    2.267 to 2.425 mm, mean 2.355 mm
+    1.178 to 1.260 wavelengths of boundary offset
+    2.36 to 2.52 cycles of two-way path at 2 MHz
+    volume disagreement 0.5917 to 0.6096 of the disc
+
+  the two kinds of wrong candidate are not geometrically
+  distinguishable from each other:
+    specimen-specimen     2.532 +- 0.060 mm  (n = 28)
+    specimen-distractor   2.543 +- 0.093 mm  (n = 320)
+    distractor-distractor 2.564 +- 0.103 mm  (n = 780)
+
+===============================================================================
+REFERENCE CURVE: the same metric on a perturbation whose
+effect on the identification statistic is already known
+===============================================================================
+  Seed jitter of standard deviation sigma d_mean is the
+  perturbation microstructure_error.py sweeps, and its effect
+  on the published statistic is measured at every level there.
+  Putting it in the metric above converts a candidate
+  separation into a statement about the test.
+
+  mean volume-equivalent grain diameter, this cloud: 15.457 mm
+
+  sigma      d_bnd mm      f_mis   f V/A mm   d/lambda     cycles
+  0.01          0.139     0.0212      0.137      0.072      0.144
+  0.02          0.259     0.0433      0.280      0.135      0.269
+  0.03          0.375     0.0638      0.413      0.195      0.389
+  0.042         0.507     0.0897      0.580      0.263      0.527
+  0.05          0.605     0.1078      0.696      0.314      0.629
+  0.1           1.042     0.2011      1.299      0.542      1.083
+  0.2           1.671     0.3768      2.435      0.868      1.737
+  0.5           2.365     0.7048      4.555      1.229      2.458
+
+  the f_mis column and its f V / A conversion are the two
+  columns microstructure_error.py prints for the same levels,
+  recomputed from generators rather than from the raster. Their
+  agreement is the check that this module's geometry is that
+  module's geometry.
+
+  the two published tolerances, carried into the boundary-
+  offset metric by interpolating this curve:
+    below 2 of 8 first places at f V/A = 0.420 mm  ->  d_bnd = 0.381 mm
+    below 1 of 8 first places at f V/A = 0.575 mm  ->  d_bnd = 0.503 mm
+
+  DIFFICULTY = nearest wrong candidate / tolerance, both in
+  the boundary-offset metric:
+    5.96 to 6.37, mean 6.19, against the 2-of-8 tolerance
+    4.51 to 4.82, mean 4.68, against the 1-of-8 tolerance
+
+===============================================================================
+CONFOUND: does the score follow the geometry?
+===============================================================================
+
+  seed    rank    r_own  r_wrong  winner       d to       d to
+         of 48              best    cand  winner mm nearest mm
+  11         2    0.393    0.706      53      2.577      2.361
+  7          1    0.495    0.037     137      2.580      2.425
+  17         1    0.467    0.430     102      2.606      2.310
+  23         1    0.112    0.055     102      2.496      2.354
+  41         2    0.027    0.109     100      2.523      2.366
+  53         6    0.066    0.268     125      2.680      2.390
+  71         2    0.080    0.339     100      2.489      2.370
+  89         1    0.586    0.063      53      2.517      2.267
+
+  n = 8, Spearman:
+    rank against distance to nearest wrong       rho +0.496  p 0.212
+    rank against distance to the winner          rho +0.183  p 0.665
+    margin r_own - r_wrong against d to winner   rho -0.048  p 0.911
+    margin against distance to nearest wrong     rho -0.310  p 0.456
+
+  the stronger form. Within one specimen, over its 47
+  wrong candidates, does a geometrically CLOSER wrong
+  candidate score HIGHER? A negative rho would mean the
+  score is reading a graded geometric distance and not a
+  binary right-or-wrong.
+  seed    spearman          p
+  11         0.151      0.311
+  7         -0.316      0.031
+  17        -0.118      0.430
+  23         0.003      0.986
+  41        -0.057      0.702
+  53        -0.230      0.119
+  71        -0.318      0.030
+  89        -0.018      0.903
+  mean rho -0.113 +- 0.166 over the eight specimens, t = -1.93 on 7 df
+
+wrote C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\results\candidate_geometry.npz
+total 768 s

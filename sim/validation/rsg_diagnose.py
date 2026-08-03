@@ -50,11 +50,26 @@ RESULTS = os.path.normpath(os.path.join(_HERE, '..', 'results'))
 LOG = os.path.join(RESULTS, 'rsg_diagnose.log')
 
 PSI_A, PSI_B = 0.0, 51.0
-PPW = 8.0
 
-# 0 is the exact reference. 54.7356 is the body diagonal, the direction
-# the rotated operator is actually aligned with, and the one orientation
-# at which it should do best if the alignment argument holds.
+# Resolution, overridable from the command line, because the claim this
+# diagnosis serves is about REFINEMENT: showing that instability, the
+# time step and the absorber are all excluded at one resolution does not
+# exclude a fault that appears only as the grid is refined.
+PPW = float(sys.argv[1]) if len(sys.argv) > 1 else 8.0
+
+# 0 is the exact reference. 54.7356 is the body diagonal, included
+# because the rotated operator is aligned with the cell body diagonals
+# and it is the orientation at which the alignment argument predicts it
+# should do best.
+#
+# That prediction does NOT apply in this testbed and the result should
+# not be read as though it did. Every wave here has k_y = 0, and in that
+# plane the four body diagonals collapse to the two operator arguments
+# h(k_x +- k_z), whose largest magnitude is 1.414 kh at 45 degrees and
+# 1.394 kh at 54.7356. Forty-five degrees is therefore the extremum and
+# the body diagonal is not a special direction at all, so a low error
+# logged at 54.7356 is a zero crossing of a smooth hump rather than a
+# dip, and is not evidence for the alignment argument.
 TILTS = (0.0, 30.0, 40.0, 45.0, 50.0, 54.7356, 60.0)
 
 

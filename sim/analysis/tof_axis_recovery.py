@@ -1,13 +1,26 @@
 """Fabric-axis and concentration recovery from time of flight.
 
-Supplies the three quantities Section 5.1 leaves open, and the figure
-tofaz rests on: the recovered axis error per specimen, the recovered
-against true Watson concentration, and the axis error against azimuth
-count.
+Supplies the three quantities Section 5.1 reports: the recovered axis
+error per specimen, the recovered against realised Watson concentration,
+and the axis error against azimuth count.
+
+Figure tofaz does NOT rest on this module. sim/figures/fig_tofaz.py
+draws rigid_seed11, kappa8_seed17 and oos_seed23 from the
+fit_result.json each of those sweeps carries; all three are at ppw 6,
+none of them is among the twelve sweeps analysed here, and that figure
+folds azimuths modulo 180 and smooths before fitting, which this module
+does not. The two are independent routes to the same claim, so their
+numbers agree only in the aggregate and are not interchangeable.
 
 READS
-  out/sweeps/<name>/az*.npz         'trace', 'dt' (and 'az')
-  out/sweeps/<name>/config.json     ppw, seed, concentration, fabric_axis
+  out/sweeps/<name>/az*.npz         'trace' and 'dt'. The azimuth is
+                                    taken from the file name; the
+                                    'az_deg' the file also carries is
+                                    never read.
+  out/sweeps/<name>/config.json     seed, concentration, fabric_axis,
+                                    az_step. The resolution is fixed by
+                                    the sweep names below and 'ppw' is
+                                    not read.
   the twelve sweeps with a known fabric axis:
       eight girdle tessellations, kappa = -8,  nominal axis 0 deg
       four single-maximum tessellations, kappa = +3.93, nominal 30 deg
@@ -18,17 +31,27 @@ READS
   The realised microstructure is rebuilt on the CPU from
   sim/specimen.py at BUILD_H and cached alongside this file; the
   c-axis draw depends only on the realised grain count, which is stable
-  in h (104 grains for every seed here, from 1.0 mm down to 0.35 mm).
+  in h (from 1.0 mm down to 0.35 mm) but not across seeds: the twelve
+  tessellations realise 100 to 108 grains of the 100 requested, and the
+  104 of Section 5.1 is what seed 11 realises.
 
 WRITES
-  stdout only. Every printed number is one that appears in Section 5.1.
+  stdout, and one tofaxis_build_s<seed>_k<kappa>_a<axis>.npz cache per
+  tessellation beside this file, written on first use and read
+  thereafter. Most of the printed numbers are Section 5.1's. The
+  arrival-time budget is Section 3.3's, and the pick repeatability, the
+  effective sample sizes and the correlation lengths belong with
+  Appendix B.
 
 The time-of-flight pick is the manuscript's: the leading edge of the
 backwall arrival, the first crossing of 25 per cent of the envelope peak
 with sub-sample interpolation, in a +-2 us window about the isotropic
-arrival 2D/c. Nothing is band-limited and nothing is folded, so the
-azimuth count in the subsampling table is the number of independent
-looks the estimator actually receives.
+arrival 2D/c. Nothing is band-limited and nothing is folded, so every
+azimuth enters as it was recorded. The azimuth count in the subsampling
+table is a count of looks and not of independent looks: the residual
+correlates over 9.0 deg in the median, and the same 30-azimuth sweeps
+return effective sample sizes of 10.6 to 30.0, printed beneath that
+table.
 """
 import json
 import os

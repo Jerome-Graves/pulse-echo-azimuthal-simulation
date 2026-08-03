@@ -1,0 +1,61 @@
+===============================================================================
+ARCHIVE AUDIT. numbers rebuilt from raw scores, not from the
+code that printed them
+===============================================================================
+  replay of the production build exact for 8 of 8 specimens on all three checks
+  baseline pub   4 of 8 first of 48   p = 1.23e-05   mean r = +0.278   sd 0.229
+  baseline dv    6 of 8 first of 48   p = 2.21e-09   mean r = +0.395   sd 0.234
+  baseline field 6 of 8 first of 48   p = 2.21e-09   mean r = +0.162   sd 0.079
+  the published statistic is `pub`. The manuscript quotes four
+  of eight and p = 1.2e-5.
+
+  binomial tail of the count, n = 8, 48 candidates
+  k of 8              p
+  1               0.155
+  2              0.0112
+  3            0.000468
+  4            1.23e-05
+  5            2.09e-07
+  a count of 2 of 8 is still significant at the five per cent
+  level, so a threshold quoted as 'below 2 of 8' is the last
+  significant point and not the first insignificant one.
+
+  JITTER, published statistic, per realisation
+  level        counts     mean      sem               frac changed
+  0                 4     4.00     0.00                     0.0000
+  0.005         4/4/3     3.67     0.33                     0.0112
+  0.01          4/3/3     3.33     0.33                     0.0212
+  0.02          3/2/3     2.67     0.33                     0.0426
+  0.03          3/1/2     2.00     0.58                     0.0648
+  0.05          0/1/0     0.33     0.33                     0.1047
+  0.1           1/0/0     0.33     0.33                     0.2036
+  0.2           0/1/0     0.33     0.33                     0.3805
+  0.5           0/0/0     0.00     0.00                     0.7028
+  three realisations per level in the parent sweep. The step
+  from 0.03 to 0.05 is where the collapse happens and it is one
+  step wide, which is what --refine exists to fix.
+
+===============================================================================
+REFINED JITTER CURVE, published statistic, 6 realisations per level
+===============================================================================
+  level           mm   n_real  count/8      sem      k/n        p
+  0           0.0000        1     4.00     0.00      4/8 1.23e-05
+  0.005       0.0724        3     3.67     0.33    11/24 1.23e-05
+  0.01        0.1377        3     3.33     0.33    10/24 0.000468
+  0.02        0.2788        6     2.33     0.21    14/48   0.0112
+  0.025       0.3494        6     2.17     0.40    13/48   0.0112
+  0.03        0.4212        6     2.17     0.31    13/48   0.0112
+  0.035       0.4851        6     2.00     0.26    12/48   0.0112
+  0.04        0.5522        6     2.67     0.33    16/48 0.000468
+  0.05        0.6828        6     1.17     0.48     7/48    0.155
+  0.1         1.3202        3     0.33     0.33     1/24        1
+  0.2         2.4665        3     0.33     0.33     1/24        1
+  0.5         4.5582        3     0.00     0.00     0/24        1
+  three of eight           at 0.185 mm   bootstrap 90% CI 0.000 to 0.631 mm (1724 of 2000 resamples crossed)
+  midway to the 2 of 8 line at 0.255 mm   bootstrap 90% CI 0.083 to 0.658 mm (1766 of 2000 resamples crossed)
+  half the baseline, 2 of 8 at 0.610 mm   bootstrap 90% CI 0.072 to 0.683 mm (1946 of 2000 resamples crossed)
+  below 2 of 8 on rounding at 0.654 mm   bootstrap 90% CI 0.175 to 0.922 mm (1967 of 2000 resamples crossed)
+  one of eight             at 0.810 mm   bootstrap 90% CI 0.232 to 1.320 mm (1998 of 2000 resamples crossed)
+  chance, 8/48 of 8        at 0.668 mm   bootstrap 90% CI 0.200 to 1.001 mm (1982 of 2000 resamples crossed)
+  the bootstrap resamples the eight specimens, which are the
+  independent unit. It is wide because eight is eight.

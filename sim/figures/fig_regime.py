@@ -50,11 +50,17 @@ from fig_scales import length_scales, load_geometry
 BOUNDARY_D_OVER_LAM = (0.1, 1.0)
 REGIME_NAMES = ("Rayleigh", "stochastic", "geometric")
 
-# Prior numerical studies, as (label, D/lambda low, D/lambda high).
-# ONLY studies with a ratio stated by their authors belong here. Three of
-# the four rows of Table~\ref{tab:regime} are still marked \nq in the
-# manuscript and are deliberately absent rather than guessed.
-PRIOR_STUDIES = (("Bai 2018", 0.1, 0.3),)
+# Prior numerical studies, as (label, D/lambda low, D/lambda high), each
+# on its own source's grain measure and with the same provenance as the
+# cells of Table~\ref{tab:regime}. Huang 2020 reaches D/lambda about 2,
+# which is ABOVE the geometric boundary this figure draws at 1, so the
+# bracket below is taken from the studies themselves rather than from
+# the boundary: the claim the caption makes is that the present specimen
+# lies far beyond the prior work, not that the prior work stops at the
+# regime line.
+PRIOR_STUDIES = (("Van Pamel 2015", 0.03, 0.25),
+                 ("Bai 2018", 0.1, 0.3),
+                 ("Huang 2020", 0.08, 1.98))
 
 XLIM_KA = (0.05, 100.0)
 YLIM = (1e-6, 6.0)
@@ -145,13 +151,17 @@ def draw_studies(ax, ka_saturate, ka_this, d_over_lam_this):
         S.direct_label(ax, mid * 1.5, geometric_strength(mid, ka_saturate)
                        * 0.35, name, colour=S.BLUE, va="top")
 
+    # The bracket spans the studies actually tabulated, not the regime
+    # boundary. Huang 2020 crosses that boundary, so anchoring the right
+    # end at D/lambda = 1 would draw a figure its own caption contradicts.
+    d_hi = max(hi for _, _, hi in PRIOR_STUDIES)
     y_bracket = 4e-6
-    ax.plot(ka_of([XLIM_KA[0] / np.pi, BOUNDARY_D_OVER_LAM[1]]),
+    ax.plot(ka_of([XLIM_KA[0] / np.pi, d_hi]),
             [y_bracket] * 2, color=S.GREY, lw=S.LW["reference"],
             solid_capstyle="butt", zorder=3)
-    ax.plot([ka_of(BOUNDARY_D_OVER_LAM[1])] * 2, [y_bracket * 0.55,
+    ax.plot([ka_of(d_hi)] * 2, [y_bracket * 0.55,
             y_bracket * 1.8], color=S.GREY, lw=S.LW["reference"], zorder=3)
-    S.direct_label(ax, np.sqrt(XLIM_KA[0] * ka_of(BOUNDARY_D_OVER_LAM[1])),
+    S.direct_label(ax, np.sqrt(XLIM_KA[0] * ka_of(d_hi)),
                    y_bracket * 2.4, "prior convergence studies",
                    colour=S.GREY, ha="center")
 

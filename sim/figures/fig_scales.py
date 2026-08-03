@@ -300,9 +300,16 @@ def draw_scene(ax, geom, sc, y_lo, y_hi):
                   xy=(cx + 0.5 * (r_f + r_g), y_beam),
                   xytext=(cx + r_g + 2.4, y_beam - 1.6), colour="black",
                   va="center", bbox=LABEL_BOX)
+    # The on-canvas sentence has to say what the caption says. An earlier
+    # version asserted that the two lengths ARE the same size and that
+    # the beam therefore sees about one boundary at a time. The caption
+    # has since retreated to the weaker and defensible statement, that
+    # the Fresnel zone is no larger than the grain, because the measured
+    # return is carried by one to three boundaries rather than exactly
+    # one, and because fabric does still reach the coda weakly.
     S.direct_label(ax, 1.5, y_hi - 0.5,
-                   "the first Fresnel zone and the grain are the same size,\n"
-                   "so the beam sees about one boundary at a time",
+                   "the first Fresnel zone is no larger than the grain,\n"
+                   "so few boundaries are illuminated at once",
                    colour="black", va="top", bbox=LABEL_BOX,
                    linespacing=1.25)
 

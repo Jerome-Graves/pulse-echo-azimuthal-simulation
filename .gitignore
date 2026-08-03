@@ -38,6 +38,13 @@ env/
 #  appendix cannot be checked without rebuilding a 284 MB mesh.
 !/sim/fe_p2plus_ab*_traces.npz
 
+#  The near-field cache written beside coda_noise_floor.py: 56 arrays,
+#  38 MB, rebuilt from out/sweeps and out/tesscache by rerunning that
+#  module. The rule above applies to it for the same reason, and the
+#  /sim/*.npy rule does not reach it because that one is anchored to the
+#  top of sim/.
+/sim/analysis/nfcache/
+
 # --- Simulated trace archive -----------------------------------------
 #  About 60 MB across the sweep directories and growing with every run.
 #  Deposited alongside the paper, not versioned.

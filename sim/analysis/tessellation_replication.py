@@ -113,9 +113,15 @@ CONTROL = [("zerocontrast_ppw8", 11, "same c-axis in every grain"),
 # against the 44 the manuscript had.
 DISTRACTORS = list(range(100, 140))
 
-# Values Sec. 5.2 currently reports, printed beside the recomputation.
-REF = dict(r_full=0.509, r_geom=0.468, ident_hit=3, ident_of=4,
-           n_cand=44, p_ident=4.6e-5)
+# Values Sec. 5.2 reports, printed beside the recomputation so that a
+# divergence between the manuscript and this script is visible in the
+# output rather than having to be looked for. Superseded by this run:
+# the earlier three of four against 44 candidates, p = 4.6e-5, was the
+# sweep and not the tessellation as the unit of replication, and the
+# r_full = 0.509 and r_geom = 0.468 of that era were the development
+# specimen alone on a legacy centring.
+REF = dict(r_full=0.162, r_geom=0.330, ident_hit=4, ident_of=8,
+           n_cand=48, p_ident=1.23e-5)
 
 
 # ─────────────────────────────── load ─────────────────────────────────
@@ -183,18 +189,28 @@ def coda_level(sweep, az_keep):
     return lev[[int(np.where(az == a)[0][0]) for a in az_keep]]
 
 
-def coda_field(sweep, tgrid, az_keep=AZ_COMMON):
-    """Measured envelope on tgrid, and the per-azimuth two-way speed.
+def loo_median(R):
+    """Azimuth-common component of R, leaving each azimuth out.
 
-    Normalised by the SWEEP-mean backwall, not the per-azimuth one, so that
-    the azimuthal variation of the coda is not divided away. The backwall
-    time is remeasured from the trace because the multi-tessellation sweeps
-    were written without the t1_s field; on girdle_perp_ppw8, where both
-    exist, remeasured and recorded agree to 37 ns rms on a 52.6 us arrival
-    and track each other across azimuth at r = 0.995.
+    Row i is the median over the OTHER azimuths at every time sample, so no
+    azimuth is ever compared against a statistic that contains itself. The
+    median rather than the mean because the common component is what is
+    wanted and a mean is dragged by the few bright azimuths that carry most
+    of the coda.
+    """
+    return np.array([np.median(np.delete(R, i, axis=0), axis=0)
+                     for i in range(len(R))])
+
+
+def azimuth_rf(sweep, tgrid, az_keep=AZ_COMMON):
+    """Band-passed RF of every azimuth resampled onto ONE physical axis.
+
+    Each azimuth carries its own dt, set by the CFL limit of its own grid,
+    so azimuths cannot be stacked by sample index. Returned sorted by
+    azimuth, matching coda_field's row order.
     """
     d = os.path.join(FP.OUT, sweep)
-    az, rows, e1, t1 = [], [], [], []
+    az, rows = [], []
     for f in sorted(os.listdir(d)):
         if not (f.startswith("az") and f.endswith(".npz")):
             continue
@@ -207,17 +223,117 @@ def coda_field(sweep, tgrid, az_keep=AZ_COMMON):
         fs = 1.0 / dt
         sos = butter(4, [C2.BAND[0] / (fs / 2), C2.BAND[1] / (fs / 2)],
                      btype="band", output="sos")
-        env = np.abs(hilbert(sosfiltfilt(sos, tr)))
+        rows.append(np.interp(tgrid, np.arange(len(tr)) * dt,
+                              sosfiltfilt(sos, tr)))
+        az.append(a)
+    order = np.argsort(az)
+    return np.array(az)[order], np.array(rows)[order]
+
+
+def raised_cosine(t, lo, hi, pad):
+    """1 on [lo, hi], cosine skirts of width pad, 0 outside."""
+    w = np.zeros_like(t)
+    w[(t >= lo) & (t <= hi)] = 1.0
+    a = (t > lo - pad) & (t < lo)
+    w[a] = 0.5 * (1 - np.cos(np.pi * (t[a] - (lo - pad)) / pad))
+    b = (t > hi) & (t < hi + pad)
+    w[b] = 0.5 * (1 + np.cos(np.pi * (t[b] - hi) / pad))
+    return w
+
+
+def coda_field(sweep, tgrid, az_keep=AZ_COMMON, median_removal=False,
+               taper=None):
+    """Measured envelope on tgrid, and the per-azimuth two-way speed.
+
+    Normalised by the SWEEP-mean backwall, not the per-azimuth one, so that
+    the azimuthal variation of the coda is not divided away. The backwall
+    time is remeasured from the trace because the multi-tessellation sweeps
+    were written without the t1_s field; on girdle_perp_ppw8, where both
+    exist, remeasured and recorded agree to 37 ns rms on a 52.6 us arrival
+    and track each other across azimuth at r = 0.995.
+
+    The source delay is subtracted before the speed is formed. The trace
+    origin is simulation t = 0 and the Ricker peaks at T0_SRC = 1.2/f0, so
+    a measured arrival is 2*DIA/c + T0_SRC. Dividing DIA by the raw arrival
+    folds that delay into the speed and returns 3782 to 3806 m/s against a
+    reference 3850, low by 1.14 to 1.75 per cent; bin_events then adds
+    T0_SRC back, so every predicted arrival is stretched late by 1.16 per
+    cent of its own time, which is 0.34 us at 30 us. Three checks fix the
+    sign of this. The corrected estimator returns 3826 to 3850 m/s. The
+    residual best rigid offset between prediction and measurement falls
+    from -0.356 +- 0.168 us to -0.019 +- 0.146 us. And the account predicts
+    with no free parameter that the own score peaks at a speed scale
+    t1/(t1 - T0_SRC) = 1.0115, computed from the wavelet alone, against a
+    measured 1.0121 +- 0.0040 over the eight girdle sweeps, with unity
+    optimal for none of them.
+
+    median_removal selects how the envelope is formed, and defaults to the
+    behaviour every published number was computed with:
+
+      False    the published path. Hilbert the band-passed trace at its own
+               sample rate, then interpolate the envelope onto tgrid.
+      "none"   interpolate the band-passed RF onto tgrid first, then
+               Hilbert. Subtracts nothing. This exists so that a removal can
+               be compared against a control that shares its resampling.
+      "loo"    the same, with the leave-one-out azimuthal median subtracted
+               from the RF at every time sample before the Hilbert transform
+               (median trace removal, the standard ring-down suppressor in
+               GPR and contact NDT).
+
+    The backwall amplitude and time, and hence the sweep-mean normalisation
+    and the per-azimuth speed, are ALWAYS measured from the unremoved
+    native-rate envelope. A removal that gutted the backwall would otherwise
+    change the range-to-time map at the same time as the coda, and the two
+    effects could not be told apart.
+
+    taper is (lo, hi, pad) or None, and needs median_removal to be "none" or
+    "loo" because it acts on the resampled RF. The RF is multiplied by a
+    raised-cosine window before the Hilbert transform, so the envelope
+    inside [lo, hi] cannot have imported energy from outside [lo-pad,
+    hi+pad]. |hilbert| of a whole trace is not a local operator, and a
+    window a few microseconds after an arrival tens of decibels larger will
+    otherwise read that arrival's analytic tail as if it were coda.
+    """
+    d = os.path.join(FP.OUT, sweep)
+    az, rows, raw, e1, t1 = [], [], [], [], []
+    for f in sorted(os.listdir(d)):
+        if not (f.startswith("az") and f.endswith(".npz")):
+            continue
+        a = int(f[2:5])
+        if a not in az_keep:
+            continue
+        with np.load(os.path.join(d, f)) as z:
+            tr = np.asarray(z["trace"], float).ravel()
+            dt = float(z["dt"])
+        fs = 1.0 / dt
+        sos = butter(4, [C2.BAND[0] / (fs / 2), C2.BAND[1] / (fs / 2)],
+                     btype="band", output="sos")
+        rf = sosfiltfilt(sos, tr)
+        env = np.abs(hilbert(rf))
         k0, w = int(2 * C2.DIA / C2.C_REF * fs), int(3e-6 * fs)
         lo = max(k0 - w, 0)
         seg = env[lo:k0 + w]
         e1.append(seg.max())
         t1.append((lo + int(np.argmax(seg))) * dt)
-        rows.append(np.interp(tgrid, np.arange(len(tr)) * dt, env))
+        t = np.arange(len(tr)) * dt
+        rows.append(np.interp(tgrid, t, env))
+        if median_removal:
+            raw.append(np.interp(tgrid, t, rf))
         az.append(a)
     order = np.argsort(az)
-    return (np.array(rows)[order] / float(np.mean(e1)),
-            2.0 * C2.DIA / np.array(t1)[order])
+    c_az = 2.0 * C2.DIA / (np.array(t1)[order] - C2.T0_SRC)
+    if not median_removal:
+        if taper is not None:
+            raise ValueError("taper needs median_removal 'none' or 'loo'")
+        return np.array(rows)[order] / float(np.mean(e1)), c_az
+    R = np.array(raw)[order]
+    if median_removal == "loo":
+        R = R - loo_median(R)
+    elif median_removal != "none":
+        raise ValueError(median_removal)
+    if taper is not None:
+        R = R * raised_cosine(tgrid, *taper)[None, :]
+    return (np.abs(hilbert(R, axis=1)) / float(np.mean(e1)), c_az)
 
 
 # ────────────────────────────── compute ───────────────────────────────
@@ -551,9 +667,12 @@ def report_identification(sweeps, cands, hits):
           f"= {pb:.3g}")
     print(f"  excluding the development specimen seed 11: {kf} of {m - 1}, "
           f"p = {pbf:.3g}")
-    print(f"  Sec. 5.2 currently states {REF['ident_hit']} of "
-          f"{REF['ident_of']} tessellations against {REF['n_cand']} "
-          f"candidates, p = {REF['p_ident']:.1e}")
+    agree = (k, m, len(cands)) == (REF['ident_hit'], REF['ident_of'],
+                                   REF['n_cand'])
+    print(f"  Sec. 5.2 states {REF['ident_hit']} of {REF['ident_of']} "
+          f"tessellations against {REF['n_cand']} candidates, "
+          f"p = {REF['p_ident']:.1e}"
+          f"{'' if agree else '   <-- MANUSCRIPT DISAGREES'}")
     print("\n  CONTROLS, all on the seed-11 tessellation. The geometry a")
     print("  candidate could match is present in every one of these; only")
     print("  the acoustic contrast across the boundaries is reduced.")

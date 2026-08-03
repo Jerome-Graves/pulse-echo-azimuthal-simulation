@@ -1,0 +1,31 @@
+===============================================================================
+NOISE SWEEP, thresholds recomputed from the archive
+===============================================================================
+  coda below backwall: envelope rms -59.8 dB, signal rms -64.1 dB
+  wideband-to-in-band conversion 6.9 dB
+  baseline, noiseless: r = 0.1624 +- 0.0792, registration 6 of 8, identification 4 of 8
+
+  criterion                                rnd grid  rnd int   strict    N avg
+  field r at 90 per cent of noiseless          75.0     70.8     70.8     1197
+  field r at half noiseless                    60.0     58.2     58.2       66
+  registration recovers 6 of 8                 62.5     61.4     63.7      138
+  registration significant, 2 of 8             50.0     49.4     53.1        9
+  identification recovers 4 of 8               60.0     59.2     80.0       83
+  identification significant, 2 of 8           47.5     45.6     48.8        4
+  N avg is the coherent averages a receiver with a 40 dB
+  single-shot backwall-to-noise ratio needs to reach the
+  rounded interpolated threshold, N = 10^((SNR - 40)/10).
+
+  the coda sits -64.1 dB below the backwall in the same rms
+  convention the SNR axis uses, so the coda-to-noise ratio at
+  each threshold is the interpolated SNR minus 64.1 dB:
+    registration recovers 6 of 8               -2.7 dB
+    registration significant, 2 of 8          -14.7 dB
+    identification recovers 4 of 8             -4.9 dB
+    identification significant, 2 of 8        -18.5 dB
+
+  ring contamination, identification count against ring level
+    exact                    4.0 4.0 4.0 4.0 4.0 4.0 4.0 3.0 3.0 3.0 3.0 3.0 3.0 3.0
+    amplitude jitter 10 pct  4.0 4.0 4.0 4.0 4.0 4.0 4.0 3.0 3.0 3.0 3.0 3.0 1.4 0.5
+    delay jitter 25 ns       4.0 4.0 4.0 4.0 4.0 4.0 3.6 3.2 3.1 3.2 3.1 3.1 3.2 2.5
+    ring levels: -110 -100 -90 -85 -80 -75 -70 -65 -60 -55 -50 -45 -40 -35

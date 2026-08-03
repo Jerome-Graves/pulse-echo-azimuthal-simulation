@@ -16,13 +16,27 @@ CODA = (24e-6, 36e-6)
 
 # ---------------------------------------------------------------- prediction
 def fabric_pred(cfg, rots):
-    """E[R^2] dB and mean qP velocity per azimuth, from the ACTUAL grains."""
+    """E[R^2] dB and mean qP velocity per azimuth, from the ACTUAL grains.
+
+    The predictor sees the c-axes only through |axis . n|, so it is exactly
+    180 deg periodic in azimuth.  The cache is therefore matched on azimuth
+    modulo 180 and a cached half circle serves any request on the full
+    circle; antipodal pairs in every stored cache agree to 1.4e-14 dB.  This
+    matters because a rebuild rasterises the tessellation on the GPU, which
+    must not be provoked while a sweep is running.
+    """
+    rots = np.asarray(rots)
     key = "pred_%s.npz" % cfg["name"]
     p = os.path.join(CACHE, key)
+    want = np.mod(np.asarray(rots, float), 180.0)
     if os.path.exists(p):
         z = np.load(p)
-        if len(z["rots"]) == len(rots) and np.all(z["rots"] == rots):
-            return z["er2"], z["vbar"]
+        have = np.mod(np.asarray(z["rots"], float), 180.0)
+        look = {round(float(a), 6): i for i, a in enumerate(have)}
+        idx = [look.get(round(float(a), 6)) for a in want]
+        if all(i is not None for i in idx):
+            idx = np.asarray(idx, int)
+            return np.asarray(z["er2"])[idx], np.asarray(z["vbar"])[idx]
     h = C_REF / F0 / float(cfg["ppw"])
     sp = DiskSpecimen(diameter_m=cfg["diameter_mm"]/1e3, thickness_m=cfg["thickness_mm"]/1e3,
                       n_grains=cfg["n_grains"], size_cv=cfg["size_cv"],

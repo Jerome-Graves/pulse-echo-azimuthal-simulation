@@ -37,6 +37,14 @@ SWEEP = REPO / "out" / "sweeps" / "girdle_perp_ppw8"
 # and is far more machinery than a figure needs.
 C_REF = 3850.0                  # m/s, reference qP speed (_t2_common.C_REF)
 CODA_W = (24e-6, 36e-6)         # coda gate, s (_t2_common.CODA_W)
+# Only the analysed gate is drawn. An earlier window was marked here for
+# a while, on the reading that the record offered a choice between two.
+# It does not. Sec. 5.2 finds the earlier windows inadmissible, since in
+# them the fabric predictor tracks a specimen that cannot backscatter at
+# all better than it tracks the specimen, and Sec. 5.3 scores the whole
+# window family rather than one alternative. This figure is where the
+# reader learns what the measurement is, which is the wrong place to
+# imply an alternative the results withdraw.
 BAND = (0.8e6, 3.0e6)           # coda passband, Hz (_t2_common.BAND)
 
 # The solver pads the specimen bounding box by sponge + 3 cells on every
@@ -188,12 +196,12 @@ def _domain(ax, half_x, half_z, sponge):
 
 
 def _gate_marks(ax, g, extend_mm):
-    """The coda gate as a slab of the beam, with its two boundaries."""
+    """The analysis gate as a slab of the beam, with its boundaries."""
     s0, s1 = g["gate_mm"]
     s = np.linspace(s0, s1, 2)
     slab = np.vstack([beam_edge(g, s, +1.0), beam_edge(g, s, -1.0)[::-1]])
     ax.add_patch(Polygon(slab, closed=True, facecolor=fs.BLUE, alpha=0.20,
-                         edgecolor="none", zorder=5))
+                         edgecolor="none", linewidth=0.0, zorder=5))
     for s_gate in (s0, s1):
         x = g["radius_mm"] - s_gate * np.cos(g["half_angle"])
         y = (g["element_radius_mm"] + s_gate * np.sin(g["half_angle"])

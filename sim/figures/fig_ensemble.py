@@ -3,10 +3,27 @@ r"""Figure 'ensemble': where the ensemble mean stops moving.
 Supports Section 4, "Ensemble statistics". The question the panel answers
 is how many independent microstructures the headline coda level needs
 before its mean is settled, and the answer is read off the width of the
-band: with eight girdle tessellations the mean is -84.90 dB re source and
-the 95 per cent interval on it is +-0.50 dB, four realisations already
-land inside that interval, and the interval is a quarter of the
-1.71 dB separation between the two fabrics drawn on the same axes.
+band: with eight girdle tessellations the mean is -85.08 dB re source and
+the 95 per cent interval on it is +-0.81 dB, four realisations already
+land inside that interval, and the interval is under a third of the
+2.83 dB separation between the two fabrics drawn on the same axes.
+
+Levels are the AUDITED ones, local and in band and averaged over azimuth
+as energies, which is the estimator and the convention argued for in
+analysis/ensemble_stats.py and used by analysis/db_reconcile.py. The
+published version of this panel was drawn on the global unfiltered
+envelope with a mean of decibels and carried a girdle spread of 0.60 dB
+against the 0.97 dB here.
+
+WHY THE SINGLE-MAXIMUM BAND IS SO MUCH WIDER, and why it is drawn anyway.
+Its four realisations are -83.76, -83.59, -83.19 and -78.45 dB: one
+tessellation, seed 17, presents a strongly specular facet at one azimuth
+and carries 46 per cent of that revolution's energy there. Under an
+energy average that is the level, and it is physical rather than
+numerical, so it is neither trimmed nor hidden. The consequence is that
+the single-maximum band is one realisation wide and must not be read as a
+spread; it is on the axes to place the fabric separation, not to claim a
+converged single-maximum level.
 
 Reads (paths resolved from this file, nothing absolute):
     ../results/ensemble.npz     written by analysis/ensemble_stats.py.
@@ -54,7 +71,12 @@ ARCHIVE = Path(__file__).resolve().parents[1] / "results" / "ensemble.npz"
 # range, which is drawn separately as the hairlines.
 CORE_PC = (5.0, 95.0)
 
-Y_LIMITS_DB = (-86.3, -82.15)
+# Set by the data and not by taste: the girdle band reaches -86.32 dB at
+# N = 1 and the single-maximum band reaches -78.45 dB there. The panel
+# has to hold both, which is why the girdle band occupies less of it than
+# it did on the published estimator.
+Y_LIMITS_DB = (-87.0, -77.6)
+Y_TICKS_DB = (-86, -84, -82, -80, -78)
 
 
 # ------------------------------------------------------------------ draw
@@ -104,26 +126,45 @@ def draw_interval(ax, mean, half, x_right):
                 zorder=3)
 
 
+WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five",
+         6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
+         11: "eleven", 12: "twelve"}
+
+
 def draw(ax, girdle, single):
-    """The panel."""
+    """The panel.
+
+    Both family labels count the realisations actually loaded. They were
+    written out in full when the design was eight girdle tessellations
+    against four single maxima; the single-maximum arm has since been
+    completed to eight, and a hard-coded word is exactly the kind of
+    thing that survives such a change unnoticed.
+    """
     x_right = len(girdle) + 0.45
     g_mean, g_half = draw_family(
-        ax, girdle, 0, "girdle, eight tessellations",
-        (x_right - 0.1, -85.50, "right", "top"), hairlines=True)
-    draw_family(ax, single, 1, "single maximum, four",
-                (len(single) + 0.55, -83.10, "left", "bottom"))
+        ax, girdle, 0,
+        "girdle, %s tessellations" % WORDS.get(len(girdle), len(girdle)),
+        (x_right - 0.1, -86.05, "right", "top"), hairlines=True)
+    # Right-aligned INSIDE the axes. The old position, len(single) plus
+    # a margin, sat just past the last point when the family had four
+    # members and fell off the right edge once it had eight.
+    draw_family(ax, single, 1,
+                "single maximum, %s"
+                % WORDS.get(len(single), len(single)),
+                (min(len(single), x_right) - 0.1, -82.05,
+                 "right", "bottom"))
     draw_interval(ax, g_mean, g_half, x_right)
 
     # Named at the right-hand end of its own rule, where the panel is
     # empty, rather than beside the band it is being compared with.
-    fs.direct_label(ax, x_right - 0.1, g_mean + g_half + 0.09,
+    fs.direct_label(ax, x_right - 0.1, g_mean + g_half + 0.16,
                     "95 %% interval on the mean, $\\pm$%.2f dB" % g_half,
                     colour=fs.GREY, ha="right", va="bottom")
 
     ax.set_xlim(0.55, x_right)
     ax.set_ylim(*Y_LIMITS_DB)
     ax.set_xticks(range(1, len(girdle) + 1))
-    ax.set_yticks([-86, -85, -84, -83, -82])
+    ax.set_yticks(list(Y_TICKS_DB))
     ax.set_xlabel("number of independent tessellations")
     ax.set_ylabel("coda level (dB re source)")
 
@@ -160,8 +201,12 @@ def main():
     print("single maximum, %d tessellations" % len(single))
     print("  ensemble mean %.2f dB re source, sd %.2f, %.0f%% interval "
           "+-%.2f dB" % (s_mean, s_sd, 100 * conf, s_half))
+    print("  realisations %s; the spread is one of them"
+          % ", ".join("%.2f" % v for v in np.sort(single)))
     print("fabric separation %.2f dB, which is %.1f times the girdle "
-          "interval" % (s_mean - g_mean, (s_mean - g_mean) / g_half))
+          "interval\n  and %.1f times the single-maximum one"
+          % (s_mean - g_mean, (s_mean - g_mean) / g_half,
+             (s_mean - g_mean) / s_half))
 
     fs.save(fig, "ensemble",
             expect=["number of independent tessellations",

@@ -1,4 +1,4 @@
-r"""Figure 'trace': a representative recorded A-scan and the analysis gates.
+r"""Figure 'trace': a representative recorded A-scan and the analysis gate.
 
 Supports the claim in Section 3.2 that the two observables of this paper
 are read from one ordinary pulse-echo record: the backwall arrival, whose
@@ -42,6 +42,15 @@ SWEEP = REPO / "out" / "sweeps" / "girdle_perp_ppw8"
 # measurements, so they are stated here rather than read from a file.
 BAND_HZ = (0.8e6, 3.0e6)        # _t2_common.BAND, 4th-order Butterworth
 CODA_GATE_S = (24e-6, 36e-6)    # _t2_common.CODA_W
+# Only the analysed gate is drawn. An earlier window was marked here for
+# a while, on the reading that it was a live alternative. It is not one.
+# Sec. 5.3 scores the whole family of twelve-microsecond windows and
+# finds the family strongly non-flat with this gate near the good end,
+# and Sec. 5.2 finds the earlier windows inadmissible outright: in them
+# the fabric predictor tracks a zero-contrast specimen that cannot
+# backscatter from a grain boundary at all better than it tracks the
+# specimen. A second slab drawn here, before either result is stated,
+# reads as a choice the paper does not in fact offer.
 C_REF = 3850.0                  # _t2_common.C_REF, mean qP speed (m/s)
 
 # Half-width of the search window for the backwall echo about the nominal

@@ -1,0 +1,66 @@
+09:23:07  ========================================================================
+09:23:07  Rotated staggered grid diagnosis, n_lambda = 8, psi_b = 51
+09:23:07  tilt        dt (ns)  Courant     echo amp    hom peak  growth bi  growth ho
+09:33:22  0.0000       5.0779   0.0812   5.5503e-12  2.9934e-08      -8.30      -8.18   (615 s)
+09:43:21  30.0000      5.2077   0.0833   3.5700e-12  3.0120e-08     -16.18     -15.21   (599 s)
+09:53:30  40.0000      5.1168   0.0819   1.5388e-11  3.0146e-08     -13.57     -14.80   (609 s)
+10:03:47  45.0000      5.0898   0.0814   1.8018e-11  3.0148e-08     -11.92     -12.49   (617 s)
+10:14:04  50.0000      5.0783   0.0813   1.5890e-11  3.0142e-08     -14.18     -14.82   (617 s)
+10:24:23  54.7356      5.0826   0.0813   7.8009e-12  3.0129e-08     -20.44     -22.34   (619 s)
+10:34:41  60.0000      5.1043   0.0817   3.8081e-12  3.0137e-08     -15.15     -15.18   (617 s)
+10:34:41  
+10:34:41  tilt          error (dB)     Courant vs 0    hom peak vs 0
+10:34:41  0.0000              0.00           0.0000        0.000e+00
+10:34:41  30.0000            -3.83           0.0021        6.228e-03
+10:34:41  40.0000             8.86           0.0006        7.093e-03
+10:34:41  45.0000            10.23           0.0002        7.146e-03
+10:34:41  50.0000             9.14           0.0000        6.935e-03
+10:34:41  54.7356             2.96           0.0001        6.518e-03
+10:34:41  60.0000            -3.27           0.0004        6.792e-03
+10:34:41  
+10:34:41  READING THIS TABLE.
+10:34:41    If the Courant column is flat, the time step is not the cause.
+10:34:41    If hom peak is flat, the homogeneous reference is sound and
+10:34:41    the differencing is clean, so the error belongs to the
+10:34:41    interface and not to the harness.
+10:34:41    If growth is negative everywhere the scheme is stable, and
+10:34:41    marginal instability is excluded.
+10:34:41    If the error varies smoothly through 45 and is no better at
+10:34:41    54.74, the body-diagonal alignment argument does not explain
+10:34:41    it. If it dips at 54.74 the alignment argument does explain
+10:34:41    it, and 45 degrees is simply the worst case rather than a bug.
+20:02:10  ========================================================================
+20:02:10  Rotated staggered grid diagnosis, n_lambda = 10, psi_b = 51
+20:02:10  tilt        dt (ns)  Courant     echo amp    hom peak  growth bi  growth ho
+C:\Users\Jerome\AppData\Roaming\Python\Python312\site-packages\cupy\_environment.py:284: UserWarning: CUDA path could not be detected. Set CUDA_PATH environment variable if CuPy fails to load.
+  warnings.warn(
+20:24:34  0.0000       4.0624   0.0812   3.6783e-12  2.4182e-08      -7.48      -7.45   (1344 s)
+20:45:38  30.0000      4.1662   0.0833   1.1587e-12  2.3666e-08      -7.94     -11.24   (1265 s)
+21:07:17  40.0000      4.0935   0.0819   1.0521e-11  2.3527e-08     -14.93     -13.59   (1298 s)
+21:29:08  45.0000      4.0718   0.0814   1.1589e-11  2.3516e-08     -11.69     -11.10   (1312 s)
+21:51:00  50.0000      4.0626   0.0813   1.0569e-11  2.3531e-08     -14.17     -13.61   (1312 s)
+22:13:26  54.7356      4.0660   0.0813   5.0989e-12  2.3583e-08      -8.78      -9.64   (1346 s)
+22:35:50  60.0000      4.0834   0.0817   1.3569e-12  2.3670e-08      -5.33     -11.22   (1344 s)
+22:35:50  
+22:35:50  tilt          error (dB)     Courant vs 0    hom peak vs 0
+22:35:50  0.0000              0.00           0.0000        0.000e+00
+22:35:50  30.0000           -10.03           0.0021       -2.134e-02
+22:35:50  40.0000             9.13           0.0006       -2.710e-02
+22:35:50  45.0000             9.97           0.0002       -2.757e-02
+22:35:50  50.0000             9.17           0.0000       -2.692e-02
+22:35:50  54.7356             2.84           0.0001       -2.480e-02
+22:35:50  60.0000            -8.66           0.0004       -2.117e-02
+22:35:50  
+22:35:50  READING THIS TABLE.
+22:35:50    If the Courant column is flat, the time step is not the cause.
+22:35:50    If hom peak is flat, the homogeneous reference is sound and
+22:35:50    the differencing is clean, so the error belongs to the
+22:35:50    interface and not to the harness.
+22:35:50    If growth is negative everywhere the scheme is stable, and
+22:35:50    marginal instability is excluded.
+22:35:50    If the error varies smoothly through 45 and is no better at
+22:35:50    54.74, the body-diagonal alignment argument does not explain
+22:35:50    it. If it dips at 54.74 the alignment argument does explain
+22:35:50    it, and 45 degrees is simply the worst case rather than a bug.
+rgument does explain
+22:35:50    it, and 45 degrees is simply the worst case rather than a bug.

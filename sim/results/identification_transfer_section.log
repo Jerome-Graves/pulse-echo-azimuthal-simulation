@@ -1,0 +1,28 @@
+scored 56 reconstructions in 131 s
+
+===============================================================================
+WHAT A SECTIONED SPECIMEN ACTUALLY SUPPLIES
+===============================================================================
+  variant  grains  changed  seed err  in-plane    median    r_pub     rank  first/8
+  true     103.5    0.000      0.00      0.00      0.00    0.278      2.0        4
+        p for 4 of 8 first of 48 = 1.23e-05
+  c3d      103.5    0.170      4.24      3.45      3.91    0.058     22.5        1
+        p for 1 of 8 first of 48 = 0.155
+  sec1      57.1    0.971      7.30      3.62      6.89   -0.000     25.8        0
+        p for 0 of 8 first of 48 = 1
+  sec2      91.2    0.895      5.69      3.73      5.44    0.031     14.9        1
+        p for 1 of 8 first of 48 = 0.155
+  sec3      99.5    0.803      4.75      3.62      4.40    0.007     23.4        1
+        p for 1 of 8 first of 48 = 0.155
+  sec5     101.6    0.691      4.29      3.45      3.96    0.046     18.0        1
+        p for 1 of 8 first of 48 = 0.155
+  sec9     102.6    0.413      4.24      3.44      3.91    0.070     19.9        1
+        p for 1 of 8 first of 48 = 0.155
+  seed err is the mean distance in mm from the reconstructed
+  Laguerre seed to the production seed it stands for; in-plane
+  is the same distance with the section-normal component
+  dropped, which is the part a section could in principle fix by
+  being thinner. changed is the fraction of the disc that
+  changes grain identity, the same quantity the perturbation
+  sweep reports. secN is N equally spaced parallel sections
+  through a 35 mm disc, so sec1 is one optical thin section.
