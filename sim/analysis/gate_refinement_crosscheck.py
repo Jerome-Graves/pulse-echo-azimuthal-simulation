@@ -1,13 +1,17 @@
 """Third-path check on the seed-23 refinement ladder.
 
-WHY THIS EXISTS. The supplement is being rewritten to say that the
-analysis gate strengthens under refinement on seed 23, which is the one
-specimen that exists at ppw 6, 8 and 10. That sentence is positive
-evidence for the paper rather than a caveat, so it will be attacked, and
-two measurements of it already agree: gate_refinement.py, which is built
-on tessellation_replication, and gate_refinement_audit.py, which rebuilt
-the estimator from scratch and reproduced the stored published value for
-mx_girdle_s23_ppw8 exactly. Agreement between those two establishes that
+WHY THIS EXISTS. The supplement was being rewritten to say that the
+analysis gate strengthens under refinement on seed 23, at the time
+believed to be the only specimen existing at ppw 6, 8 and 10. (Both
+beliefs fell later: seed 11 carries a full ladder too, scored by
+gate_refinement_second_ladder.py, and the rise proved to be a property
+of the per-rung clock, adjudicated by gate_timebase_cross.py. This
+module's own variations are what first broke the rise.) That sentence
+was positive evidence for the paper rather than a caveat, so it would
+be attacked, and two measurements of it already agreed: a first check
+built on tessellation_replication, since removed from the release, and
+gate_refinement_audit.py, which rebuilt the estimator from scratch and
+reproduced the stored published value for mx_girdle_s23_ppw8 exactly. Agreement between those two establishes that
 the number is what the published estimator returns. It does not
 establish that the RISE survives the arbitrary choices the estimator
 makes, and the rise is the whole claim.

@@ -5,10 +5,11 @@ ppw 6, 8 and 10 against one prediction geometry, the earlier window
 (10 to 22 us) returns r = 0.557, 0.586 and 0.622 and ranks first of 48 at
 every resolution, "while over the same three resolutions this gate falls,
 reaching rank 12 of 48 at ppw = 10". Neither the falling rank nor those
-three correlations appears in any stored result. gate_refinement.py
-already contradicts the first half of that sentence, but it is built by
-importing tessellation_replication wholesale, so it cannot be used to
-check itself: any error in the shared wrapper is invisible to it.
+three correlations appears in any stored result. A first check, since
+removed from the release, already contradicted the falling rank, but it
+was built by importing tessellation_replication wholesale, so it could
+not be used to check itself: any error in the shared wrapper was
+invisible to it.
 
 This module therefore rebuilds the published identification estimator
 from the ground up and does not import either of them. It writes its own
