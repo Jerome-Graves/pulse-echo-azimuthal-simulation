@@ -106,7 +106,7 @@ def ranksum_p(ranks, n_cand):
 def row_label(name):
     """The development specimen is named as such, because whether the
     result depends on it is the first thing a reader should check."""
-    if name == "girdle_perp_ppw8":
+    if name == "girdle_seed11_ppw8_dev":
         return "seed 11 (development)"
     if name.startswith("mx_girdle_s"):
         return "seed " + name.split("_s")[1].split("_")[0]

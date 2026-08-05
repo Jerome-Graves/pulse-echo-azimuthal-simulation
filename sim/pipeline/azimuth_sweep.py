@@ -45,7 +45,7 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from scipy import ndimage                     # noqa: E402
 from scipy.signal import hilbert              # noqa: E402
 
@@ -54,7 +54,8 @@ import fdtd                                    # noqa: E402
 import ladder                                  # noqa: E402
 from rotation_test import rotated_grid         # noqa: E402
 
-REF_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ref")
+REF_DIR = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), "ref")
 W0, W1 = ladder.W_CLEAN
 
 

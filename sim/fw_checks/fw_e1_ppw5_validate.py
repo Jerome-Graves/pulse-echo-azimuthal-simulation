@@ -20,7 +20,7 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from scipy import ndimage                     # noqa: E402
 
 import coda_convergence as CC                  # noqa: E402
@@ -30,7 +30,7 @@ from fw_e1_corridor_validate import e1_of, REF, C_REF, F0, HALF_W  # noqa: E402
 
 
 def main():
-    d = np.load(os.path.join(REF, "fw_5mhz_fabric00.npz"))
+    d = np.load(os.path.join(REF, "fw_reference_5mhz_fabric00.npz"))
     E1r, t1r = e1_of(d["trace"], float(d["dt"]))
 
     h = C_REF / F0 / 5.0                       # ppw 5

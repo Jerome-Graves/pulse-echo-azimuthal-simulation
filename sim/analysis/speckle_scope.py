@@ -110,8 +110,8 @@ WHAT HOLDS. MEASURED.
   The SKEW and ORDERING tests reject a gamma in all fifteen in-scope
   cases at the family level. Sweep by sweep they are nearly but not
   quite unanimous: one of the 23 distinct specimen sweeps fails to
-  reject on its own in each window, girdle_perp at ppw 6 in the
-  published gate and mx_single_s89_ppw8 in the shallow one. At 30
+  reject on its own in each window, girdle_seed11_ppw6_axis_perp at ppw 6 in the
+  published gate and singlemax_seed89_ppw8_ensemble in the shallow one. At 30
   azimuths a single sweep decides little, which is why the family-level
   Monte Carlo is the statistic quoted.
 
@@ -155,12 +155,12 @@ window in which the window carries grain scattering at all.
 Reads, all under ../../out/sweeps, each directory az*.npz with keys
 'trace', 'dt' and 'az' plus a config.json, on the 30 azimuths at 12
 degree spacing every sweep has in common:
-    girdle_perp_ppw8, mx_girdle_s{7,17,23,41,53,71,89}_ppw8
-    singlemax_ppw8, mx_single_s{7,17,23,41,53,71,89}_ppw8
-    girdle_perp, lad_girdle_s23_ppw6            ppw 6, seeds 11 and 23
-    lic_girdle_s11_ppw10, lad_girdle_s23_ppw10  ppw 10, seeds 11 and 23
-    cs_f{000,025,050,075}_s11_ppw8              contrast ladder
-    zerocontrast_ppw8, zc_s11_ppw6, zc_s11_ppw10
+    girdle_seed11_ppw8_dev, girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble
+    singlemax_seed11_ppw8_twin, singlemax_seed{7,17,23,41,53,71,89}_ppw8_ensemble
+    girdle_seed11_ppw6_axis_perp, girdle_seed23_ppw6_ladder            ppw 6, seeds 11 and 23
+    girdle_seed11_ppw10_licensing, girdle_seed23_ppw10_ladder  ppw 10, seeds 11 and 23
+    girdle_seed11_ppw8_contrast_f{000,025,050,075}              contrast ladder
+    girdle_seed11_ppw8_uniform_axis, girdle_seed11_ppw6_zerocontrast, girdle_seed11_ppw10_zerocontrast
 Touches no label volume and builds no tessellation, so it reaches no
 CUDA path and needs no GPU. Writes nothing. Run with --fast to halve the
 Monte Carlo draws.
@@ -231,31 +231,31 @@ AZ = tuple(range(0, 360, 12))
 DBN = 10.0 / np.log(10.0)
 
 # The cases, grouped so that each group varies exactly one thing against
-# the published one. "ladder f1.00" is girdle_perp_ppw8 under its ladder
+# the published one. "ladder f1.00" is girdle_seed11_ppw8_dev under its ladder
 # name, because the f = 1 rung IS the production specimen; it is listed
 # twice on purpose so the ladder reads as a ladder.
 FAMILIES = (
-    ("girdle ppw8", (("girdle_perp_ppw8", 11), ("mx_girdle_s7_ppw8", 7),
-                     ("mx_girdle_s17_ppw8", 17), ("mx_girdle_s23_ppw8", 23),
-                     ("mx_girdle_s41_ppw8", 41), ("mx_girdle_s53_ppw8", 53),
-                     ("mx_girdle_s71_ppw8", 71),
-                     ("mx_girdle_s89_ppw8", 89))),
-    ("single ppw8", (("singlemax_ppw8", 11), ("mx_single_s7_ppw8", 7),
-                     ("mx_single_s17_ppw8", 17), ("mx_single_s23_ppw8", 23),
-                     ("mx_single_s41_ppw8", 41), ("mx_single_s53_ppw8", 53),
-                     ("mx_single_s71_ppw8", 71),
-                     ("mx_single_s89_ppw8", 89))),
-    ("girdle ppw6", (("girdle_perp", 11), ("lad_girdle_s23_ppw6", 23))),
-    ("girdle ppw10", (("lic_girdle_s11_ppw10", 11),
-                      ("lad_girdle_s23_ppw10", 23))),
-    ("ladder f0.00", (("cs_f000_s11_ppw8", 11),)),
-    ("ladder f0.25", (("cs_f025_s11_ppw8", 11),)),
-    ("ladder f0.50", (("cs_f050_s11_ppw8", 11),)),
-    ("ladder f0.75", (("cs_f075_s11_ppw8", 11),)),
-    ("ladder f1.00", (("girdle_perp_ppw8", 11),)),
-    ("uniform ppw8", (("zerocontrast_ppw8", 11),)),
-    ("uniform ppw6", (("zc_s11_ppw6", 11),)),
-    ("uniform ppw10", (("zc_s11_ppw10", 11),)),
+    ("girdle ppw8", (("girdle_seed11_ppw8_dev", 11), ("girdle_seed7_ppw8_ensemble", 7),
+                     ("girdle_seed17_ppw8_ensemble", 17), ("girdle_seed23_ppw8_ensemble", 23),
+                     ("girdle_seed41_ppw8_ensemble", 41), ("girdle_seed53_ppw8_ensemble", 53),
+                     ("girdle_seed71_ppw8_ensemble", 71),
+                     ("girdle_seed89_ppw8_ensemble", 89))),
+    ("single ppw8", (("singlemax_seed11_ppw8_twin", 11), ("singlemax_seed7_ppw8_ensemble", 7),
+                     ("singlemax_seed17_ppw8_ensemble", 17), ("singlemax_seed23_ppw8_ensemble", 23),
+                     ("singlemax_seed41_ppw8_ensemble", 41), ("singlemax_seed53_ppw8_ensemble", 53),
+                     ("singlemax_seed71_ppw8_ensemble", 71),
+                     ("singlemax_seed89_ppw8_ensemble", 89))),
+    ("girdle ppw6", (("girdle_seed11_ppw6_axis_perp", 11), ("girdle_seed23_ppw6_ladder", 23))),
+    ("girdle ppw10", (("girdle_seed11_ppw10_licensing", 11),
+                      ("girdle_seed23_ppw10_ladder", 23))),
+    ("ladder f0.00", (("girdle_seed11_ppw8_contrast_f000", 11),)),
+    ("ladder f0.25", (("girdle_seed11_ppw8_contrast_f025", 11),)),
+    ("ladder f0.50", (("girdle_seed11_ppw8_contrast_f050", 11),)),
+    ("ladder f0.75", (("girdle_seed11_ppw8_contrast_f075", 11),)),
+    ("ladder f1.00", (("girdle_seed11_ppw8_dev", 11),)),
+    ("uniform ppw8", (("girdle_seed11_ppw8_uniform_axis", 11),)),
+    ("uniform ppw6", (("girdle_seed11_ppw6_zerocontrast", 11),)),
+    ("uniform ppw10", (("girdle_seed11_ppw10_zerocontrast", 11),)),
 )
 
 # Families that hold physical grain scattering, as against the two that
@@ -270,18 +270,18 @@ RESIDUE = ("ladder f0.00", "uniform ppw8", "uniform ppw6", "uniform ppw10")
 # at all, and it has to be made per resolution: the numerical residue is
 # a strong function of the grid and comparing a ppw 6 specimen with a
 # ppw 8 control would flatter it.
-CONTROL_OF = {"girdle ppw8": "zerocontrast_ppw8",
-              "single ppw8": "zerocontrast_ppw8",
-              "girdle ppw6": "zc_s11_ppw6",
-              "girdle ppw10": "zc_s11_ppw10",
-              "ladder f0.00": "zerocontrast_ppw8",
-              "ladder f0.25": "zerocontrast_ppw8",
-              "ladder f0.50": "zerocontrast_ppw8",
-              "ladder f0.75": "zerocontrast_ppw8",
-              "ladder f1.00": "zerocontrast_ppw8",
-              "uniform ppw8": "zerocontrast_ppw8",
-              "uniform ppw6": "zc_s11_ppw6",
-              "uniform ppw10": "zc_s11_ppw10"}
+CONTROL_OF = {"girdle ppw8": "girdle_seed11_ppw8_uniform_axis",
+              "single ppw8": "girdle_seed11_ppw8_uniform_axis",
+              "girdle ppw6": "girdle_seed11_ppw6_zerocontrast",
+              "girdle ppw10": "girdle_seed11_ppw10_zerocontrast",
+              "ladder f0.00": "girdle_seed11_ppw8_uniform_axis",
+              "ladder f0.25": "girdle_seed11_ppw8_uniform_axis",
+              "ladder f0.50": "girdle_seed11_ppw8_uniform_axis",
+              "ladder f0.75": "girdle_seed11_ppw8_uniform_axis",
+              "ladder f1.00": "girdle_seed11_ppw8_uniform_axis",
+              "uniform ppw8": "girdle_seed11_ppw8_uniform_axis",
+              "uniform ppw6": "girdle_seed11_ppw6_zerocontrast",
+              "uniform ppw10": "girdle_seed11_ppw10_zerocontrast"}
 
 # A window whose specimen level sits closer than this to its own
 # uniform-orientation control at the same grid is not carrying grain
@@ -628,7 +628,7 @@ def report_content(label, win):
     print("  independent route to the same residue.")
     print("  %-14s %10s %10s %11s %11s"
           % ("family", "level dB", "control", "over own", "over f = 0"))
-    zero = float(gate_power(read_sweep("cs_f000_s11_ppw8")[0], win).mean())
+    zero = float(gate_power(read_sweep("girdle_seed11_ppw8_contrast_f000")[0], win).mean())
     out = {}
     for fam, members in FAMILIES:
         mean = float(np.mean([gate_power(read_sweep(n)[0], win).mean()
@@ -679,7 +679,7 @@ def report_shapes(label, win, draws=MC_DRAWS):
             print("  %-13s %-21s %6.2f %6.2f %6.2f %+7.2f %5s %6.3f %6.3f"
                   % (fam, name, n_c, n_g, n_s, log_skew(power), tag,
                      res["p_order"], res["p_skew"]))
-    # Deduplicated by sweep, because girdle_perp_ppw8 is listed twice,
+    # Deduplicated by sweep, because girdle_seed11_ppw8_dev is listed twice,
     # once as a tessellation of the ensemble and once as the f = 1 rung.
     spec = {n: v for n, v in single.items() if v[0] in SPECIMEN}
     beaten = [n for n, (_f, res) in spec.items()
@@ -724,7 +724,7 @@ def report_length(label, win, ends):
           % (win[0] * 1e6, ", ".join(str(e) for e in ends)))
     print("=" * 78)
     dt0 = float(np.median([r["dt"]
-                           for r in read_sweep("girdle_perp_ppw8")[0]]))
+                           for r in read_sweep("girdle_seed11_ppw8_dev")[0]]))
     # The null exponent is itself a Monte Carlo estimate and one draw of
     # it is not a constant. It is taken twice. The large ensemble says
     # what exponent an average of independent looks HAS; the matched

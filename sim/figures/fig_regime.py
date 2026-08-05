@@ -28,7 +28,7 @@ What is drawn, and where each part comes from:
 
 Reads
     (through fig_scales) data/po_src_geom.npz and
-    ../../out/sweeps/girdle_perp_ppw8/config.json
+    ../../out/sweeps/girdle_seed11_ppw8_dev/config.json
 Writes
     <paper>/figures/regime.pdf
 

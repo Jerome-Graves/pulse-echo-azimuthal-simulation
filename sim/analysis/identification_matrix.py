@@ -30,7 +30,7 @@ import numpy as np
 from scipy import ndimage
 from scipy.stats import rankdata
 
-import t4_common as T
+import range_domain_common as T
 
 SCR = T.SCR
 PIX_MM = 0.5
@@ -39,9 +39,9 @@ MODES = ("inc", "coh", "max", "top3")
 GATES = ("coda", "full")
 ZS = ("mid", "slab", "full")
 BLURS = (1.0, 2.0, 3.0, 4.0)
-SWEEPS = [("girdle_perp_ppw8", 11), ("singlemax_ppw8", 11),
-          ("rigid_seed11", 11), ("girdle_par", 11),
-          ("kappa8_seed17", 17), ("oos_seed23", 23), ("iso_gcal", 41)]
+SWEEPS = [("girdle_seed11_ppw8_dev", 11), ("singlemax_seed11_ppw8_twin", 11),
+          ("singlemax_seed11_ppw6_rigid2", 11), ("girdle_seed11_ppw6_axis_par", 11),
+          ("singlemax_seed17_ppw6_kappa8", 17), ("singlemax_seed23_ppw6_heldout_axis", 23), ("isotropic_seed41_ppw6_calibration", 41)]
 REAL = (11, 17, 23, 41)
 
 

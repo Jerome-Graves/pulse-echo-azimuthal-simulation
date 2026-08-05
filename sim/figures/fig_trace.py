@@ -11,11 +11,11 @@ echo train rather than noise. The linear inset over the gate is there to
 settle that question.
 
 Reads (paths resolved from this file, never absolute):
-    <repo>/out/sweeps/girdle_perp_ppw8/az*.npz
+    <repo>/out/sweeps/girdle_seed11_ppw8_dev/az*.npz
         keys 'az_deg' and 'coda_db' from all sixty records, to find the
         azimuth whose coda level is the sweep median, then 'trace', 'dt',
         'f0' and 't1_s' from that one record.
-    <repo>/out/sweeps/girdle_perp_ppw8/config.json
+    <repo>/out/sweeps/girdle_seed11_ppw8_dev/config.json
         for the disc diameter and the pulse centre frequency.
 
 Writes:
@@ -35,7 +35,7 @@ from scipy.signal import butter, hilbert, sosfiltfilt
 import figstyle as fs
 
 REPO = Path(__file__).resolve().parents[2]
-SWEEP = REPO / "out" / "sweeps" / "girdle_perp_ppw8"
+SWEEP = REPO / "out" / "sweeps" / "girdle_seed11_ppw8_dev"
 
 # Analysis constants, all as defined in sim/analysis/_t2_common.py and
 # quoted in Section 3.2 of the manuscript. They are choices, not
@@ -217,7 +217,7 @@ def report(azimuth_deg, rec):
     """The numbers of Section 3.2, recomputed from the record shown."""
     coda_db = 20.0 * np.log10(rec["coda_rms"] / rec["backwall_ref"])
     chord_mm = [0.5 * C_REF * g * 1e3 for g in CODA_GATE_S]
-    print("record girdle_perp_ppw8 az%03d, chosen as the sweep median coda"
+    print("record girdle_seed11_ppw8_dev az%03d, chosen as the sweep median coda"
           % azimuth_deg)
     print("  coda gate rms          %.1f dB below the backwall peak"
           % coda_db)

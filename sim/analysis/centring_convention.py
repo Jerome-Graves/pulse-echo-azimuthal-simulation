@@ -28,11 +28,11 @@ scores the f = 0 rung, which cannot scatter at all, is scoring
 structure that no scattering put there.
 
 Reads:
-    <cache>/t2p_girdle_perp_ppw8__gp8.npz    measured and predicted
+    <cache>/coda_field_girdle_seed11_ppw8_dev__gp8.npz    measured and predicted
                                              fields, 60 azimuths,
                                              cached by predict_field.py
-    <sweeps>/cs_f{000,025,050,075}_s11_ppw8/az*.npz   ladder rungs
-    <sweeps>/girdle_perp_ppw8/az*.npz        the f = 1 rung
+    <sweeps>/girdle_seed11_ppw8_contrast_f{000,025,050,075}/az*.npz   ladder rungs
+    <sweeps>/girdle_seed11_ppw8_dev/az*.npz        the f = 1 rung
 
 Writes nothing. Prints the correlation, the two nulls and the retained
 variance for each convention, which are the numbers Sec. 5.2 and
@@ -53,7 +53,7 @@ import shift_null_2d as S                                # noqa: E402
 CACHE_DIRS = ((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim", "analysis", "facet_model"))),
               os.path.join(C.HERE, "facet_model"), C.HERE)
 
-SWEEP = "girdle_perp_ppw8"          # girdle kappa = -8, seed 11, ppw 8
+SWEEP = "girdle_seed11_ppw8_dev"          # girdle kappa = -8, seed 11, ppw 8
 TAG = "gp8"                         # the tessellation that was simulated
 MODES = ("raw", "col", "double", "harm")
 
@@ -66,8 +66,8 @@ VARIANTS = ("full", "geom")
 # Contrast-scaling ladder, Sec. 4: each grain's stiffness is
 # interpolated a fraction f from the orientation-averaged tensor toward
 # its own, so scattered power scales as f^2 and f = 0 cannot scatter.
-LADDER = ((0.00, "cs_f000_s11_ppw8"), (0.25, "cs_f025_s11_ppw8"),
-          (0.50, "cs_f050_s11_ppw8"), (0.75, "cs_f075_s11_ppw8"),
+LADDER = ((0.00, "girdle_seed11_ppw8_contrast_f000"), (0.25, "girdle_seed11_ppw8_contrast_f025"),
+          (0.50, "girdle_seed11_ppw8_contrast_f050"), (0.75, "girdle_seed11_ppw8_contrast_f075"),
           (1.00, SWEEP))
 
 
@@ -88,7 +88,7 @@ def load_field():
     power, so the envelope is squared; dividing by the backwall peak
     first removes the source amplitude.
     """
-    with np.load(cache_path("t2p_%s__%s.npz" % (SWEEP, TAG))) as z:
+    with np.load(cache_path("coda_field_%s__%s.npz" % (SWEEP, TAG))) as z:
         t_s = z["tgrid"]
         gate = (t_s >= C.CODA_W[0]) & (t_s < C.CODA_W[1])
         az_deg = z["az"].astype(int)

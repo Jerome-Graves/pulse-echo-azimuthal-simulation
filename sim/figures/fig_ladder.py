@@ -46,10 +46,10 @@ DATA = Path(__file__).resolve().parents[1] / "analysis" \
 # girdle sweep itself; the ladder was run only for f < 1 because that
 # sweep already exists and rerunning it would differ only in azimuth
 # count, which is decimated to the common grid here.
-LADDER = [("cs_f000_s11_ppw8", 0.00), ("cs_f025_s11_ppw8", 0.25),
-          ("cs_f050_s11_ppw8", 0.50), ("cs_f075_s11_ppw8", 0.75),
-          ("girdle_perp_ppw8", 1.00)]
-CONTROL = "zerocontrast_ppw8"
+LADDER = [("girdle_seed11_ppw8_contrast_f000", 0.00), ("girdle_seed11_ppw8_contrast_f025", 0.25),
+          ("girdle_seed11_ppw8_contrast_f050", 0.50), ("girdle_seed11_ppw8_contrast_f075", 0.75),
+          ("girdle_seed11_ppw8_dev", 1.00)]
+CONTROL = "girdle_seed11_ppw8_uniform_axis"
 OWN, RANK = 0, 1
 
 

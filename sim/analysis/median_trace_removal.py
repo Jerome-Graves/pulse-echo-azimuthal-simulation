@@ -48,8 +48,8 @@ control that shares everything else:
          larger, so without this there is no way to say whether a shallow
          envelope is shallow scattering or the front arrival's tail.
 
-THE CONTROLS ARE THE POINT. zerocontrast_ppw8 gives every grain the same
-c-axis and cs_f000_s11_ppw8 is the f = 0 rung of the contrast ladder;
+THE CONTROLS ARE THE POINT. girdle_seed11_ppw8_uniform_axis gives every grain the same
+c-axis and girdle_seed11_ppw8_contrast_f000 is the f = 0 rung of the contrast ladder;
 neither can backscatter from a grain boundary, and both carry the seed-11
 geometry a candidate could match. They are scored in every window under
 every variant. Subtracting a common component can manufacture azimuthal
@@ -67,7 +67,7 @@ speed are identical across all five variants and the range-to-time map
 never moves. Only the field being scored changes.
 
 READS
-  out/sweeps/{girdle_perp,mx_girdle_s*,zerocontrast,cs_f000_s11}_ppw8
+  out/sweeps/{girdle_seed11_ppw6_axis_perp,mx_girdle_s*,zerocontrast,cs_f000_s11}_ppw8
   out/tesscache/tess_s<seed>_p8_k-8.npz    all 48 candidates, prebuilt
 WRITES
   sim/analysis/median_trace_removal.npz    every number printed
@@ -136,8 +136,8 @@ ALLV = VARIANTS + LOCAL
 # The eight independent girdle tessellations, seed 11 first.
 GIRDLE = list(TR.GIRDLE)
 # Both zero-scattering controls on the seed-11 geometry.
-CONTROL = [("zerocontrast_ppw8", 11, "same c-axis in every grain"),
-           ("cs_f000_s11_ppw8", 11, "contrast f = 0.00")]
+CONTROL = [("girdle_seed11_ppw8_uniform_axis", 11, "same c-axis in every grain"),
+           ("girdle_seed11_ppw8_contrast_f000", 11, "contrast f = 0.00")]
 SWEEPS = GIRDLE + [(n, s) for n, s, _ in CONTROL]
 
 CANDS = sorted(set([s for _, s in TR.GIRDLE] + TR.DISTRACTORS))
@@ -148,7 +148,7 @@ CANDS = sorted(set([s for _, s in TR.GIRDLE] + TR.DISTRACTORS))
 FRONT = (0.0, 4e-6)
 
 # Values this module has to reproduce before anything else it prints can be
-# believed. Sec. 5.2, girdle_perp_ppw8, published gate.
+# believed. Sec. 5.2, girdle_seed11_ppw8_dev, published gate.
 REF = dict(r_own=0.3934, rank=2, n_cand=48, shift_rank=1, n_shift=30)
 
 # Volume-equivalent grain diameter and wavelength, for the Fresnel
@@ -324,13 +324,13 @@ def report_validation(sc, meas, own_pred):
     print("0. HARNESS. The published gate through this module's own path,")
     print(f"   centring '{CENTRING}', against the numbers Sec. 5.2 states.")
     print("=" * 79)
-    key = ("girdle_perp_ppw8", win_tag(PUBLISHED))
+    key = ("girdle_seed11_ppw8_dev", win_tag(PUBLISHED))
     v = sc[key + ("pub",)]
     r, rank, z, best = rank_of(v, 11)
     srk, ns = shift_rank(meas[key]["pub"], own_pred[key])
     ok = (abs(r - REF["r_own"]) < 5e-4 and rank == REF["rank"]
           and srk == REF["shift_rank"] and ns == REF["n_shift"])
-    print(f"   girdle_perp_ppw8, gate {win_tag(PUBLISHED)} us")
+    print(f"   girdle_seed11_ppw8_dev, gate {win_tag(PUBLISHED)} us")
     print(f"     own r        {r:+.4f}      Sec. 5.2 {REF['r_own']:+.4f}")
     print(f"     rank         {rank} of {len(CANDS)}     Sec. 5.2 "
           f"{REF['rank']} of {REF['n_cand']}")
@@ -400,15 +400,15 @@ def report_verdict(sc):
     for w in WINDOWS:
         t = win_tag(w)
         line, gained, dirty = [], [], []
-        for name in ("girdle_perp_ppw8", "zerocontrast_ppw8",
-                     "cs_f000_s11_ppw8"):
+        for name in ("girdle_seed11_ppw8_dev", "girdle_seed11_ppw8_uniform_axis",
+                     "girdle_seed11_ppw8_contrast_f000"):
             _, a, za, _ = rank_of(sc[(name, t, "none")], 11)
             _, b, zb, _ = rank_of(sc[(name, t, "loo")], 11)
             line.append(f"{a:>3} ->{b:>3}  z {zb:+.1f}")
             gained.append(b < a)
             dirty.append(a <= 3 and za > 2.0)
         v = []
-        if rank_of(sc[("girdle_perp_ppw8", t, "loo")], 11)[1] != 1:
+        if rank_of(sc[("girdle_seed11_ppw8_dev", t, "loo")], 11)[1] != 1:
             v.append("specimen not first")
         if gained[1] or gained[2]:
             v.append("removal LIFTS a control")
@@ -531,7 +531,7 @@ def main():
     survivors = []
     for w in WINDOWS:
         t = win_tag(w)
-        if rank_of(sc[("girdle_perp_ppw8", t, "loo")], 11)[1] != 1:
+        if rank_of(sc[("girdle_seed11_ppw8_dev", t, "loo")], 11)[1] != 1:
             continue
         if any(rank_of(sc[(n, t, "loo")], 11)[1]
                < rank_of(sc[(n, t, "none")], 11)[1]

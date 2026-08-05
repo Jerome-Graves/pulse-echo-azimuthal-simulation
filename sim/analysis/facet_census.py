@@ -28,7 +28,7 @@ import sys
 import numpy as np
 from scipy.special import j1
 
-import t4_common as T
+import range_domain_common as T
 
 SCR = T.SCR
 AZ = np.arange(0, 360, 6)          # the 60-azimuth production sweep

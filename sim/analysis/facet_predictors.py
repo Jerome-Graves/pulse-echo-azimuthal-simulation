@@ -43,18 +43,18 @@ KEYS = ("geom_only", "born_spec", "born_iso", "n_cross")
 
 # name, ppw, kappa, axis, seed, is_isotropic, raster
 SWEEPS = [
-    ("rigid_seed11",     6.0,  3.93, (0.866, 0.5, 0.0),    11, False, "double"),
-    ("girdle_perp",      6.0, -8.00, (1.0, 0.0, 0.0),      11, False, "single"),
-    ("girdle_par",       6.0, -8.00, (0.0, 0.0, 1.0),      11, False, "single"),
-    ("kappa8_seed17",    6.0,  8.00, (0.5, 0.866, 0.0),    17, False, "double"),
-    ("oos_seed23",       6.0,  3.93, (-0.342, 0.94, 0.0),  23, False, "double"),
-    ("iso_gcal",         6.0, 0.001, (1.0, 0.0, 0.0),      41, True,  "double"),
-    ("girdle_perp_ppw8", 8.0, -8.00, (1.0, 0.0, 0.0),      11, False, "single"),
-    ("singlemax_ppw8",   8.0,  3.93, (0.866, 0.5, 0.0),    11, False, "single"),
+    ("singlemax_seed11_ppw6_rigid2",     6.0,  3.93, (0.866, 0.5, 0.0),    11, False, "double"),
+    ("girdle_seed11_ppw6_axis_perp",      6.0, -8.00, (1.0, 0.0, 0.0),      11, False, "single"),
+    ("girdle_seed11_ppw6_axis_par",       6.0, -8.00, (0.0, 0.0, 1.0),      11, False, "single"),
+    ("singlemax_seed17_ppw6_kappa8",    6.0,  8.00, (0.5, 0.866, 0.0),    17, False, "double"),
+    ("singlemax_seed23_ppw6_heldout_axis",       6.0,  3.93, (-0.342, 0.94, 0.0),  23, False, "double"),
+    ("isotropic_seed41_ppw6_calibration",         6.0, 0.001, (1.0, 0.0, 0.0),      41, True,  "double"),
+    ("girdle_seed11_ppw8_dev", 8.0, -8.00, (1.0, 0.0, 0.0),      11, False, "single"),
+    ("singlemax_seed11_ppw8_twin",   8.0,  3.93, (0.866, 0.5, 0.0),    11, False, "single"),
 ]
 SMALL = [
-    ("girdle_20",        6.0, -8.00, (0.342, 0.0, 0.94),   11, False, "single"),
-    ("gcheck_ppw8",      8.0,  3.93, (0.866, 0.5, 0.0),    11, False, "double"),
+    ("girdle_seed11_ppw6_axis_tilt20",        6.0, -8.00, (0.342, 0.0, 0.94),   11, False, "single"),
+    ("singlemax_seed11_ppw8_12az_check",      8.0,  3.93, (0.866, 0.5, 0.0),    11, False, "double"),
 ]
 MAXN = 120
 

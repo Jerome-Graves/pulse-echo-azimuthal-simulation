@@ -5,7 +5,7 @@ so the 45 dB-louder E1 arrival at ~52 us leaks (sinc kernel) into the
 import os
 
 import numpy as np
-import rev_common as RC
+import review_common as RC
 import fit_sweep as FS
 import sweep_runner as SW
 from scipy.signal import hilbert
@@ -73,7 +73,7 @@ def variants(name):
     return out
 
 
-for nm in ["rigid_seed11", "oos_seed23", "iso_gcal"]:
+for nm in ["singlemax_seed11_ppw6_rigid2", "singlemax_seed23_ppw6_heldout_axis", "isotropic_seed41_ppw6_calibration"]:
     Z = variants(nm)
     az = Z["az"]
     cfg = RC.cfg_of(nm)

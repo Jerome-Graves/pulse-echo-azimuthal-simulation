@@ -14,7 +14,7 @@ EPS = 1e-30
 
 
 def load(sweep, tag):
-    z = np.load(os.path.join(C.HERE, f"t2p_{sweep}__{tag}.npz"))
+    z = np.load(os.path.join(C.HERE, f"coda_field_{sweep}__{tag}.npz"))
     TG = z["tgrid"]
     g = (TG >= C.CODA_W[0]) & (TG < C.CODA_W[1])
     M = (z["meas"][:, g] / float(z["e1"])) ** 2

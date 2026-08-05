@@ -11,7 +11,7 @@ was positive evidence for the paper rather than a caveat, so it would
 be attacked, and two measurements of it already agreed: a first check
 built on tessellation_replication, since removed from the release, and
 gate_refinement_audit.py, which rebuilt the estimator from scratch and
-reproduced the stored published value for mx_girdle_s23_ppw8 exactly. Agreement between those two establishes that
+reproduced the stored published value for girdle_seed23_ppw8_ensemble exactly. Agreement between those two establishes that
 the number is what the published estimator returns. It does not
 establish that the RISE survives the arbitrary choices the estimator
 makes, and the rise is the whole claim.
@@ -40,8 +40,8 @@ harmonic centring, one ppw-8 prediction geometry scored against all
 three solutions. The chain is gated on reproducing the stored published
 value before any perturbation is reported.
 
-READS  out/sweeps/{lad_girdle_s23_ppw6, mx_girdle_s23_ppw8,
-       lad_girdle_s23_ppw10}/az*.npz
+READS  out/sweeps/{girdle_seed23_ppw6_ladder, girdle_seed23_ppw8_ensemble,
+       girdle_seed23_ppw10_ladder}/az*.npz
        out/tesscache/tess_s<seed>_p8_k-8.npz, 48 candidates
        sim/analysis/tessellation_replication.npz, published value only
 WRITES sim/analysis/gate_refinement_crosscheck.npz. Prints four tables.
@@ -74,13 +74,13 @@ CONE_DEG = 8.9
 PPW_PRED = 8
 
 SEED = 23
-LADDER = [("lad_girdle_s23_ppw6", 6),
-          ("mx_girdle_s23_ppw8", 8),
-          ("lad_girdle_s23_ppw10", 10)]
+LADDER = [("girdle_seed23_ppw6_ladder", 6),
+          ("girdle_seed23_ppw8_ensemble", 8),
+          ("girdle_seed23_ppw10_ladder", 10)]
 AZ_ALL = np.arange(0, 360, 12)
 CANDS = sorted(set([7, 11, 17, 23, 41, 53, 71, 89] + list(range(100, 140))))
 
-PUB = dict(sweep="mx_girdle_s23_ppw8", r=0.112120, z=6.5362)
+PUB = dict(sweep="girdle_seed23_ppw8_ensemble", r=0.112120, z=6.5362)
 TGRID = np.arange(20e-6, 42e-6, DT)
 
 
@@ -130,7 +130,7 @@ def kernel(dt=DT, half_us=2.0):
 
 
 def load_tess(seed, ppw=PPW_PRED, kappa=-8.0):
-    p = os.path.join(CACHE, f"tess_s{seed}_p{ppw:g}_k{kappa:g}.npz")
+    p = os.path.join(CACHE, f"labels_seed{seed}_ppw{ppw:g}_kappa{kappa:g}.npz")
     with np.load(p) as z:
         return (z["labels"].astype(np.int32), z["axes"], z["seeds"],
                 float(z["h"]))

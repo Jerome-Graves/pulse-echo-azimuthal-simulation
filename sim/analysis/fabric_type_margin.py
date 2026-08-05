@@ -47,7 +47,7 @@ printed precision; the module prints the largest disagreement.
 
 WHAT IT READS
   out/sweeps/<name>/az*.npz        stored traces, no simulation run
-  analysis/tofaxis_build_s*.npz    cached tessellations beside
+  analysis/grain_axes_volumes_s*.npz    cached tessellations beside
                                    tof_axis_recovery.py
   tof_axis_recovery                geometry, template, oracle, axis fit
   ensemble_stats.measure_trace     the audited coda level of
@@ -95,36 +95,36 @@ AZ30 = np.arange(0.0, 360.0, float(AZ_STEP))
 # fixed without knowing the fabric; check_reference_phase re-derives it.
 PHI4_REF = 45.0
 
-GIRDLE = ("girdle_perp_ppw8", "mx_girdle_s7_ppw8", "mx_girdle_s17_ppw8",
-          "mx_girdle_s23_ppw8", "mx_girdle_s41_ppw8",
-          "mx_girdle_s53_ppw8", "mx_girdle_s71_ppw8",
-          "mx_girdle_s89_ppw8")
-SINGLE = ("singlemax_ppw8", "mx_single_s7_ppw8", "mx_single_s17_ppw8",
-          "mx_single_s23_ppw8", "mx_single_s41_ppw8",
-          "mx_single_s53_ppw8", "mx_single_s71_ppw8",
-          "mx_single_s89_ppw8")
-SEED = {"girdle_perp_ppw8": 11, "singlemax_ppw8": 11}
+GIRDLE = ("girdle_seed11_ppw8_dev", "girdle_seed7_ppw8_ensemble", "girdle_seed17_ppw8_ensemble",
+          "girdle_seed23_ppw8_ensemble", "girdle_seed41_ppw8_ensemble",
+          "girdle_seed53_ppw8_ensemble", "girdle_seed71_ppw8_ensemble",
+          "girdle_seed89_ppw8_ensemble")
+SINGLE = ("singlemax_seed11_ppw8_twin", "singlemax_seed7_ppw8_ensemble", "singlemax_seed17_ppw8_ensemble",
+          "singlemax_seed23_ppw8_ensemble", "singlemax_seed41_ppw8_ensemble",
+          "singlemax_seed53_ppw8_ensemble", "singlemax_seed71_ppw8_ensemble",
+          "singlemax_seed89_ppw8_ensemble")
+SEED = {"girdle_seed11_ppw8_dev": 11, "singlemax_seed11_ppw8_twin": 11}
 for _s in (7, 17, 23, 41, 53, 71, 89):
-    SEED["mx_girdle_s%d_ppw8" % _s] = _s
-    SEED["mx_single_s%d_ppw8" % _s] = _s
+    SEED["girdle_seed%d_ppw8_ensemble" % _s] = _s
+    SEED["singlemax_seed%d_ppw8_ensemble" % _s] = _s
 KAPPA = {"girdle": -8.0, "single": 3.93}
 AXIS = {"girdle": (1.0, 0.0, 0.0), "single": (0.866, 0.5, 0.0)}
 
 # Repeats that hold the specimen AND the fabric fixed and change only
 # something carrying no fabric information. These are the margin budget.
 RESOLUTION = (("seed 11 girdle, ppw 6 / 8 / 10",
-               ("girdle_perp", "girdle_perp_ppw8",
-                "lic_girdle_s11_ppw10")),
+               ("girdle_seed11_ppw6_axis_perp", "girdle_seed11_ppw8_dev",
+                "girdle_seed11_ppw10_licensing")),
               ("seed 23 girdle, ppw 6 / 8 / 10",
-               ("lad_girdle_s23_ppw6", "mx_girdle_s23_ppw8",
-                "lad_girdle_s23_ppw10")),
+               ("girdle_seed23_ppw6_ladder", "girdle_seed23_ppw8_ensemble",
+                "girdle_seed23_ppw10_ladder")),
               ("seed 11 single crystal, ppw 6 / 8 / 10",
-               ("zc_s11_ppw6", "zerocontrast_ppw8", "zc_s11_ppw10")))
-LADDER = (("cs_f000_s11_ppw8", 0.00), ("cs_f025_s11_ppw8", 0.25),
-          ("cs_f050_s11_ppw8", 0.50), ("cs_f075_s11_ppw8", 0.75),
-          ("girdle_perp_ppw8", 1.00))
-CONTROLS = (("iso_gcal", "isotropic, no fabric type, ppw 6"),
-            ("zerocontrast_ppw8", "one crystal, the extreme single max"))
+               ("girdle_seed11_ppw6_zerocontrast", "girdle_seed11_ppw8_uniform_axis", "girdle_seed11_ppw10_zerocontrast")))
+LADDER = (("girdle_seed11_ppw8_contrast_f000", 0.00), ("girdle_seed11_ppw8_contrast_f025", 0.25),
+          ("girdle_seed11_ppw8_contrast_f050", 0.50), ("girdle_seed11_ppw8_contrast_f075", 0.75),
+          ("girdle_seed11_ppw8_dev", 1.00))
+CONTROLS = (("isotropic_seed41_ppw6_calibration", "isotropic, no fabric type, ppw 6"),
+            ("girdle_seed11_ppw8_uniform_axis", "one crystal, the extreme single max"))
 FRACS = (0.15, 0.25, 0.35)
 COUNTS = (30, 20, 15, 12, 10, 6)
 NDRAW, MC_SEED = 3000, 20260802

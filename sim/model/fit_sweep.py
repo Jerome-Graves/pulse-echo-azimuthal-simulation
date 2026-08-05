@@ -24,7 +24,7 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path[:0] = [os.path.join(sys.path[0], _d)
                 for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
@@ -52,13 +52,13 @@ W0, W1 = ladder.W_CLEAN
 # it applied a BRICK-WALL spectral mask to the WHOLE record and only
 # then windowed, so each sub-band trace was convolved with a sinc whose
 # 1/t sidelobes dragged E1 (about 45 dB louder than the coda) into the
-# 24-36 us window. Measured on rigid_seed11, 360 az:
+# 24-36 us window. Measured on singlemax_seed11_ppw6_rigid2, 360 az:
 #   corr(FD3 observable, plain window RMS)        = +0.004
 #   corr(FD3 observable, WHOLE-RECORD band energy)= +0.872 (0.25 dB)
 #   azimuthal std 4.07 -> 0.51 dB, k=2 1.53 -> 0.03 dB
 # The observable had stopped measuring the coda window at all: its k=2
 # was 0.03 dB on a kappa 3.93 specimen and 0.05 dB on the kappa~0
-# iso_gcal control. Every kappa produced through it is void. It was
+# isotropic_seed41_ppw6_calibration control. Every kappa produced through it is void. It was
 # pinned to FD_BANDS=1 (plain window RMS) as a mitigation.
 #
 # REPAIRED 2026-07-31 (this block). Three things had to change, and
@@ -87,8 +87,8 @@ FD_BANDS = 3
 # Restricting the bank to the pulse band (the old 0.5-1.5 f0) throws
 # away 3/4 of the energy AND fails the isotropic control outright:
 # gate + a SINGLE 1-3 MHz Hann mask, no split at all, gives k=2 =
-# 1.68 dB at phi2 13.7 deg on iso_gcal (p<1e-4) vs 1.20 dB (p=0.058)
-# on rigid_seed11 - a BIGGER 2-theta on NO fabric than on kappa 3.93,
+# 1.68 dB at phi2 13.7 deg on isotropic_seed41_ppw6_calibration (p<1e-4) vs 1.20 dB (p=0.058)
+# on singlemax_seed11_ppw6_rigid2 - a BIGGER 2-theta on NO fabric than on kappa 3.93,
 # and every 1-3 MHz sub-band variant inherits it (iso 0.74-1.98 dB,
 # p<0.01, at phi2 7-24 deg). Narrow-band glint has a long azimuthal
 # correlation length and forges a 2-theta line out of nothing.
@@ -122,11 +122,11 @@ FD_COMBINE = "geo"
 # whose smooth red background is fitted to harmonics k=1..20 excluding
 # k=2,4 - a PERMUTATION null is invalid here, glint has a 3-7 deg
 # azimuthal correlation length):
-#            rigid_seed11       oos_seed23       iso_gcal (kappa 0.001)
+#            singlemax_seed11_ppw6_rigid2       singlemax_seed23_ppw6_heldout_axis       isotropic_seed41_ppw6_calibration (kappa 0.001)
 #   FD1      1.53 dB p=0.22    2.05 dB p=0.002   0.37 dB p=0.94
 #   FD3geo   1.61 dB p=0.012   2.13 dB p=0.0002  0.07 dB p=0.996
 #   az std   4.07 -> 3.08      3.52 -> 3.22      3.54 -> 3.06
-# The repaired estimator turns rigid_seed11's k=2 from undetectable
+# The repaired estimator turns singlemax_seed11_ppw6_rigid2's k=2 from undetectable
 # into detectable while the control stays dead. Do NOT read the
 # fabric/control amplitude RATIO as 22x: iso's 0.07 dB is a noise draw
 # (its own background is 1.16 dB), so the denominator is meaningless -
@@ -144,15 +144,15 @@ FD_COMBINE = "geo"
 # ⚠ THE REPAIR DOES NOT BUY A TRUSTWORTHY KAPPA. Two-stage fits, cal
 # off, sigma 1.82 (2026-07-31), with a 15-deg-block bootstrap (blocks
 # >> the 3-7 deg glint correlation length), 120 resamples:
-#   rigid_seed11  kappa 1.66  boot 5-95% [1.04, 2.50]   truth 3.93
-#   oos_seed23    kappa 3.48  boot 5-95% [2.45, 5.18]   truth 3.93
-#   iso_gcal      kappa 0.83  boot 5-95% [0.48, 3.02]   truth 0.001
+#   singlemax_seed11_ppw6_rigid2  kappa 1.66  boot 5-95% [1.04, 2.50]   truth 3.93
+#   singlemax_seed23_ppw6_heldout_axis    kappa 3.48  boot 5-95% [2.45, 5.18]   truth 3.93
+#   isotropic_seed41_ppw6_calibration      kappa 0.83  boot 5-95% [0.48, 3.02]   truth 0.001
 # The point estimates improve a lot on the control (FD1 gave rigid
 # 1.563 vs iso 1.546 - literally no separation; FD3geo gives 1.66 vs
 # 0.83), but the CONTROL'S OWN bootstrap interval reaches kappa 3.02
-# and swallows rigid_seed11 whole. A fabric-free specimen can still
+# and swallows singlemax_seed11_ppw6_rigid2 whole. A fabric-free specimen can still
 # return kappa 3 by chance. Freezing the axis and scanning it makes
-# the same point: iso_gcal's kappa wanders 0.30-1.81 over frozen axes.
+# the same point: isotropic_seed41_ppw6_calibration's kappa wanders 0.30-1.81 over frozen axes.
 # So: the k=2 OBSERVABLE now discriminates fabric from no-fabric, the
 # fitted KAPPA still does not. Do not quote a coda-channel kappa
 # without its bootstrap interval.
@@ -255,7 +255,7 @@ TAIL_W = (54e-6, 66e-6)
 # Use the un-factorised shape grid (shape_grid.npz) as the coda model
 # when a sweep has one. OFF: the grid is a documented negative result
 # for (alpha, kappa) fitting (realization glint in candidate draws;
-# jackknife 2026-07-29: kappa 2.48 grid vs 3.97 factorised on fittest,
+# jackknife 2026-07-29: kappa 2.48 grid vs 3.97 factorised on singlemax_seed7_ppw6_fittest_legacy,
 # truth 3.93). Keep the grid machinery for realization studies.
 USE_SHAPE_GRID = False
 # Coda sigma for the SWEEP estimator (FD3geo + az-smoothing).
@@ -266,8 +266,8 @@ USE_SHAPE_GRID = False
 # the axis FROZEN at each sweep's known sample axis and the shape
 # calibration OFF (ref/coda_shape_cal_2mhz.npz parked as .HOLD.npz),
 # iterated to self-consistency because sigma enters the Huber gain:
-#   rigid_seed11 (axis frozen 28.8):  1.66 dB   (kappa 1.67, 220 az)
-#   oos_seed23   (axis frozen 104.3): 1.98 dB   (kappa 1.95, 220 az)
+#   singlemax_seed11_ppw6_rigid2 (axis frozen 28.8):  1.66 dB   (kappa 1.67, 220 az)
+#   singlemax_seed23_ppw6_heldout_axis   (axis frozen 104.3): 1.98 dB   (kappa 1.95, 220 az)
 # The identical measurement on the FD1 incumbent gives 2.00 / 1.97 dB,
 # so the repaired estimator is ~0.34 dB tighter on rigid and unchanged
 # on oos, and 1.8 was accidentally close to right all along. chi2 moves
@@ -276,12 +276,12 @@ USE_SHAPE_GRID = False
 # fit_fabric keeps its own 2.5 - that value is right for the plain FD1
 # estimator it uses on the 6 ref azimuths.
 SIG_CODA_SWEEP = 1.82
-# SIG_TAIL (dB): measured on fittest (record_factor 2.2, so only
+# SIG_TAIL (dB): measured on singlemax_seed7_ppw6_fittest_legacy (record_factor 2.2, so only
 # 54-57.2 us of the window exists there): rot/rot+180 pair differences
 # of the absolute tail dB give 1.9 dB rms per-azimuth incoherent
 # scatter (2.71/sqrt(2)); after the mod-180 fold ~1.4 dB remains.
 # 1.0 dB (jackknife 2026-07-29): the folded/smoothed tail residual is
-# 0.74 dB (fittest) / 0.21 dB (valcal); at the earlier 2.0 the channel
+# 0.74 dB (singlemax_seed7_ppw6_fittest_legacy) / 0.21 dB (valcal); at the earlier 2.0 the channel
 # was inert (tail ON identical to OFF on both sweeps).
 SIG_TAIL = 1.0
 
@@ -296,8 +296,8 @@ OBS_VER = (f"fd{FD_BANDS}{FD_COMBINE}-le25-t4"  # invalidates the cache
 # 2026-07-30) ────────────────────────────────────────────────────────
 # The coherent 2-theta component of the FULL-BAND envelope dB over
 # 30-44 us is fabric-locked: its phase reads the specimen fabric axis
-# with NO calibration (validated: rigid_seed11 phi2 27.2 vs axis 28.8;
-# oos_seed23 97.2 vs 104.3 - vs ToF-template stage-1 errors 10.4/24.8).
+# with NO calibration (validated: singlemax_seed11_ppw6_rigid2 phi2 27.2 vs axis 28.8;
+# singlemax_seed23_ppw6_heldout_axis 97.2 vs 104.3 - vs ToF-template stage-1 errors 10.4/24.8).
 # Estimator (from the study's azdecomp.py/followup.py - do not vary):
 # per-0.5-us-bin least squares of m0 + A2 cos2 + B2 sin2 + A4 cos4 +
 # B4 sin4 over azimuth, then a COHERENT complex average of the
@@ -316,7 +316,7 @@ C2T_CHANNEL = True
 # quote: +-2.5 deg (1 sigma over window choice).
 C2T_W = (30e-6, 36e-6)
 C2T_DTBIN = 0.5e-6
-# Minimum azimuths, measured on rigid_seed11 progressive-order
+# Minimum azimuths, measured on singlemax_seed11_ppw6_rigid2 progressive-order
 # prefixes (2026-07-31): n<=24 -> phi2 errors up to 16 deg with
 # bootstrap se 24-47 (no information beyond ToF); n=48-96 -> errors
 # 3-12 deg, se 9-37 (comparable to ToF, honest se); n>=128 -> errors
@@ -331,8 +331,8 @@ C2T_N_BOOT = 1000
 # the ToF Huber sum treats azimuthally-CORRELATED glint residuals as
 # independent 0.3-us noise, so its chi2 curvature implies ~1 deg axis
 # precision while its validated axis errors are 10-25 deg - the sum
-# overstates axis information by ~x200 (profiles on rigid_seed11 /
-# oos_seed23, 2026-07-31: chi2 rises 80-340 over the 8-15 deg the
+# overstates axis information by ~x200 (profiles on singlemax_seed11_ppw6_rigid2 /
+# singlemax_seed23_ppw6_heldout_axis, 2026-07-31: chi2 rises 80-340 over the 8-15 deg the
 # axis is actually wrong by). Dividing by a positive constant does
 # NOT change the pure-ToF argmin, so the channel-off path is exactly
 # the historical fit; with the channel on, the calibrated 2-theta
@@ -602,7 +602,8 @@ def cal_path(f0_mhz=2.0):
     not silently load the 2 MHz curve (bug caught 2026-07-30 before
     the first 5 MHz auto-refit). No file for a frequency = no
     correction (zeros) until one is built from that frequency's data."""
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)),
+    return os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))),
                         "ref", f"coda_shape_cal_{f0_mhz:g}mhz.npz")
 
 
@@ -894,7 +895,7 @@ NUIS_B2_MAX_DB = 2.5        # cap: measured artifact is 1-2 dB
 # ~58% of azimuth variance), not a fabric error. Model realization
 # spread on that amplitude is sd 0.80 dB, yet the two measurements
 # agree to 0.02 dB - it is specimen-independent, hence calibratable.
-# The lab-frame artifact does not explain it either (iso_gcal 2-theta
+# The lab-frame artifact does not explain it either (isotropic_seed41_ppw6_calibration 2-theta
 # floor is only 0.443 dB = 4.9% of the measured 2-theta power).
 # Because kappa is read from modulation DEPTH, an over-predicted model
 # amplitude forces kappa down: this single factor accounts for 71%
@@ -909,13 +910,13 @@ NUIS_B2_MAX_DB = 2.5        # cap: measured artifact is 1-2 dB
 # truth kappa (e.g. 2 or 8) - until then treat recovered kappa near
 # 3.9 as calibrated, not predicted.
 # ⚠ DISABLED 2026-07-31 - FAILS THE ISOTROPIC CONTROL. With eta on and
-# the FD bug fixed, iso_gcal (truth kappa 0.001) fits kappa 7.95 and
+# the FD bug fixed, isotropic_seed41_ppw6_calibration (truth kappa 0.001) fits kappa 7.95 and
 # a1 0.861: the coda channel attributes pure glint to fabric, and eta
 # (which scales the model modulation DOWN) makes that worse, not
 # better. The 0.657 was also derived against the pre-fix FD3
 # observable, whose 2-theta was 0.03 dB rather than the ~2 dB it was
 # calibrated from. GATE FOR RE-ENABLING: any kappa estimator must
-# first return LOW kappa on iso_gcal. Until that gate passes, kappa
+# first return LOW kappa on isotropic_seed41_ppw6_calibration. Until that gate passes, kappa
 # from the coda channel is not a measurement. Keep the machinery and
 # the finding; ship no correction.
 SHAPE_ETA = {}              # keyed by f0 in MHz; empty = no correction
@@ -977,7 +978,7 @@ def _coda_chi2(kappa, alpha_deg, data, geo, keep, name=None,
     The UN-FACTORISED grid shape is available behind USE_SHAPE_GRID
     but is OFF by default: candidate Watson draws carry their own
     realization glint (documented negative result), and the 2026-07-29
-    processing jackknife measured the cost directly on fittest -
+    processing jackknife measured the cost directly on singlemax_seed7_ppw6_fittest_legacy -
     grid model kappa 2.48 vs factorised 3.97 (truth 3.93). The twin
     calibration is added to the MODEL in dB space either way."""
     from scipy.optimize import minimize_scalar
@@ -1087,7 +1088,7 @@ def coherent_2theta(cfg):
     above for doctrine). Returns dict(phi2_deg, a2_db, se_deg, n_bins,
     n_az) or None when the channel must decline:
       - legacy (non-rigid2) sweeps: the estimator lives in the lab
-        frame, and on the legacy 'fittest' it reads 58.9 deg vs the
+        frame, and on the legacy 'singlemax_seed7_ppw6_fittest_legacy' it reads 58.9 deg vs the
         raw-fit a_probe 171.6 (67 deg apart, checked 2026-07-31) -
         the legacy axes-vs-grains mismatch corrupts the phase, so the
         channel is rigid2-only;

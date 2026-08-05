@@ -32,7 +32,7 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path[:0] = [os.path.join(sys.path[0], _d)
                 for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
@@ -87,7 +87,7 @@ def image(name, pixel_mm=1.0):
         # +rot - the same convention as acquisition.truth_along_diameter.
         # The old -a mirrored every arc image about the specimen x-axis.
         # Settled empirically, not by derivation: the pooled boundary-
-        # echo excess on rigid_seed11 reads 12.7 sigma with +a and only
+        # echo excess on singlemax_seed11_ppw6_rigid2 reads 12.7 sigma with +a and only
         # 1.3 sigma with -a (same trace set, same detector).
         th = np.radians(a)                     # specimen frame
         px_, py_ = R * np.cos(th), R * np.sin(th)

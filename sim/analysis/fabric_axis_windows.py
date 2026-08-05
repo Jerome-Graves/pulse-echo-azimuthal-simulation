@@ -31,7 +31,7 @@ cannot backscatter from a grain boundary at all, identifying its own
 tessellation at rank 2 of 48 there. A leave-one-out azimuthal median trace
 removal fixes it. That removal can also manufacture azimuthal structure,
 and in four windows it LIFTS a control rather than suppressing it, so
-every cell here carries zerocontrast_ppw8 and cs_f000_s11_ppw8 beside the
+every cell here carries girdle_seed11_ppw8_uniform_axis and girdle_seed11_ppw8_contrast_f000 beside the
 specimen, in every window, under every treatment. A result that improves
 in the early window while its zero-scattering control also improves is
 reading the removal.
@@ -79,7 +79,7 @@ READS, all read-only
   out/sweeps/<name>/az*.npz            trace and dt, nothing else
   out/tesscache/tess_s<seed>_p8_k-8.npz  labels and axes, for the E[R^2]
                                        predictor of T1 and T2
-  analysis/tofaxis_build_s<seed>_k-8_a1.000.npz  axes and grain volumes,
+  analysis/grain_axes_volumes_s<seed>_k-8_a1.000.npz  axes and grain volumes,
                                        for the sample axis of tab:axisrecovery
 WRITES stdout, and fabric_axis_windows.npz beside this file.
 
@@ -130,37 +130,37 @@ AZ_COMMON = tuple(range(0, 360, 12))
 # pair shares a bit-identical Laguerre tessellation because DiskSpecimen
 # draws the seed points and weights before it draws any c-axis.
 SEEDS = (11, 7, 17, 23, 41, 53, 71, 89)
-GIRDLE = {11: "girdle_perp_ppw8", 7: "mx_girdle_s7_ppw8",
-          17: "mx_girdle_s17_ppw8", 23: "mx_girdle_s23_ppw8",
-          41: "mx_girdle_s41_ppw8", 53: "mx_girdle_s53_ppw8",
-          71: "mx_girdle_s71_ppw8", 89: "mx_girdle_s89_ppw8"}
-SINGLE = {11: "singlemax_ppw8", 7: "mx_single_s7_ppw8",
-          17: "mx_single_s17_ppw8", 23: "mx_single_s23_ppw8",
-          41: "mx_single_s41_ppw8", 53: "mx_single_s53_ppw8",
-          71: "mx_single_s71_ppw8", 89: "mx_single_s89_ppw8"}
+GIRDLE = {11: "girdle_seed11_ppw8_dev", 7: "girdle_seed7_ppw8_ensemble",
+          17: "girdle_seed17_ppw8_ensemble", 23: "girdle_seed23_ppw8_ensemble",
+          41: "girdle_seed41_ppw8_ensemble", 53: "girdle_seed53_ppw8_ensemble",
+          71: "girdle_seed71_ppw8_ensemble", 89: "girdle_seed89_ppw8_ensemble"}
+SINGLE = {11: "singlemax_seed11_ppw8_twin", 7: "singlemax_seed7_ppw8_ensemble",
+          17: "singlemax_seed17_ppw8_ensemble", 23: "singlemax_seed23_ppw8_ensemble",
+          41: "singlemax_seed41_ppw8_ensemble", 53: "singlemax_seed53_ppw8_ensemble",
+          71: "singlemax_seed71_ppw8_ensemble", 89: "singlemax_seed89_ppw8_ensemble"}
 
 # Both zero-scattering controls, on the seed-11 geometry, so the
 # tessellation a fabric predictor could match is present and only the
 # acoustic contrast across the boundaries is gone.
-CONTROLS = (("zerocontrast_ppw8", "one c-axis in every grain"),
-            ("cs_f000_s11_ppw8", "contrast f = 0.00"))
-SPECIMEN = "girdle_perp_ppw8"
+CONTROLS = (("girdle_seed11_ppw8_uniform_axis", "one c-axis in every grain"),
+            ("girdle_seed11_ppw8_contrast_f000", "contrast f = 0.00"))
+SPECIMEN = "girdle_seed11_ppw8_dev"
 
 # The four sweeps of the Sec. 5.2 panel, in the manuscript's order.
-PANEL_SWEEPS = (("girdle_perp", 11, -8.0, "ppw 6"),
-                ("girdle_perp_ppw8", 11, -8.0, "ppw 8"),
-                ("gcheck_ppw8", 11, 3.93, "12-azimuth check"),
-                ("iso_gcal", 41, 0.001, "isotropic control"))
+PANEL_SWEEPS = (("girdle_seed11_ppw6_axis_perp", 11, -8.0, "ppw 6"),
+                ("girdle_seed11_ppw8_dev", 11, -8.0, "ppw 8"),
+                ("singlemax_seed11_ppw8_12az_check", 11, 3.93, "12-azimuth check"),
+                ("isotropic_seed41_ppw6_calibration", 41, 0.001, "isotropic control"))
 
 # Published values this module has to return before anything else it
 # prints can be believed. Sec. 5.2 and Sec. sec:window.
-REF_T1 = {"girdle_perp": (0.41, 10, 30), "girdle_perp_ppw8": (0.21, 11, 30)}
-REF_T2_FWER = {"girdle_perp": 0.100, "girdle_perp_ppw8": 0.3667,
-               "gcheck_ppw8": 0.6667, "iso_gcal": 0.3444}
-REF_T2_MAXR = {"girdle_perp": 0.737, "girdle_perp_ppw8": 0.374}
+REF_T1 = {"girdle_seed11_ppw6_axis_perp": (0.41, 10, 30), "girdle_seed11_ppw8_dev": (0.21, 11, 30)}
+REF_T2_FWER = {"girdle_seed11_ppw6_axis_perp": 0.100, "girdle_seed11_ppw8_dev": 0.3667,
+               "singlemax_seed11_ppw8_12az_check": 0.6667, "isotropic_seed41_ppw6_calibration": 0.3444}
+REF_T2_MAXR = {"girdle_seed11_ppw6_axis_perp": 0.737, "girdle_seed11_ppw8_dev": 0.374}
 REF_T3 = dict(delta=-2.86, t=-2.65, p=0.033)
-REF_LADDER = {"girdle_perp": -81.09, "girdle_perp_ppw8": -85.11,
-              "lic_girdle_s11_ppw10": -87.79}
+REF_LADDER = {"girdle_seed11_ppw6_axis_perp": -81.09, "girdle_seed11_ppw8_dev": -85.11,
+              "girdle_seed11_ppw10_licensing": -87.79}
 REF_TOF_AXIS = 5.9          # deg, mean |error| mod 45 over the twelve
 
 _CACHE = {}
@@ -260,7 +260,7 @@ def er2_curve(seed, kappa=-8.0, ppw=8, n=1441):
     key = ("er2", seed, kappa, ppw, n)
     if key in _CACHE:
         return _CACHE[key]
-    p = os.path.join(TESS, f"tess_s{seed}_p{ppw:g}_k{kappa:g}.npz")
+    p = os.path.join(TESS, f"labels_seed{seed}_ppw{ppw:g}_kappa{kappa:g}.npz")
     if not os.path.exists(p):
         raise SystemExit(f"not cached, would reach CUDA: {p}")
     with np.load(p) as z:
@@ -295,13 +295,13 @@ def predictor(seed, az_deg, kappa=-8.0, alpha=0.0, ppw=8):
                      grid, curve, period=180.0)
 
 
-# Sweeps whose specimen is not in out/tesscache. iso_gcal is seed 41 at
+# Sweeps whose specimen is not in out/tesscache. isotropic_seed41_ppw6_calibration is seed 41 at
 # kappa = 0.001 on the ppw 6 grid, which was never cached as a label
 # volume, so its predictor is read from the npz that
 # analysis/observable_panel.fabric_pred wrote when the panel was first
 # run. It is a stored copy of that build's E[R^2], not a new build:
 # rebuilding it would reach CUDA, which this module will not do.
-PRED_NPZ = {"iso_gcal": "faxwin_pred_iso_gcal.npz"}
+PRED_NPZ = {"isotropic_seed41_ppw6_calibration": "faxwin_fabric_pred_isotropic_seed41_ppw6_calibration.npz"}
 
 
 def predictor_for(name, seed, kappa, az_deg, ppw=8):
@@ -331,7 +331,7 @@ def sample_axis_deg(seed, kappa=-8.0, ax0=1.000):
     tab:axisrecovery scores against.
     """
     p = os.path.join(HERE,
-                     f"tofaxis_build_s{seed}_k{kappa:g}_a{ax0:.3f}.npz")
+                     f"grain_axes_volumes_s{seed}_k{kappa:g}_a{ax0:.3f}.npz")
     if not os.path.exists(p):
         raise SystemExit(f"not cached, would reach CUDA: {p}")
     with np.load(p) as z:
@@ -381,7 +381,7 @@ def level_native(name, win=PUBLISHED, az_keep=AZ_COMMON, ref="src_az"):
                    and the eight-pair test are quoted on.
     ref 'src_mean' the mean square of the band-passed ENVELOPE over the
                    window, referenced to the sweep-mean source peak.
-                   This is analysis/fabric_channel/mean_clean.py's
+                   This is analysis/fabric_channel/mean_level_clean_pair.py's
                    estimator, and is what the T1 regression is quoted on.
     """
     s = sweep(name, az_keep)
@@ -666,10 +666,10 @@ def report_validate():
     print("\n  T1  coda level against the E[R^2] predictor, circular-shift")
     print("      null. Estimator: mean square of the band-passed envelope")
     print("      in the gate over the sweep-mean source peak, which is")
-    print("      analysis/fabric_channel/mean_clean.py's.")
+    print("      analysis/fabric_channel/mean_level_clean_pair.py's.")
     print(f"  {'sweep':<20}{'r':>9}{'ref':>7}{'rank':>10}{'ref':>8}"
           f"{'p':>8}{'ref p':>8}")
-    for name, ppw in (("girdle_perp", 6), ("girdle_perp_ppw8", 8)):
+    for name, ppw in (("girdle_seed11_ppw6_axis_perp", 6), ("girdle_seed11_ppw8_dev", 8)):
         s = sweep(name)
         y = level_native(name, PUBLISHED, None, ref="src_mean")
         pr = predictor(11, s["az"], -8.0, 0.0, ppw)
@@ -690,7 +690,7 @@ def report_validate():
     print(f"  {'sweep':<20}{'n':>5}{'shifts':>7}{'max|r|':>9}{'ref':>7}"
           f"{'p_fw':>9}{'ref':>9}{'  argmax':<14}")
     for name, seed, kappa, tag in PANEL_SWEEPS:
-        ppw = 6 if name in ("girdle_perp", "iso_gcal") else 8
+        ppw = 6 if name in ("girdle_seed11_ppw6_axis_perp", "isotropic_seed41_ppw6_calibration") else 8
         az, X = panel_native(name, PUBLISHED, None)
         keys = sorted(X)
         pr = predictor_for(name, seed, kappa, az, ppw)
@@ -709,8 +709,8 @@ def report_validate():
     print("      the trace band-limited before gating, referenced to the")
     print("      source peak, averaged over the revolution as energies.")
     print(f"  {'ppw':<6}{'coda/source dB':>16}{'tab:reconcile':>15}")
-    for nm, ppw in (("girdle_perp", 6), ("girdle_perp_ppw8", 8),
-                    ("lic_girdle_s11_ppw10", 10)):
+    for nm, ppw in (("girdle_seed11_ppw6_axis_perp", 6), ("girdle_seed11_ppw8_dev", 8),
+                    ("girdle_seed11_ppw10_licensing", 10)):
         v = revolution_level(nm, PUBLISHED, AZ_COMMON)
         good = abs(v - REF_LADDER[nm]) < 0.02
         ok &= good

@@ -1,6 +1,6 @@
 """What the six sweeps of 2026-08-02 settle. Two questions, one module.
 
-FIRST, IS THE FABRIC SEPARATION REAL. mx_single_s{7,53,71,89}_ppw8
+FIRST, IS THE FABRIC SEPARATION REAL. singlemax_seed{7,53,71,89}_ppw8_ensemble
 complete the paired design: all eight girdle tessellations now carry a
 single-maximum twin on a bit-identical Laguerre tessellation, because
 DiskSpecimen draws the seed points and weights before it draws any
@@ -19,7 +19,7 @@ seeds 7 and 17 single maxima and 16.2 to 24.7 per cent for the other
 six. Two of eight, and both are named before the test is run.
 
 SECOND, IS THE CONVERGENCE BEHAVIOUR A PROPERTY OF THE REGIME OR OF
-SEED 11. lad_girdle_s23_ppw{6,10} put the resolution ladder on a second
+SEED 11. girdle_seed23_ppw{6,10}_ladder put the resolution ladder on a second
 tessellation, seed 23 having existed at ppw 8 already. The ladder is the
 evidence behind the resolution criterion, and until today it stood on
 one specimen, so nothing in the manuscript distinguished a statement
@@ -78,10 +78,10 @@ realisations would be worth knowing about, and this one does not.
 
 Reads, all under out/sweeps, on the 30 azimuths at 12 degree spacing
 that every sweep in the matrix carries:
-    girdle_perp_ppw8 mx_girdle_s{7,17,23,41,53,71,89}_ppw8
-    singlemax_ppw8   mx_single_s{7,17,23,41,53,71,89}_ppw8
-    girdle_perp mx_girdle_s23_ppw8 lic_girdle_s11_ppw10
-    lad_girdle_s23_ppw{6,10}
+    girdle_seed11_ppw8_dev girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble
+    singlemax_seed11_ppw8_twin   singlemax_seed{7,17,23,41,53,71,89}_ppw8_ensemble
+    girdle_seed11_ppw6_axis_perp girdle_seed23_ppw8_ensemble girdle_seed11_ppw10_licensing
+    girdle_seed23_ppw{6,10}_ladder
 Writes nothing. Touches no GPU: no forward model, no specimen build, no
 labeller, no CUDA import path.
 """
@@ -106,10 +106,10 @@ SINGLE = dict(zip(SEEDS, OM.SINGLE8))
 # The two resolution ladders. Every rung is the same specimen at three
 # grid spacings, re-voxelised; sec:reraster shows that re-voxelisation
 # moves the represented interfacial area by 0.01 dB across the ladder.
-LADDER = {11: {6: "girdle_perp", 8: "girdle_perp_ppw8",
-               10: "lic_girdle_s11_ppw10"},
-          23: {6: "lad_girdle_s23_ppw6", 8: "mx_girdle_s23_ppw8",
-               10: "lad_girdle_s23_ppw10"}}
+LADDER = {11: {6: "girdle_seed11_ppw6_axis_perp", 8: "girdle_seed11_ppw8_dev",
+               10: "girdle_seed11_ppw10_licensing"},
+          23: {6: "girdle_seed23_ppw6_ladder", 8: "girdle_seed23_ppw8_ensemble",
+               10: "girdle_seed23_ppw10_ladder"}}
 
 # Pre-specified before the four new sweeps were read: the manuscript's
 # own channel, and the two the five-pair result named.

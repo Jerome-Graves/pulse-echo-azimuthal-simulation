@@ -8,7 +8,7 @@ while destroying any link to the specimen.  Run the identical 44-candidate
 identification on each surrogate and count how often the TRUE candidate
 ranks 1st.  Expectation under a valid null: 1/44 = 2.27 %.
 """
-import numpy as np, _sk_lib as S
+import numpy as np, _skeptic_lib as S
 rng=np.random.default_rng(7)
 CANDS=[11,17,23,41]+list(range(100,140))
 tgrid=np.arange(12e-6,48e-6,S.TBIN)
@@ -21,7 +21,7 @@ def surrogate(M,rng):
     out=np.fft.irfft2(G,s=M.shape)
     return out
 
-for nm,own,sub in [("girdle_perp_ppw8",11,1),("singlemax_ppw8",11,1)]:
+for nm,own,sub in [("girdle_seed11_ppw8_dev",11,1),("singlemax_seed11_ppw8_twin",11,1)]:
     az,E,t1,dt=S.measured(nm,tgrid,sub)
     z=np.load(f"skP_{nm}_{sub}_1.npz"); P={int(k[1:]):z[k] for k in z.files if k.startswith('s')}
     for g in [(12,48),(24,36)]:

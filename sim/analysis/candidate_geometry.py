@@ -168,7 +168,7 @@ def replay_generators(seed):
     recovers the generators the production tessellation was built from.
     The result is cached because the bisection costs about twelve seconds.
     """
-    path = os.path.join(CACHE, "gen_s%d_p%g.npz" % (seed, PPW))
+    path = os.path.join(CACHE, "generators_seed%d_ppw%g.npz" % (seed, PPW))
     if os.path.exists(path):
         with np.load(path) as z:
             return np.asarray(z["pts"], float), np.asarray(z["w"], float)

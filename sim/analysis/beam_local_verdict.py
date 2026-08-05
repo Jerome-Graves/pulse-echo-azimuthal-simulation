@@ -95,17 +95,17 @@ NDRAW = 2000
 
 # The twelve tessellations with a cached label volume at ppw 8, as in
 # axis_window_adjudication.py.
-SPECS = ([("girdle_perp_ppw8", 11, "k-8")]
-         + [("mx_girdle_s%d_ppw8" % s, s, "k-8")
+SPECS = ([("girdle_seed11_ppw8_dev", 11, "k-8")]
+         + [("girdle_seed%d_ppw8_ensemble" % s, s, "k-8")
             for s in (7, 17, 23, 41, 53, 71, 89)]
-         + [("singlemax_ppw8", 11, "k3.93")]
-         + [("mx_single_s%d_ppw8" % s, s, "k3.93") for s in (17, 23, 41)])
+         + [("singlemax_seed11_ppw8_twin", 11, "k3.93")]
+         + [("singlemax_seed%d_ppw8_ensemble" % s, s, "k3.93") for s in (17, 23, 41)])
 
 # Neither can backscatter from a grain boundary, and both carry the
 # seed-11 geometry the predictor is built from.  cs_f000 holds 30
 # azimuths where the production sweeps hold 60, so any cell carrying
 # both controls runs on the 30 common azimuths and its floor is 1/30.
-CONTROLS = ("zerocontrast_ppw8", "cs_f000_s11_ppw8")
+CONTROLS = ("girdle_seed11_ppw8_uniform_axis", "girdle_seed11_ppw8_contrast_f000")
 
 
 # ───────────────────────────────── levels ────────────────────────────────
@@ -210,8 +210,8 @@ def rank_of(x, y):
 # ──────────────────────────────── the runs ───────────────────────────────
 def gate_reproduction():
     print("\n=== 1. GATE REPRODUCTION AND PERIODICITY, GRID 60 ===")
-    for sw, tc, tag in [("girdle_perp", "tess_s11_p6_k-8.npz", "ppw 6"),
-                        ("girdle_perp_ppw8", "tess_s11_p8_k-8.npz",
+    for sw, tc, tag in [("girdle_seed11_ppw6_axis_perp", "labels_seed11_ppw6_kappa-8.npz", "ppw 6"),
+                        ("girdle_seed11_ppw8_dev", "labels_seed11_ppw8_kappa-8.npz",
                          "ppw 8")]:
         rots, env, ab = levels(sw, WINS["24-36"])
         W, V, _ = column(tc, rots, WINS["24-36"])
@@ -225,9 +225,9 @@ def gate_reproduction():
                   f"{int(np.sum(np.abs(rs[:30]) >= abs(r0)))}/30")
         print(f"  {tag}      r(pred, pred+180) = "
               f"{np.corrcoef(x, np.roll(x, len(x) // 2))[0, 1]:+.4f}")
-    rots, _, _ = levels("girdle_perp_ppw8", WINS["24-36"])
+    rots, _, _ = levels("girdle_seed11_ppw8_dev", WINS["24-36"])
     for w, ww in WINS.items():
-        W, V, _ = column("tess_s11_p8_k-8.npz", rots, ww)
+        W, V, _ = column("labels_seed11_ppw8_kappa-8.npz", rots, ww)
         x = v_var(W, V)
         print(f"  ppw 8 {w:6s} r(pred, pred+180) = "
               f"{np.corrcoef(x, np.roll(x, len(x) // 2))[0, 1]:+.4f}")
@@ -239,7 +239,7 @@ def admissibility():
                              os.listdir(os.path.join(SWD, CONTROLS[1]))
                              if f.startswith("az") and f.endswith(".npz")))
     L, sel = {}, {}
-    for sw in ("girdle_perp_ppw8",) + CONTROLS:
+    for sw in ("girdle_seed11_ppw8_dev",) + CONTROLS:
         for w, ww in WINS.items():
             rots, env, ab = levels(sw, ww)
             L[(sw, w)] = (env, ab)
@@ -248,19 +248,19 @@ def admissibility():
     X = {}
     for grid, rr in [("60", np.arange(0, 360, 6)), ("30", rots30)]:
         for w, ww in WINS.items():
-            W, V, _ = column("tess_s11_p8_k-8.npz", rr, ww)
+            W, V, _ = column("labels_seed11_ppw8_kappa-8.npz", rr, ww)
             X[(grid, w)] = v_var(W, V)
 
     print("  ABSOLUTE in-band power, dB re 1, GRID 30 (no reference)")
     for w in WINS:
         v = [10 * np.log10(np.mean(10 ** (L[(sw, w)][1][sel[sw]] / 10)))
-             for sw in ("girdle_perp_ppw8",) + CONTROLS]
+             for sw in ("girdle_seed11_ppw8_dev",) + CONTROLS]
         print(f"    {w:7s} specimen {v[0]:8.2f}   zerocontrast {v[1]:8.2f}"
               f"   cs_f000 {v[2]:8.2f}   margins {v[0] - v[1]:5.2f} "
               f"{v[0] - v[2]:5.2f} dB")
 
-    for grid, sws in [("60", ("girdle_perp_ppw8", CONTROLS[0])),
-                      ("30", ("girdle_perp_ppw8",) + CONTROLS)]:
+    for grid, sws in [("60", ("girdle_seed11_ppw8_dev", CONTROLS[0])),
+                      ("30", ("girdle_seed11_ppw8_dev",) + CONTROLS)]:
         print(f"  |r| AT THE TRUE ALIGNMENT, GRID {grid} "
               f"({X[(grid, '4-16')].size} alignments, floor "
               f"1/{X[(grid, '4-16')].size})")
@@ -279,7 +279,7 @@ def admissibility():
     for w in WINS:
         o = []
         for j, nm in enumerate(["env", "tf"]):
-            a = L[("girdle_perp_ppw8", w)][j][sel["girdle_perp_ppw8"]]
+            a = L[("girdle_seed11_ppw8_dev", w)][j][sel["girdle_seed11_ppw8_dev"]]
             o += [f"{nm} vs {c.split('_')[0]} "
                   f"{np.corrcoef(a, L[(c, w)][j][sel[c]])[0, 1]:+.3f}"
                   for c in CONTROLS]
@@ -288,10 +288,10 @@ def admissibility():
 
 def blind_panel():
     print("\n=== 3. ORIENTATION-BLIND COLUMN DESCRIPTORS, GRID 60 ===")
-    rots, _, _ = levels("girdle_perp_ppw8", WINS["24-36"])
+    rots, _, _ = levels("girdle_seed11_ppw8_dev", WINS["24-36"])
     for w, ww in WINS.items():
-        _, env, ab = levels("girdle_perp_ppw8", ww)
-        W, V, G = column("tess_s11_p8_k-8.npz", rots, ww, blind=True)
+        _, env, ab = levels("girdle_seed11_ppw8_dev", ww)
+        W, V, G = column("labels_seed11_ppw8_kappa-8.npz", rots, ww, blind=True)
         G["v_var (c-axis)"] = v_var(W, V)
         print(f"  -- {w} us")
         for k, x in G.items():

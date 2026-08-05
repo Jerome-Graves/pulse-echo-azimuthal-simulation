@@ -123,20 +123,20 @@ PAD, DTG = 4e-6, 2e-8
 # Eight girdle/single pairs on identical tessellations at ppw 8: the
 # facet geometry and the discretisation are common and only the
 # crystallographic orientations differ.
-PAIRS = ([("girdle_perp_ppw8", "singlemax_ppw8", 11)] +
-         [("mx_girdle_s%d_ppw8" % s, "mx_single_s%d_ppw8" % s, s)
+PAIRS = ([("girdle_seed11_ppw8_dev", "singlemax_seed11_ppw8_twin", 11)] +
+         [("girdle_seed%d_ppw8_ensemble" % s, "singlemax_seed%d_ppw8_ensemble" % s, s)
           for s in (7, 17, 23, 41, 53, 71, 89)])
 
 # The twelve tessellations with a cached label volume at ppw 8.
-SPECS = ([("girdle_perp_ppw8", 11, "k-8")] +
-         [("mx_girdle_s%d_ppw8" % s, s, "k-8")
+SPECS = ([("girdle_seed11_ppw8_dev", 11, "k-8")] +
+         [("girdle_seed%d_ppw8_ensemble" % s, s, "k-8")
           for s in (7, 17, 23, 41, 53, 71, 89)] +
-         [("singlemax_ppw8", 11, "k3.93")] +
-         [("mx_single_s%d_ppw8" % s, s, "k3.93") for s in (17, 23, 41)])
+         [("singlemax_seed11_ppw8_twin", 11, "k3.93")] +
+         [("singlemax_seed%d_ppw8_ensemble" % s, s, "k3.93") for s in (17, 23, 41)])
 
 # Neither can backscatter from a grain boundary, and both carry the
 # seed-11 geometry the predictor is built from.
-CONTROLS = ("zerocontrast_ppw8", "cs_f000_s11_ppw8")
+CONTROLS = ("girdle_seed11_ppw8_uniform_axis", "girdle_seed11_ppw8_contrast_f000")
 
 _SW = {}
 
@@ -175,7 +175,7 @@ def lvl_local_band(tr, dt, win):
 
 
 def lvl_env_band(tr, dt, win):
-    """mean_clean's estimator: <|H(band-passed)|^2> over the window."""
+    """mean_level_clean_pair's estimator: <|H(band-passed)|^2> over the window."""
     fs = 1.0 / dt
     i0, i1 = int(win[0] * fs), int(win[1] * fs)
     return (np.abs(hilbert(bandpass(tr, fs)))[i0:i1] ** 2).mean()
@@ -348,17 +348,17 @@ def report_harness():
     print("=" * 74)
     ok = True
     print("\n   tab:reconcile coda column, 30 matched azimuths, audited level")
-    for tag, nm, ref in (("ppw6", "girdle_perp", -81.09),
-                         ("ppw8", "girdle_perp_ppw8", -85.11),
-                         ("ppw10", "lic_girdle_s11_ppw10", -87.79)):
+    for tag, nm, ref in (("ppw6", "girdle_seed11_ppw6_axis_perp", -81.09),
+                         ("ppw8", "girdle_seed11_ppw8_dev", -85.11),
+                         ("ppw10", "girdle_seed11_ppw10_licensing", -87.79)):
         sw = load_sweep(nm)
         v = revlevel([lvl_local_band(*sw[a], GATE) for a in sorted(sw)])
         ok &= abs(v - ref) < 0.02
         print("      %-6s %8.2f dB   published %8.2f" % (tag, v, ref))
 
     print("\n   T1, coda level against E[R^2], published gate, native grid")
-    for tag, nm, rr in (("ppw6", "girdle_perp", 0.41),
-                        ("ppw8", "girdle_perp_ppw8", 0.21)):
+    for tag, nm, rr in (("ppw6", "girdle_seed11_ppw6_axis_perp", 0.41),
+                        ("ppw8", "girdle_seed11_ppw8_dev", 0.21)):
         sw = load_sweep(nm, None)
         az = np.array(sorted(sw))
         y = np.array([10 * np.log10(lvl_env_band(*sw[a], GATE)) for a in az])
@@ -437,7 +437,7 @@ def report_floor(store):
         for tr in ("none", "loo"):
             f = level_none if tr == "none" else level_loo
             v = [revlevel(f(load_sweep(n), win)[1]) for n in
-                 ("girdle_perp_ppw8",) + CONTROLS]
+                 ("girdle_seed11_ppw8_dev",) + CONTROLS]
             store["floor_%s_%s" % (wn, tr)] = np.array(v)
             print("   %-6s %-6s %9.2f %9.2f %8.2f %9.2f %8.2f"
                   % (wn, tr, v[0], v[1], v[0] - v[1], v[2], v[0] - v[2]))
@@ -455,7 +455,7 @@ def report_axis(store):
     print("   %-20s %-6s %-6s %8s %8s %8s %8s %-13s"
           % ("sweep", "win", "treat", "T1 r", "rank", "max|r|", "p_fw",
              "argmax"))
-    for nm in ("girdle_perp_ppw8",) + CONTROLS:
+    for nm in ("girdle_seed11_ppw8_dev",) + CONTROLS:
         sw = load_sweep(nm)
         for wn, win in WINDOWS.items():
             tg = tgrid(win)
@@ -534,7 +534,7 @@ def report_removal(store, ndraw):
     print("=" * 74)
     tg = tgrid(WINDOWS["4-16"])
     m = (tg >= 4e-6) & (tg < 16e-6)
-    _, R = rf_on_grid(load_sweep("girdle_perp_ppw8"), tg)
+    _, R = rf_on_grid(load_sweep("girdle_seed11_ppw8_dev"), tg)
     n = len(R)
     worst = 0.0
     for k in range(n):
@@ -596,7 +596,7 @@ def report_scales(store):
     print("6. THE LENGTH SCALES, fig_scales convention.")
     print("=" * 74)
     lam = C_REF / F0
-    with np.load(os.path.join(TESS, "tess_s11_p8_k-8.npz")) as z:
+    with np.load(os.path.join(TESS, "labels_seed11_ppw8_kappa-8.npz")) as z:
         lab = z["labels"]
         ng = int(np.unique(lab[lab >= 0]).size)
     dg = (6.0 * np.pi * (DIA / 2) ** 2 * THICK / (np.pi * ng)) ** (1 / 3)

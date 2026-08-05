@@ -67,13 +67,13 @@ def report(name, step_deg):
     return lv, A, tau_int
 
 
-for nm, st in (("iso_gcal", 1.0), ("rigid_seed11", 1.0), ("oos_seed23", 1.0),
-               ("girdle_perp", 6.0), ("girdle_par", 6.0)):
+for nm, st in (("isotropic_seed41_ppw6_calibration", 1.0), ("singlemax_seed11_ppw6_rigid2", 1.0), ("singlemax_seed23_ppw6_heldout_axis", 1.0),
+               ("girdle_seed11_ppw6_axis_perp", 6.0), ("girdle_seed11_ppw6_axis_par", 6.0)):
     report(nm, st)
 
 # ---- spectral shape of the isotropic control: white or coloured? ----
 print("\n\n=== isotropic control: is the speckle white in azimuth? ===")
-lv = Z["iso_gcal_lv"]
+lv = Z["isotropic_seed41_ppw6_calibration_lv"]
 A = harmonics(lv, kmax=179)
 P = A[1:] ** 2
 k = np.arange(1, len(A))
@@ -86,7 +86,7 @@ print(f"  total variance from harmonics = {0.5*P.sum():.2f} dB^2, "
 
 # ---- 180 degree symmetry check (same chord, opposite end) ----
 print("\n=== 180 deg reciprocity check (same diameter, other end) ===")
-for nm in ("iso_gcal", "rigid_seed11", "oos_seed23"):
+for nm in ("isotropic_seed41_ppw6_calibration", "singlemax_seed11_ppw6_rigid2", "singlemax_seed23_ppw6_heldout_axis"):
     x = Z[nm + "_lv"]
     a, b = x[:180], x[180:]
     r = np.corrcoef(a, b)[0, 1]

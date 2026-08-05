@@ -1,7 +1,7 @@
 """Does 5 MHz make the coda stronger?
 
-fittest  = 2 MHz, ppw 6, seed 7, kappa +3.93, axis [1,0,0], 360 az
-prod5mhz = 5 MHz, ppw 6, seed 7, kappa +3.93, axis [1,0,0],  40 az
+singlemax_seed7_ppw6_fittest_legacy  = 2 MHz, ppw 6, seed 7, kappa +3.93, axis [1,0,0], 360 az
+singlemax_seed7_ppw6_5mhz_production = 5 MHz, ppw 6, seed 7, kappa +3.93, axis [1,0,0],  40 az
 Same specimen, same fabric, same ppw, same solver.  Only f0 differs.
 
 Because ppw is matched, the staircase artefact bears the SAME ratio to the
@@ -54,10 +54,10 @@ def levels(d, rots=None):
     return out
 
 
-A = levels(os.path.join(OUT, "fittest"))
-B = levels(os.path.join(OUT, "prod5mhz"))
+A = levels(os.path.join(OUT, "singlemax_seed7_ppw6_fittest_legacy"))
+B = levels(os.path.join(OUT, "singlemax_seed7_ppw6_5mhz_production"))
 common = sorted(set(A) & set(B))
-print(f"fittest(2MHz) {len(A)} az, prod5mhz(5MHz) {len(B)} az, "
+print(f"singlemax_seed7_ppw6_fittest_legacy(2MHz) {len(A)} az, singlemax_seed7_ppw6_5mhz_production(5MHz) {len(B)} az, "
       f"{len(common)} common azimuths\n")
 
 
@@ -94,6 +94,6 @@ print("\nper-azimuth scatter (rms about the mean, the speckle level):")
 for tag in ("2 MHz", "5 MHz"):
     print(f"  {tag:<8} coda/E1 {rows[tag][0].std(ddof=1):5.2f} dB   "
           f"coda/bang {rows[tag][1].std(ddof=1):5.2f} dB")
-np.savez(os.path.join(os.path.dirname(__file__), "freq_scaling.npz"),
+np.savez(os.path.join(os.path.dirname(__file__), "frequency_scaling.npz"),
          common=common, **{f"{k.replace(' ','')}": np.array(v)
                            for k, v in rows.items()})

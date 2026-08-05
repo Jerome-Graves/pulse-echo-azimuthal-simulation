@@ -36,7 +36,7 @@ env/
 #  63 kB each and are the only raw evidence behind Appendix A's
 #  -19.5 -> -46.2 dB sequence and the 2.9 dB agreement. Without them the
 #  appendix cannot be checked without rebuilding a 284 MB mesh.
-!/sim/fe_crosscheck/fe_p2plus_ab*_traces.npz
+!/sim/fe_crosscheck/fe_arbiter_round1_baseline*_traces.npz
 !/sim/fe_crosscheck/fe_p2_test.npz
 
 #  The near-field cache written beside coda_noise_floor.py: 56 arrays,

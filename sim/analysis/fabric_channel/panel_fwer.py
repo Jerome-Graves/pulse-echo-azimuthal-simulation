@@ -24,9 +24,9 @@ def neff(y):
     zc=np.argmax(ac<0) if np.any(ac[:n//2]<0) else n//2
     return n/max(1+2*ac[1:zc].sum(),1.0)
 
-print("RE-EXAMINATION OF THE PREVIOUSLY REPORTED ppw6 RESULT (coda level, girdle_perp)")
+print("RE-EXAMINATION OF THE PREVIOUSLY REPORTED ppw6 RESULT (coda level, girdle_seed11_ppw6_axis_perp)")
 P.CODA=(24e-6,36e-6)
-cfg,rot,X,bw,dt = load_sweep("girdle_perp")
+cfg,rot,X,bw,dt = load_sweep("girdle_seed11_ppw6_axis_perp")
 pred,_=fabric_pred(cfg,rot)
 for k in ("lvl_rms","lvl_early","f_centroid","decay"):
     r,p,nd = cyc_one_sided(X[k],pred)
@@ -40,7 +40,7 @@ for k in ("lvl_rms","lvl_early","f_centroid","decay"):
 print("\nSAME TEST ON THE ppw8 SWEEP (the COMPLETE 60-azimuth full circle, az 0-354),")
 print("pre-registered 24-36 us window.  A cyclic shift is a rigid rotation of the")
 print("specimen only on a uniformly sampled full circle, so no half-circle subset.")
-cfg8,rot8,X8,_,_ = load_sweep("girdle_perp_ppw8")
+cfg8,rot8,X8,_,_ = load_sweep("girdle_seed11_ppw8_dev")
 nd0 = n_distinct_shifts(rot8)
 pred8,_=fabric_pred(cfg8,rot8)
 keys=sorted(k for k in X8 if not k.startswith("_"))

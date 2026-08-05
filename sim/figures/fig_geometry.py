@@ -10,8 +10,8 @@ from the run configuration on disk or in closed form. Nothing is copied
 out of the manuscript.
 
 Reads (paths resolved relative to this file):
-  ../../out/sweeps/girdle_perp_ppw8/config.json   run configuration
-  ../../out/sweeps/girdle_perp_ppw8/az000.npz     one recorded trace
+  ../../out/sweeps/girdle_seed11_ppw8_dev/config.json   run configuration
+  ../../out/sweeps/girdle_seed11_ppw8_dev/az000.npz     one recorded trace
 
 Writes ../../../pulse-echo-cof-paper/figures/geometry.pdf and prints the
 lengths that appear in the figure and in the surrounding text.
@@ -30,7 +30,7 @@ from scipy.signal import butter, hilbert, sosfiltfilt
 import figstyle as fs
 
 REPO = Path(__file__).resolve().parents[2]
-SWEEP = REPO / "out" / "sweeps" / "girdle_perp_ppw8"
+SWEEP = REPO / "out" / "sweeps" / "girdle_seed11_ppw8_dev"
 
 # Restated rather than imported: sim/analysis/_t2_common.py, which owns
 # these three constants, pulls in the openUSCT forward model on import

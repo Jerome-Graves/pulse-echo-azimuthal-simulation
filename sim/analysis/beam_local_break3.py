@@ -26,7 +26,7 @@ from beam_local_break import (AZ30, GEOM, SPECS, WINDOWS, column,      # noqa
 
 def main(nperm=2000):
     rng = np.random.default_rng(31415)
-    tk8 = "tess_s11_p8_k-8.npz"
+    tk8 = "labels_seed11_ppw8_kappa-8.npz"
     _, ax8, _, _ = tess_path(tk8)
 
     print("=" * 72)
@@ -40,7 +40,7 @@ def main(nperm=2000):
           ("window", "lvl", "r", "rank", "partial", "rank"))
     for wn, wv in WINDOWS.items():
         for kind in ("env", "tf"):
-            rots, lev = levels("girdle_perp_ppw8", wv, kind)
+            rots, lev = levels("girdle_seed11_ppw8_dev", wv, kind)
             W, G, CR = column(tk8, rots, wv)
             vv = v_var(W, vmat(ax8, rots))
             rs = shift(vv, lev)

@@ -53,7 +53,7 @@ specimen at random. A directional companion, the mean of the eight
 per-specimen r against the same joint null, tests the sign the
 manuscript claims rather than any departure.
 
-CONTROLS. zerocontrast_ppw8 and cs_f000_s11_ppw8 are the seed 11
+CONTROLS. girdle_seed11_ppw8_uniform_axis and girdle_seed11_ppw8_contrast_f000 are the seed 11
 geometry with the acoustic contrast switched off. They carry an
 IDENTICAL per-azimuth crossing count to girdle_s11, because the count is
 a property of the label volume alone, and a coda that is numerical

@@ -4,11 +4,11 @@ import numpy as np
 import _t2_common as C
 import shift_null_2d as S
 
-CASES = [("girdle_perp_ppw8", "gp8", "correct"),
-         ("singlemax_ppw8", "sm8", "correct"),
-         ("girdle_perp_ppw8", "wrongseed8", "WRONG tessellation"),
-         ("singlemax_ppw8", "wrongseed8", "WRONG tessellation"),
-         ("iso_gcal", "iso6", "ISOTROPIC CONTROL")]
+CASES = [("girdle_seed11_ppw8_dev", "gp8", "correct"),
+         ("singlemax_seed11_ppw8_twin", "sm8", "correct"),
+         ("girdle_seed11_ppw8_dev", "wrongseed8", "WRONG tessellation"),
+         ("singlemax_seed11_ppw8_twin", "wrongseed8", "WRONG tessellation"),
+         ("isotropic_seed41_ppw6_calibration", "iso6", "ISOTROPIC CONTROL")]
 
 D = {}
 for sw, tg, lbl in CASES:

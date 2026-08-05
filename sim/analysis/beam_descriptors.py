@@ -24,7 +24,7 @@ These descriptors are computed inside the beam column only:
   cos_c       mean |cos| between beam and the c-axes it passes through
 
 Scored with a CIRCULAR-SHIFT null (preserves azimuthal autocorrelation)
-and Holm-corrected across the panel.  iso_gcal is the negative control:
+and Holm-corrected across the panel.  isotropic_seed41_ppw6_calibration is the negative control:
 nothing may survive there.
 """
 import os
@@ -46,10 +46,10 @@ CODA_W, BAND = (24e-6, 36e-6), (0.8e6, 3.0e6)
 ELEM, DIA = 6.35e-3, 0.100
 KEYS = ["n_grain", "n_cross", "born", "v_var", "v_mean", "cos_c"]
 
-SW = [("girdle_perp_ppw8", 8.0, -8.0, (1.0, 0.0, 0.0), 11, False),
-      ("girdle_perp", 6.0, -8.0, (1.0, 0.0, 0.0), 11, False),
-      ("rigid_seed11", 6.0, 3.93, (0.866, 0.5, 0.0), 11, False),
-      ("iso_gcal", 6.0, 0.001, (1.0, 0.0, 0.0), 41, True)]
+SW = [("girdle_seed11_ppw8_dev", 8.0, -8.0, (1.0, 0.0, 0.0), 11, False),
+      ("girdle_seed11_ppw6_axis_perp", 6.0, -8.0, (1.0, 0.0, 0.0), 11, False),
+      ("singlemax_seed11_ppw6_rigid2", 6.0, 3.93, (0.866, 0.5, 0.0), 11, False),
+      ("isotropic_seed41_ppw6_calibration", 6.0, 0.001, (1.0, 0.0, 0.0), 41, True)]
 
 
 def measure(d):

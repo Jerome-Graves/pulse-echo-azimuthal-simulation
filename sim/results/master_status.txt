@@ -9,140 +9,140 @@
 04:32:20      bicrystal ppw 12.0 : mean |error|  1.80 dB
 04:35:49      bicrystal ppw 14.0 : mean |error|  1.52 dB
 04:35:49      fitted convergence order: h^1.15  (first order = 1.00)
-04:35:49  [1/17] lic_girdle_s11_ppw10  (ppw 10, seed 11, normal)
-04:36:02    lic_girdle_s11_ppw10: 30/30 azimuths to run, h=0.193 mm
-04:56:48      lic_girdle_s11_ppw10 az  48 (5/30) 249 s  ~104 min left
-05:17:34      lic_girdle_s11_ppw10 az 108 (10/30) 249 s  ~83 min left
-05:38:20      lic_girdle_s11_ppw10 az 168 (15/30) 249 s  ~62 min left
-05:59:04      lic_girdle_s11_ppw10 az 228 (20/30) 249 s  ~42 min left
-06:19:50      lic_girdle_s11_ppw10 az 288 (25/30) 249 s  ~21 min left
-06:40:36      lic_girdle_s11_ppw10 az 348 (30/30) 249 s  ~0 min left
-06:40:36  [2/17] mx_girdle_s23_ppw8  (ppw 8, seed 23, normal)
-06:40:48    mx_girdle_s23_ppw8: 30/30 azimuths to run, h=0.241 mm
-06:49:55      mx_girdle_s23_ppw8 az  48 (5/30) 109 s  ~46 min left
-06:59:03      mx_girdle_s23_ppw8 az 108 (10/30) 110 s  ~36 min left
-07:08:10      mx_girdle_s23_ppw8 az 168 (15/30) 110 s  ~27 min left
-07:17:17      mx_girdle_s23_ppw8 az 228 (20/30) 109 s  ~18 min left
-07:26:25      mx_girdle_s23_ppw8 az 288 (25/30) 110 s  ~9 min left
-07:35:32      mx_girdle_s23_ppw8 az 348 (30/30) 109 s  ~0 min left
-07:35:32  [3/17] mx_girdle_s41_ppw8  (ppw 8, seed 41, normal)
-07:35:48    mx_girdle_s41_ppw8: 30/30 azimuths to run, h=0.241 mm
-07:44:56      mx_girdle_s41_ppw8 az  48 (5/30) 109 s  ~46 min left
-07:54:03      mx_girdle_s41_ppw8 az 108 (10/30) 109 s  ~36 min left
-08:03:10      mx_girdle_s41_ppw8 az 168 (15/30) 110 s  ~27 min left
-08:12:18      mx_girdle_s41_ppw8 az 228 (20/30) 110 s  ~18 min left
-08:21:27      mx_girdle_s41_ppw8 az 288 (25/30) 110 s  ~9 min left
-08:30:36      mx_girdle_s41_ppw8 az 348 (30/30) 110 s  ~0 min left
-08:30:36  [4/17] mx_girdle_s17_ppw8  (ppw 8, seed 17, normal)
-08:30:48    mx_girdle_s17_ppw8: 30/30 azimuths to run, h=0.241 mm
-08:39:57      mx_girdle_s17_ppw8 az  48 (5/30) 109 s  ~46 min left
-08:49:07      mx_girdle_s17_ppw8 az 108 (10/30) 110 s  ~37 min left
-08:58:16      mx_girdle_s17_ppw8 az 168 (15/30) 110 s  ~27 min left
-09:07:26      mx_girdle_s17_ppw8 az 228 (20/30) 110 s  ~18 min left
-09:16:37      mx_girdle_s17_ppw8 az 288 (25/30) 110 s  ~9 min left
-09:25:49      mx_girdle_s17_ppw8 az 348 (30/30) 111 s  ~0 min left
-09:25:49  [5/17] mx_girdle_s7_ppw8  (ppw 8, seed 7, normal)
-09:26:08    mx_girdle_s7_ppw8: 30/30 azimuths to run, h=0.241 mm
-09:35:28      mx_girdle_s7_ppw8 az  48 (5/30) 112 s  ~47 min left
-09:44:44      mx_girdle_s7_ppw8 az 108 (10/30) 111 s  ~37 min left
-09:54:00      mx_girdle_s7_ppw8 az 168 (15/30) 110 s  ~28 min left
-10:03:12      mx_girdle_s7_ppw8 az 228 (20/30) 110 s  ~19 min left
-10:12:23      mx_girdle_s7_ppw8 az 288 (25/30) 110 s  ~9 min left
-10:21:34      mx_girdle_s7_ppw8 az 348 (30/30) 110 s  ~0 min left
-10:21:34  [6/17] mx_girdle_s53_ppw8  (ppw 8, seed 53, normal)
-10:21:46    mx_girdle_s53_ppw8: 30/30 azimuths to run, h=0.241 mm
-10:30:56      mx_girdle_s53_ppw8 az  48 (5/30) 110 s  ~46 min left
-10:40:07      mx_girdle_s53_ppw8 az 108 (10/30) 111 s  ~37 min left
-10:49:17      mx_girdle_s53_ppw8 az 168 (15/30) 110 s  ~28 min left
-10:58:27      mx_girdle_s53_ppw8 az 228 (20/30) 110 s  ~18 min left
-11:07:39      mx_girdle_s53_ppw8 az 288 (25/30) 111 s  ~9 min left
-11:16:52      mx_girdle_s53_ppw8 az 348 (30/30) 111 s  ~0 min left
-11:16:52  [7/17] mx_girdle_s71_ppw8  (ppw 8, seed 71, normal)
-11:17:05    mx_girdle_s71_ppw8: 30/30 azimuths to run, h=0.241 mm
-11:26:17      mx_girdle_s71_ppw8 az  48 (5/30) 110 s  ~46 min left
-11:35:28      mx_girdle_s71_ppw8 az 108 (10/30) 110 s  ~37 min left
-11:44:41      mx_girdle_s71_ppw8 az 168 (15/30) 111 s  ~28 min left
-11:53:53      mx_girdle_s71_ppw8 az 228 (20/30) 110 s  ~18 min left
-12:03:04      mx_girdle_s71_ppw8 az 288 (25/30) 110 s  ~9 min left
-12:12:15      mx_girdle_s71_ppw8 az 348 (30/30) 110 s  ~0 min left
-12:12:15  [8/17] mx_girdle_s89_ppw8  (ppw 8, seed 89, normal)
-12:12:32    mx_girdle_s89_ppw8: 30/30 azimuths to run, h=0.241 mm
-12:21:43      mx_girdle_s89_ppw8 az  48 (5/30) 110 s  ~46 min left
-12:30:56      mx_girdle_s89_ppw8 az 108 (10/30) 110 s  ~37 min left
-12:40:08      mx_girdle_s89_ppw8 az 168 (15/30) 111 s  ~28 min left
-12:49:20      mx_girdle_s89_ppw8 az 228 (20/30) 110 s  ~18 min left
-12:58:17      mx_girdle_s89_ppw8 az 288 (25/30) 108 s  ~9 min left
-13:07:19      mx_girdle_s89_ppw8 az 348 (30/30) 110 s  ~0 min left
-13:07:19  [9/17] mx_single_s23_ppw8  (ppw 8, seed 23, normal)
-13:07:31    mx_single_s23_ppw8: 30/30 azimuths to run, h=0.241 mm
-13:16:34      mx_single_s23_ppw8 az  48 (5/30) 107 s  ~45 min left
-13:25:29      mx_single_s23_ppw8 az 108 (10/30) 107 s  ~36 min left
-13:34:24      mx_single_s23_ppw8 az 168 (15/30) 107 s  ~27 min left
-13:43:19      mx_single_s23_ppw8 az 228 (20/30) 107 s  ~18 min left
-13:52:14      mx_single_s23_ppw8 az 288 (25/30) 107 s  ~9 min left
-14:01:10      mx_single_s23_ppw8 az 348 (30/30) 107 s  ~0 min left
-14:01:10  [10/17] mx_single_s41_ppw8  (ppw 8, seed 41, normal)
-14:01:26    mx_single_s41_ppw8: 30/30 azimuths to run, h=0.241 mm
-14:10:20      mx_single_s41_ppw8 az  48 (5/30) 107 s  ~45 min left
-14:19:14      mx_single_s41_ppw8 az 108 (10/30) 107 s  ~36 min left
-14:28:09      mx_single_s41_ppw8 az 168 (15/30) 107 s  ~27 min left
-14:37:03      mx_single_s41_ppw8 az 228 (20/30) 107 s  ~18 min left
-14:45:57      mx_single_s41_ppw8 az 288 (25/30) 107 s  ~9 min left
-14:54:52      mx_single_s41_ppw8 az 348 (30/30) 107 s  ~0 min left
-14:54:52  [11/17] mx_single_s17_ppw8  (ppw 8, seed 17, normal)
-14:55:04    mx_single_s17_ppw8: 30/30 azimuths to run, h=0.241 mm
-15:03:58      mx_single_s17_ppw8 az  48 (5/30) 107 s  ~45 min left
-15:12:53      mx_single_s17_ppw8 az 108 (10/30) 107 s  ~36 min left
-15:21:48      mx_single_s17_ppw8 az 168 (15/30) 107 s  ~27 min left
-15:30:42      mx_single_s17_ppw8 az 228 (20/30) 107 s  ~18 min left
-15:39:37      mx_single_s17_ppw8 az 288 (25/30) 107 s  ~9 min left
-15:48:31      mx_single_s17_ppw8 az 348 (30/30) 107 s  ~0 min left
-15:48:31  [12/17] cs_f000_s11_ppw8  (ppw 8, seed 11, contrast)
-15:48:43    cs_f000_s11_ppw8: 30/30 azimuths to run, h=0.241 mm
-15:57:15      cs_f000_s11_ppw8 az  48 (5/30) 102 s  ~43 min left
-16:05:47      cs_f000_s11_ppw8 az 108 (10/30) 102 s  ~34 min left
-16:14:18      cs_f000_s11_ppw8 az 168 (15/30) 102 s  ~26 min left
-16:22:49      cs_f000_s11_ppw8 az 228 (20/30) 102 s  ~17 min left
-16:31:21      cs_f000_s11_ppw8 az 288 (25/30) 102 s  ~9 min left
-16:39:53      cs_f000_s11_ppw8 az 348 (30/30) 103 s  ~0 min left
-16:39:53  [13/17] cs_f025_s11_ppw8  (ppw 8, seed 11, contrast)
-16:40:04    cs_f025_s11_ppw8: 30/30 azimuths to run, h=0.241 mm
-16:48:41      cs_f025_s11_ppw8 az  48 (5/30) 103 s  ~43 min left
-16:57:18      cs_f025_s11_ppw8 az 108 (10/30) 103 s  ~34 min left
-17:05:55      cs_f025_s11_ppw8 az 168 (15/30) 103 s  ~26 min left
-17:14:32      cs_f025_s11_ppw8 az 228 (20/30) 103 s  ~17 min left
-17:23:09      cs_f025_s11_ppw8 az 288 (25/30) 103 s  ~9 min left
-17:31:46      cs_f025_s11_ppw8 az 348 (30/30) 103 s  ~0 min left
-17:31:46  [14/17] cs_f050_s11_ppw8  (ppw 8, seed 11, contrast)
-17:31:57    cs_f050_s11_ppw8: 30/30 azimuths to run, h=0.241 mm
-17:40:40      cs_f050_s11_ppw8 az  48 (5/30) 104 s  ~44 min left
-17:49:22      cs_f050_s11_ppw8 az 108 (10/30) 104 s  ~35 min left
-17:58:04      cs_f050_s11_ppw8 az 168 (15/30) 104 s  ~26 min left
-18:06:46      cs_f050_s11_ppw8 az 228 (20/30) 105 s  ~17 min left
-18:15:29      cs_f050_s11_ppw8 az 288 (25/30) 104 s  ~9 min left
-18:24:12      cs_f050_s11_ppw8 az 348 (30/30) 104 s  ~0 min left
-18:24:12  [15/17] cs_f075_s11_ppw8  (ppw 8, seed 11, contrast)
-18:24:24    cs_f075_s11_ppw8: 30/30 azimuths to run, h=0.241 mm
-18:33:22      cs_f075_s11_ppw8 az  48 (5/30) 107 s  ~45 min left
-18:42:25      cs_f075_s11_ppw8 az 108 (10/30) 109 s  ~36 min left
-18:51:28      cs_f075_s11_ppw8 az 168 (15/30) 109 s  ~27 min left
-19:00:31      cs_f075_s11_ppw8 az 228 (20/30) 108 s  ~18 min left
-19:09:34      cs_f075_s11_ppw8 az 288 (25/30) 108 s  ~9 min left
-19:18:37      cs_f075_s11_ppw8 az 348 (30/30) 109 s  ~0 min left
-19:18:37  [16/17] zc_s11_ppw6  (ppw 6, seed 11, zero)
-19:18:48    zc_s11_ppw6: 30/30 azimuths to run, h=0.321 mm
-19:21:52      zc_s11_ppw6 az  48 (5/30) 37 s  ~15 min left
-19:24:57      zc_s11_ppw6 az 108 (10/30) 36 s  ~12 min left
-19:28:03      zc_s11_ppw6 az 168 (15/30) 37 s  ~9 min left
-19:31:06      zc_s11_ppw6 az 228 (20/30) 37 s  ~6 min left
-19:34:11      zc_s11_ppw6 az 288 (25/30) 36 s  ~3 min left
-19:37:17      zc_s11_ppw6 az 348 (30/30) 37 s  ~0 min left
-19:37:17  [17/17] zc_s11_ppw10  (ppw 10, seed 11, zero)
-19:37:30    zc_s11_ppw10: 30/30 azimuths to run, h=0.193 mm
-19:57:16      zc_s11_ppw10 az  48 (5/30) 240 s  ~99 min left
-20:17:12      zc_s11_ppw10 az 108 (10/30) 235 s  ~79 min left
-20:37:12      zc_s11_ppw10 az 168 (15/30) 241 s  ~60 min left
-20:57:00      zc_s11_ppw10 az 228 (20/30) 240 s  ~40 min left
-21:16:55      zc_s11_ppw10 az 288 (25/30) 235 s  ~20 min left
-21:36:54      zc_s11_ppw10 az 348 (30/30) 241 s  ~0 min left
+04:35:49  [1/17] girdle_seed11_ppw10_licensing  (ppw 10, seed 11, normal)
+04:36:02    girdle_seed11_ppw10_licensing: 30/30 azimuths to run, h=0.193 mm
+04:56:48      girdle_seed11_ppw10_licensing az  48 (5/30) 249 s  ~104 min left
+05:17:34      girdle_seed11_ppw10_licensing az 108 (10/30) 249 s  ~83 min left
+05:38:20      girdle_seed11_ppw10_licensing az 168 (15/30) 249 s  ~62 min left
+05:59:04      girdle_seed11_ppw10_licensing az 228 (20/30) 249 s  ~42 min left
+06:19:50      girdle_seed11_ppw10_licensing az 288 (25/30) 249 s  ~21 min left
+06:40:36      girdle_seed11_ppw10_licensing az 348 (30/30) 249 s  ~0 min left
+06:40:36  [2/17] girdle_seed23_ppw8_ensemble  (ppw 8, seed 23, normal)
+06:40:48    girdle_seed23_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+06:49:55      girdle_seed23_ppw8_ensemble az  48 (5/30) 109 s  ~46 min left
+06:59:03      girdle_seed23_ppw8_ensemble az 108 (10/30) 110 s  ~36 min left
+07:08:10      girdle_seed23_ppw8_ensemble az 168 (15/30) 110 s  ~27 min left
+07:17:17      girdle_seed23_ppw8_ensemble az 228 (20/30) 109 s  ~18 min left
+07:26:25      girdle_seed23_ppw8_ensemble az 288 (25/30) 110 s  ~9 min left
+07:35:32      girdle_seed23_ppw8_ensemble az 348 (30/30) 109 s  ~0 min left
+07:35:32  [3/17] girdle_seed41_ppw8_ensemble  (ppw 8, seed 41, normal)
+07:35:48    girdle_seed41_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+07:44:56      girdle_seed41_ppw8_ensemble az  48 (5/30) 109 s  ~46 min left
+07:54:03      girdle_seed41_ppw8_ensemble az 108 (10/30) 109 s  ~36 min left
+08:03:10      girdle_seed41_ppw8_ensemble az 168 (15/30) 110 s  ~27 min left
+08:12:18      girdle_seed41_ppw8_ensemble az 228 (20/30) 110 s  ~18 min left
+08:21:27      girdle_seed41_ppw8_ensemble az 288 (25/30) 110 s  ~9 min left
+08:30:36      girdle_seed41_ppw8_ensemble az 348 (30/30) 110 s  ~0 min left
+08:30:36  [4/17] girdle_seed17_ppw8_ensemble  (ppw 8, seed 17, normal)
+08:30:48    girdle_seed17_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+08:39:57      girdle_seed17_ppw8_ensemble az  48 (5/30) 109 s  ~46 min left
+08:49:07      girdle_seed17_ppw8_ensemble az 108 (10/30) 110 s  ~37 min left
+08:58:16      girdle_seed17_ppw8_ensemble az 168 (15/30) 110 s  ~27 min left
+09:07:26      girdle_seed17_ppw8_ensemble az 228 (20/30) 110 s  ~18 min left
+09:16:37      girdle_seed17_ppw8_ensemble az 288 (25/30) 110 s  ~9 min left
+09:25:49      girdle_seed17_ppw8_ensemble az 348 (30/30) 111 s  ~0 min left
+09:25:49  [5/17] girdle_seed7_ppw8_ensemble  (ppw 8, seed 7, normal)
+09:26:08    girdle_seed7_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+09:35:28      girdle_seed7_ppw8_ensemble az  48 (5/30) 112 s  ~47 min left
+09:44:44      girdle_seed7_ppw8_ensemble az 108 (10/30) 111 s  ~37 min left
+09:54:00      girdle_seed7_ppw8_ensemble az 168 (15/30) 110 s  ~28 min left
+10:03:12      girdle_seed7_ppw8_ensemble az 228 (20/30) 110 s  ~19 min left
+10:12:23      girdle_seed7_ppw8_ensemble az 288 (25/30) 110 s  ~9 min left
+10:21:34      girdle_seed7_ppw8_ensemble az 348 (30/30) 110 s  ~0 min left
+10:21:34  [6/17] girdle_seed53_ppw8_ensemble  (ppw 8, seed 53, normal)
+10:21:46    girdle_seed53_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+10:30:56      girdle_seed53_ppw8_ensemble az  48 (5/30) 110 s  ~46 min left
+10:40:07      girdle_seed53_ppw8_ensemble az 108 (10/30) 111 s  ~37 min left
+10:49:17      girdle_seed53_ppw8_ensemble az 168 (15/30) 110 s  ~28 min left
+10:58:27      girdle_seed53_ppw8_ensemble az 228 (20/30) 110 s  ~18 min left
+11:07:39      girdle_seed53_ppw8_ensemble az 288 (25/30) 111 s  ~9 min left
+11:16:52      girdle_seed53_ppw8_ensemble az 348 (30/30) 111 s  ~0 min left
+11:16:52  [7/17] girdle_seed71_ppw8_ensemble  (ppw 8, seed 71, normal)
+11:17:05    girdle_seed71_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+11:26:17      girdle_seed71_ppw8_ensemble az  48 (5/30) 110 s  ~46 min left
+11:35:28      girdle_seed71_ppw8_ensemble az 108 (10/30) 110 s  ~37 min left
+11:44:41      girdle_seed71_ppw8_ensemble az 168 (15/30) 111 s  ~28 min left
+11:53:53      girdle_seed71_ppw8_ensemble az 228 (20/30) 110 s  ~18 min left
+12:03:04      girdle_seed71_ppw8_ensemble az 288 (25/30) 110 s  ~9 min left
+12:12:15      girdle_seed71_ppw8_ensemble az 348 (30/30) 110 s  ~0 min left
+12:12:15  [8/17] girdle_seed89_ppw8_ensemble  (ppw 8, seed 89, normal)
+12:12:32    girdle_seed89_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+12:21:43      girdle_seed89_ppw8_ensemble az  48 (5/30) 110 s  ~46 min left
+12:30:56      girdle_seed89_ppw8_ensemble az 108 (10/30) 110 s  ~37 min left
+12:40:08      girdle_seed89_ppw8_ensemble az 168 (15/30) 111 s  ~28 min left
+12:49:20      girdle_seed89_ppw8_ensemble az 228 (20/30) 110 s  ~18 min left
+12:58:17      girdle_seed89_ppw8_ensemble az 288 (25/30) 108 s  ~9 min left
+13:07:19      girdle_seed89_ppw8_ensemble az 348 (30/30) 110 s  ~0 min left
+13:07:19  [9/17] singlemax_seed23_ppw8_ensemble  (ppw 8, seed 23, normal)
+13:07:31    singlemax_seed23_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+13:16:34      singlemax_seed23_ppw8_ensemble az  48 (5/30) 107 s  ~45 min left
+13:25:29      singlemax_seed23_ppw8_ensemble az 108 (10/30) 107 s  ~36 min left
+13:34:24      singlemax_seed23_ppw8_ensemble az 168 (15/30) 107 s  ~27 min left
+13:43:19      singlemax_seed23_ppw8_ensemble az 228 (20/30) 107 s  ~18 min left
+13:52:14      singlemax_seed23_ppw8_ensemble az 288 (25/30) 107 s  ~9 min left
+14:01:10      singlemax_seed23_ppw8_ensemble az 348 (30/30) 107 s  ~0 min left
+14:01:10  [10/17] singlemax_seed41_ppw8_ensemble  (ppw 8, seed 41, normal)
+14:01:26    singlemax_seed41_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+14:10:20      singlemax_seed41_ppw8_ensemble az  48 (5/30) 107 s  ~45 min left
+14:19:14      singlemax_seed41_ppw8_ensemble az 108 (10/30) 107 s  ~36 min left
+14:28:09      singlemax_seed41_ppw8_ensemble az 168 (15/30) 107 s  ~27 min left
+14:37:03      singlemax_seed41_ppw8_ensemble az 228 (20/30) 107 s  ~18 min left
+14:45:57      singlemax_seed41_ppw8_ensemble az 288 (25/30) 107 s  ~9 min left
+14:54:52      singlemax_seed41_ppw8_ensemble az 348 (30/30) 107 s  ~0 min left
+14:54:52  [11/17] singlemax_seed17_ppw8_ensemble  (ppw 8, seed 17, normal)
+14:55:04    singlemax_seed17_ppw8_ensemble: 30/30 azimuths to run, h=0.241 mm
+15:03:58      singlemax_seed17_ppw8_ensemble az  48 (5/30) 107 s  ~45 min left
+15:12:53      singlemax_seed17_ppw8_ensemble az 108 (10/30) 107 s  ~36 min left
+15:21:48      singlemax_seed17_ppw8_ensemble az 168 (15/30) 107 s  ~27 min left
+15:30:42      singlemax_seed17_ppw8_ensemble az 228 (20/30) 107 s  ~18 min left
+15:39:37      singlemax_seed17_ppw8_ensemble az 288 (25/30) 107 s  ~9 min left
+15:48:31      singlemax_seed17_ppw8_ensemble az 348 (30/30) 107 s  ~0 min left
+15:48:31  [12/17] girdle_seed11_ppw8_contrast_f000  (ppw 8, seed 11, contrast)
+15:48:43    girdle_seed11_ppw8_contrast_f000: 30/30 azimuths to run, h=0.241 mm
+15:57:15      girdle_seed11_ppw8_contrast_f000 az  48 (5/30) 102 s  ~43 min left
+16:05:47      girdle_seed11_ppw8_contrast_f000 az 108 (10/30) 102 s  ~34 min left
+16:14:18      girdle_seed11_ppw8_contrast_f000 az 168 (15/30) 102 s  ~26 min left
+16:22:49      girdle_seed11_ppw8_contrast_f000 az 228 (20/30) 102 s  ~17 min left
+16:31:21      girdle_seed11_ppw8_contrast_f000 az 288 (25/30) 102 s  ~9 min left
+16:39:53      girdle_seed11_ppw8_contrast_f000 az 348 (30/30) 103 s  ~0 min left
+16:39:53  [13/17] girdle_seed11_ppw8_contrast_f025  (ppw 8, seed 11, contrast)
+16:40:04    girdle_seed11_ppw8_contrast_f025: 30/30 azimuths to run, h=0.241 mm
+16:48:41      girdle_seed11_ppw8_contrast_f025 az  48 (5/30) 103 s  ~43 min left
+16:57:18      girdle_seed11_ppw8_contrast_f025 az 108 (10/30) 103 s  ~34 min left
+17:05:55      girdle_seed11_ppw8_contrast_f025 az 168 (15/30) 103 s  ~26 min left
+17:14:32      girdle_seed11_ppw8_contrast_f025 az 228 (20/30) 103 s  ~17 min left
+17:23:09      girdle_seed11_ppw8_contrast_f025 az 288 (25/30) 103 s  ~9 min left
+17:31:46      girdle_seed11_ppw8_contrast_f025 az 348 (30/30) 103 s  ~0 min left
+17:31:46  [14/17] girdle_seed11_ppw8_contrast_f050  (ppw 8, seed 11, contrast)
+17:31:57    girdle_seed11_ppw8_contrast_f050: 30/30 azimuths to run, h=0.241 mm
+17:40:40      girdle_seed11_ppw8_contrast_f050 az  48 (5/30) 104 s  ~44 min left
+17:49:22      girdle_seed11_ppw8_contrast_f050 az 108 (10/30) 104 s  ~35 min left
+17:58:04      girdle_seed11_ppw8_contrast_f050 az 168 (15/30) 104 s  ~26 min left
+18:06:46      girdle_seed11_ppw8_contrast_f050 az 228 (20/30) 105 s  ~17 min left
+18:15:29      girdle_seed11_ppw8_contrast_f050 az 288 (25/30) 104 s  ~9 min left
+18:24:12      girdle_seed11_ppw8_contrast_f050 az 348 (30/30) 104 s  ~0 min left
+18:24:12  [15/17] girdle_seed11_ppw8_contrast_f075  (ppw 8, seed 11, contrast)
+18:24:24    girdle_seed11_ppw8_contrast_f075: 30/30 azimuths to run, h=0.241 mm
+18:33:22      girdle_seed11_ppw8_contrast_f075 az  48 (5/30) 107 s  ~45 min left
+18:42:25      girdle_seed11_ppw8_contrast_f075 az 108 (10/30) 109 s  ~36 min left
+18:51:28      girdle_seed11_ppw8_contrast_f075 az 168 (15/30) 109 s  ~27 min left
+19:00:31      girdle_seed11_ppw8_contrast_f075 az 228 (20/30) 108 s  ~18 min left
+19:09:34      girdle_seed11_ppw8_contrast_f075 az 288 (25/30) 108 s  ~9 min left
+19:18:37      girdle_seed11_ppw8_contrast_f075 az 348 (30/30) 109 s  ~0 min left
+19:18:37  [16/17] girdle_seed11_ppw6_zerocontrast  (ppw 6, seed 11, zero)
+19:18:48    girdle_seed11_ppw6_zerocontrast: 30/30 azimuths to run, h=0.321 mm
+19:21:52      girdle_seed11_ppw6_zerocontrast az  48 (5/30) 37 s  ~15 min left
+19:24:57      girdle_seed11_ppw6_zerocontrast az 108 (10/30) 36 s  ~12 min left
+19:28:03      girdle_seed11_ppw6_zerocontrast az 168 (15/30) 37 s  ~9 min left
+19:31:06      girdle_seed11_ppw6_zerocontrast az 228 (20/30) 37 s  ~6 min left
+19:34:11      girdle_seed11_ppw6_zerocontrast az 288 (25/30) 36 s  ~3 min left
+19:37:17      girdle_seed11_ppw6_zerocontrast az 348 (30/30) 37 s  ~0 min left
+19:37:17  [17/17] girdle_seed11_ppw10_zerocontrast  (ppw 10, seed 11, zero)
+19:37:30    girdle_seed11_ppw10_zerocontrast: 30/30 azimuths to run, h=0.193 mm
+19:57:16      girdle_seed11_ppw10_zerocontrast az  48 (5/30) 240 s  ~99 min left
+20:17:12      girdle_seed11_ppw10_zerocontrast az 108 (10/30) 235 s  ~79 min left
+20:37:12      girdle_seed11_ppw10_zerocontrast az 168 (15/30) 241 s  ~60 min left
+20:57:00      girdle_seed11_ppw10_zerocontrast az 228 (20/30) 240 s  ~40 min left
+21:16:55      girdle_seed11_ppw10_zerocontrast az 288 (25/30) 235 s  ~20 min left
+21:36:54      girdle_seed11_ppw10_zerocontrast az 348 (30/30) 241 s  ~0 min left
 21:36:54  ALL DONE in 17.2 h

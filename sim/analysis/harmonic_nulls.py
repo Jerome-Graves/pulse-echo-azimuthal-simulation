@@ -10,7 +10,7 @@ tiny, and every red-noise process looks significant.  Replacements:
   (2) SPECTRUM-PRESERVING PHASE-RANDOMISED surrogates: keep every |Y_k|
       except k=2, which is redrawn from the background level, randomise
       all phases, remeasure A2.  Gives the null distribution directly.
-  (3) The iso_gcal isotropic sweep as a physical control.
+  (3) The isotropic_seed41_ppw6_calibration isotropic sweep as a physical control.
   (4) PHASE reproducibility across independent specimens - a red-noise
       process has uniformly random k=2 phase, so agreement between
       independent sweeps is the strongest evidence available."""

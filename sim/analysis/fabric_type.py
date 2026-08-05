@@ -75,10 +75,10 @@ fabric-type statistic must not move along it: the harmonic ratio passes
 it, calling all five rungs girdle, but the model-selection statistic,
 which is the best of them on the unpaired test, moves by 0.42 along the
 ladder against a median leave-one-out margin of 0.56 and calls four of
-the five rungs a single maximum. The isotropic sweep iso_gcal, which
+the five rungs a single maximum. The isotropic sweep isotropic_seed41_ppw6_calibration, which
 has NO fabric type at all, is called a girdle by both, because an
 isotropic specimen has no two-fold term either. And the single-crystal
-sweep zerocontrast_ppw8, which is the extreme single maximum, is called
+sweep girdle_seed11_ppw8_uniform_axis, which is the extreme single maximum, is called
 a girdle by the harmonic ratio, though the model selection gets it
 right. Between them the two statistics fail every control; neither
 fails all of them, and no combination was fitted, because with thirteen
@@ -88,17 +88,17 @@ a smarter form.
 READS, all under out/sweeps, on the 30 azimuths at 12 degree spacing that
 every sweep shares:
   girdle, kappa = -8, nominal axis 0 deg
-      girdle_perp_ppw8 and mx_girdle_s{7,17,23,41,53,71,89}_ppw8
+      girdle_seed11_ppw8_dev and girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble
   single maximum, kappa = +3.93, nominal axis 30 deg
-      singlemax_ppw8 and mx_single_s{7,17,23,41}_ppw8
+      singlemax_seed11_ppw8_twin and singlemax_seed{7,17,23,41}_ppw8_ensemble
   controls
-      cs_f000..cs_f075_s11_ppw8 contrast ladder, zerocontrast_ppw8
-      single crystal, iso_gcal isotropic at ppw 6
+      cs_f000..girdle_seed11_ppw8_contrast_f075 contrast ladder, girdle_seed11_ppw8_uniform_axis
+      single crystal, isotropic_seed41_ppw6_calibration isotropic at ppw 6
 Any sweep of the candidate lists below that does not yet hold all 30
 common azimuths is skipped and named in the header, so this module is
 safe to re-run as the batch completes. The numbers quoted above and in
 the manuscript are the thirteen sweeps complete on 2 August 2026: eight
-girdles and five single maxima. mx_single_s53_ppw8 was then part run,
+girdles and five single maxima. singlemax_seed53_ppw8_ensemble was then part run,
 and s71 and s89 had not started. Every count is out of thirteen and
 every matched-pair test out of five, so re-running with the full eight
 pairs will change them.
@@ -137,27 +137,27 @@ SWD = TOF.SWD
 AZ_COMMON = tuple(range(0, 360, 12))
 
 # Candidate sweeps. Membership is filtered by completeness at load time.
-GIRDLE = ("girdle_perp_ppw8", "mx_girdle_s7_ppw8", "mx_girdle_s17_ppw8",
-          "mx_girdle_s23_ppw8", "mx_girdle_s41_ppw8",
-          "mx_girdle_s53_ppw8", "mx_girdle_s71_ppw8",
-          "mx_girdle_s89_ppw8")
-SINGLE = ("singlemax_ppw8", "mx_single_s7_ppw8", "mx_single_s17_ppw8",
-          "mx_single_s23_ppw8", "mx_single_s41_ppw8",
-          "mx_single_s53_ppw8", "mx_single_s71_ppw8",
-          "mx_single_s89_ppw8")
+GIRDLE = ("girdle_seed11_ppw8_dev", "girdle_seed7_ppw8_ensemble", "girdle_seed17_ppw8_ensemble",
+          "girdle_seed23_ppw8_ensemble", "girdle_seed41_ppw8_ensemble",
+          "girdle_seed53_ppw8_ensemble", "girdle_seed71_ppw8_ensemble",
+          "girdle_seed89_ppw8_ensemble")
+SINGLE = ("singlemax_seed11_ppw8_twin", "singlemax_seed7_ppw8_ensemble", "singlemax_seed17_ppw8_ensemble",
+          "singlemax_seed23_ppw8_ensemble", "singlemax_seed41_ppw8_ensemble",
+          "singlemax_seed53_ppw8_ensemble", "singlemax_seed71_ppw8_ensemble",
+          "singlemax_seed89_ppw8_ensemble")
 
 # The contrast ladder shares one tessellation, seed 11 girdle. f = 1 is
 # the production sweep. f = 0 replaces every grain tensor by the ARITHMETIC
 # MEAN of the grain tensors, so the medium keeps the fabric's bulk
-# stiffness and loses every grain-to-grain contrast. zerocontrast_ppw8 is
+# stiffness and loses every grain-to-grain contrast. girdle_seed11_ppw8_uniform_axis is
 # a different treatment: it copies the FIRST grain's tensor everywhere, so
 # that specimen is a single crystal and its fabric is the extreme single
 # maximum, not a girdle.
-LADDER = (("cs_f000_s11_ppw8", 0.00), ("cs_f025_s11_ppw8", 0.25),
-          ("cs_f050_s11_ppw8", 0.50), ("cs_f075_s11_ppw8", 0.75),
-          ("girdle_perp_ppw8", 1.00))
-UNLABELLED = (("zerocontrast_ppw8", "single crystal, s11 grain 1"),
-              ("iso_gcal", "isotropic, no type, ppw 6"))
+LADDER = (("girdle_seed11_ppw8_contrast_f000", 0.00), ("girdle_seed11_ppw8_contrast_f025", 0.25),
+          ("girdle_seed11_ppw8_contrast_f050", 0.50), ("girdle_seed11_ppw8_contrast_f075", 0.75),
+          ("girdle_seed11_ppw8_dev", 1.00))
+UNLABELLED = (("girdle_seed11_ppw8_uniform_axis", "single crystal, s11 grain 1"),
+              ("isotropic_seed41_ppw6_calibration", "isotropic, no type, ppw 6"))
 
 # The two hypotheses the classifier chooses between. These are the
 # simulated concentrations, not fitted values.
@@ -783,7 +783,7 @@ def draw_controls(thr, controls):
     print("  fabric-type information moves the statistic as far as the "
           "fabric")
     print("  does, and the verdict flips along the ladder.")
-    print("  iso_gcal has NO fabric type and is nonetheless called a "
+    print("  isotropic_seed41_ppw6_calibration has NO fabric type and is nonetheless called a "
           "girdle,")
     print("  because an isotropic specimen has no two-fold term either. "
           "The")

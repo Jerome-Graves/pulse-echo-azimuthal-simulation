@@ -81,9 +81,9 @@ N_PERM = 200000
 MIN_AZ = 20
 SEED = 20260802
 
-CONTROL_SWEEPS = ("zerocontrast_ppw8", "cs_f000_s11_ppw8")
-LADDER = ("cs_f000_s11_ppw8", "cs_f025_s11_ppw8", "cs_f050_s11_ppw8",
-          "cs_f075_s11_ppw8")
+CONTROL_SWEEPS = ("girdle_seed11_ppw8_uniform_axis", "girdle_seed11_ppw8_contrast_f000")
+LADDER = ("girdle_seed11_ppw8_contrast_f000", "girdle_seed11_ppw8_contrast_f025", "girdle_seed11_ppw8_contrast_f050",
+          "girdle_seed11_ppw8_contrast_f075")
 LADDER_F = np.array([0.00, 0.25, 0.50, 0.75])
 
 DESIGN_COLS = ("seed", "kappa", "contrast_f", "is_single_max", "is_girdle",
@@ -890,21 +890,21 @@ def main():
     print("  source-referenced dB, azimuth-averaged as energies:")
     print("    %-14s %8s %8s %8s %8s %8s"
           % ("window", "gir mean", "sin mean", "zerocon", "cs_f000",
-             "iso_gcal"))
+             "isotropic_seed41_ppw6_calibration"))
     for w, _t in wins:
         j = d["o_cols"].index(w)
         gv = np.mean([d["S"][r["io"], j] for r in rows
                       if r["kind"] == "girdle"])
         sv = np.mean([d["S"][r["io"], j] for r in rows
                       if r["kind"] == "single"])
-        zc = d["S"][d["o_sweeps"].index("zerocontrast_ppw8"), j]
-        cf = d["S"][d["o_sweeps"].index("cs_f000_s11_ppw8"), j]
-        ig = d["S"][d["o_sweeps"].index("iso_gcal"), j]
+        zc = d["S"][d["o_sweeps"].index("girdle_seed11_ppw8_uniform_axis"), j]
+        cf = d["S"][d["o_sweeps"].index("girdle_seed11_ppw8_contrast_f000"), j]
+        ig = d["S"][d["o_sweeps"].index("isotropic_seed41_ppw6_calibration"), j]
         print("    %-14s %8.2f %8.2f %8.2f %8.2f %8.2f"
               % (w, gv, sv, zc, cf, ig))
     print("    margin over zerocontrast is the number that matters; a")
     print("    window with only a few dB of margin is not a scattering")
-    print("    window whatever its correlations say.  iso_gcal is a")
+    print("    window whatever its correlations say.  isotropic_seed41_ppw6_calibration is a")
     print("    different grid (ppw 6) and is shown for scale only.")
 
     # ------------------------------------------------------- named cells

@@ -87,7 +87,7 @@ near zero by construction.
 
 TWO OPERATOR BUGS FOUND WHILE DOING THE ABOVE (both fixed here):
 
- (a) STALE ENVELOPE CACHE. The rigid_seed11 grid_env_cache.npz that
+ (a) STALE ENVELOPE CACHE. The singlemax_seed11_ppw6_rigid2 grid_env_cache.npz that
      v1 was reading did NOT hold the unit-contrast envelope this code
      computes. Backing it out of the saved residual: its envelope
      equalled the true unit-contrast one times er2(az)^-0.45, a pure
@@ -115,7 +115,7 @@ CELL SIZE (2026-07-31): the two channels are not resolved at the same
 scale, so they get separate grids.
   * coda/scatter: every (az, tbin) observation is attributed to a
     single point, so the sampling is point-like. MEASURED on
-    rigid_seed11, r(estimate, matched-smoothed Born truth) vs cell
+    singlemax_seed11_ppw6_rigid2, r(estimate, matched-smoothed Born truth) vs cell
     size: 2.5 mm +0.155, 5 mm +0.196, 6.25 mm +0.189, 10 mm +0.217,
     12.5 mm +0.185, 20 mm +0.186, 25 mm +0.152 - flat inside the
     rotation-null width (sd ~0.12), so there is nothing to tune.
@@ -134,16 +134,16 @@ WHAT THE CORRECTED SCORING GIVES (2026-07-31, 360 az each, r is
 against the matched-smoothed truth, p from the rotation null):
 
   coda / Born facet contrast, 5 mm      r        null mean/sd     p
-    rigid_seed11                     +0.196     +0.070/0.116   0.167
-    oos_seed23                       -0.265     -0.124/0.167   0.306
-    iso_gcal (isotropic control)     -0.102     -0.001/0.152   0.417
+    singlemax_seed11_ppw6_rigid2                     +0.196     +0.070/0.116   0.167
+    singlemax_seed23_ppw6_heldout_axis                       -0.265     -0.124/0.167   0.306
+    isotropic_seed41_ppw6_calibration (isotropic control)     -0.102     -0.001/0.152   0.417
   ToF / direction-averaged, 20 mm
-    rigid_seed11                     +0.044     -0.075/0.121   0.694
-    oos_seed23                       -0.446     -0.494/0.112   0.667
-    iso_gcal                         -0.093     -0.041/0.041   0.111
+    singlemax_seed11_ppw6_rigid2                     +0.044     -0.075/0.121   0.694
+    singlemax_seed23_ppw6_heldout_axis                       -0.446     -0.494/0.112   0.667
+    isotropic_seed41_ppw6_calibration                         -0.093     -0.041/0.041   0.111
 
 Nothing survives. The sign is not even consistent between specimens,
-and oos_seed23's eye-catching ToF -0.446 sits exactly on its own
+and singlemax_seed23_ppw6_heldout_axis's eye-catching ToF -0.446 sits exactly on its own
 rotation-null mean of -0.494 - which is the whole reason the null is
 reported next to every number.
 
@@ -188,7 +188,7 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path[:0] = [os.path.join(sys.path[0], _d)
                 for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]

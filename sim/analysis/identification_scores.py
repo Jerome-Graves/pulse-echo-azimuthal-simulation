@@ -29,7 +29,7 @@ import numpy as np
 from scipy import ndimage
 from scipy.stats import rankdata
 
-import t4_common as T
+import range_domain_common as T
 
 SCR = T.SCR
 BLUR_MM = [1.0, 2.0, 3.0, 4.0, 6.0]
@@ -86,7 +86,7 @@ def main():
     print(f"null ensemble: {len(nulls)} wrong tessellations  {nulls}\n")
 
     rows = []
-    for sw in ("girdle_perp_ppw8", "singlemax_ppw8"):
+    for sw in ("girdle_seed11_ppw8_dev", "singlemax_seed11_ppw8_twin"):
         for gate in ("coda", "full"):
             D = np.load(os.path.join(SCR, f"t4img_{sw}_{gate}.npz"))
             m = D["mask"] & core
@@ -103,7 +103,7 @@ def main():
                         rows.append(dict(sw=sw, gate=gate, mode=mode, z=zk,
                                          blur=bl, true=t, null=nl))
                     print(f"  done {sw} {gate} {mode} {zk}", flush=True)
-    np.save(os.path.join(SCR, "t4_scores.npy"),
+    np.save(os.path.join(SCR, "t4_scoobservable_panel_results.npy"),
             np.array(rows, dtype=object), allow_pickle=True)
 
     names = ["rS", "rP", "AUC", "dpk"]

@@ -5,7 +5,7 @@
     The tessellation is still there but it is acoustically invisible, so
     a correct solver must return no coda.  Whatever coda IS returned is
     the numerical floor, measured rather than inferred.  There has never
-    been such a measurement in this project: iso_gcal is NOT one, because
+    been such a measurement in this project: isotropic_seed41_ppw6_calibration is NOT one, because
     random orientations still give full grain-to-grain contrast.
 
 (B) BICRYSTAL VALIDATION.  Two grains, one flat boundary normal to the
@@ -100,7 +100,7 @@ for az in AZ:
     uni = np.tile(axr[0][None, :], (len(axr), 1))       # every grain the same
     tr, dt = solve(lab, uni, nd, f"az {az} uniform-axes")
     cz, e1, bang = coda_db(tr, dt)
-    with np.load(os.path.join(OUT, "girdle_perp_ppw8",
+    with np.load(os.path.join(OUT, "girdle_seed11_ppw8_dev",
                               f"az{az:03d}.npz")) as z:
         rt, rdt = np.asarray(z["trace"], float).ravel(), float(z["dt"])
     cr, e1r, bangr = coda_db(rt, rdt)

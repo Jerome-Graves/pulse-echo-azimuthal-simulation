@@ -112,9 +112,9 @@ instead of drawing new ones.
 
 Reads, all under ../../out/sweeps, each directory az*.npz with keys
 'trace' and 'dt' plus a config.json:
-    girdle_perp_ppw8, mx_girdle_s{7,17,23,41,53,71,89}_ppw8
+    girdle_seed11_ppw8_dev, girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble
         the eight independent girdle tessellations at ppw 8
-    zerocontrast_ppw8
+    girdle_seed11_ppw8_uniform_axis
         the uniform-orientation control, on the audited estimator
 Rebuilds the eight tessellations through analysis/speckle_scatter.py to
 reproduce the published crossing count, on the CPU, which takes about two
@@ -144,17 +144,17 @@ ELEMENT = 6.35e-3
 AZ_STEP_DEG = 12
 AZ_COMMON = np.arange(0, 360, AZ_STEP_DEG)
 
-GIRDLE = [("girdle_perp_ppw8", 11), ("mx_girdle_s7_ppw8", 7),
-          ("mx_girdle_s17_ppw8", 17), ("mx_girdle_s23_ppw8", 23),
-          ("mx_girdle_s41_ppw8", 41), ("mx_girdle_s53_ppw8", 53),
-          ("mx_girdle_s71_ppw8", 71), ("mx_girdle_s89_ppw8", 89)]
+GIRDLE = [("girdle_seed11_ppw8_dev", 11), ("girdle_seed7_ppw8_ensemble", 7),
+          ("girdle_seed17_ppw8_ensemble", 17), ("girdle_seed23_ppw8_ensemble", 23),
+          ("girdle_seed41_ppw8_ensemble", 41), ("girdle_seed53_ppw8_ensemble", 53),
+          ("girdle_seed71_ppw8_ensemble", 71), ("girdle_seed89_ppw8_ensemble", 89)]
 
 # Seed 11 at the three resolutions, so that the scatter can be shown to
 # have stopped moving by ppw 8 and quoting the ppw 8 ensemble is not a
 # choice of the coarser answer. The same three sweeps db_reconcile.py
 # uses for the specimen column of Table 'reconcile'.
-RESOLUTION = [("girdle_perp", 6), ("girdle_perp_ppw8", 8),
-              ("lic_girdle_s11_ppw10", 10)]
+RESOLUTION = [("girdle_seed11_ppw6_axis_perp", 6), ("girdle_seed11_ppw8_dev", 8),
+              ("girdle_seed11_ppw10_licensing", 10)]
 
 # Gate ends tried in the length test, microseconds, all starting at the
 # published 24 us. The longest stops 6 us short of the backwall window of
@@ -555,7 +555,7 @@ def report_floor(data, n_band, n_published):
         print("  %-28s %10.2f %10.2f"
               % ("ppw %d, %s" % (ppw, name), level.std(ddof=1),
                  resolution_cells(segs, step)))
-    control = read_sweep("zerocontrast_ppw8")
+    control = read_sweep("girdle_seed11_ppw8_uniform_axis")
     level = np.array([10 * np.log10(gate_power(r)) for r in control])
     print("  uniform-orientation control on the audited estimator %.2f dB,"
           % level.std(ddof=1))

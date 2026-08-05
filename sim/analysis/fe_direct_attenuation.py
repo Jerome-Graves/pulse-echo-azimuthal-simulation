@@ -7,13 +7,13 @@ appendix quoted two numbers, -1.37 against -1.34 dB and -1.81 against
 that is gone. This one recovers them from the archived traces, so the
 claim has a file behind it.
 
-Reads sim/fe_p2plus_ab*_traces.npz, the five archived arbiter rounds.
+Reads sim/fe_arbiter_round1_baseline*_traces.npz, the five archived arbiter rounds.
 Runs nothing. Each archive holds the A trace (real random c-axes) and
 the B trace (uniform crystal) for both solvers on the same 12-grain
 specimen, so 20 log10(|A|/|B|) at the direct arrival is the attenuation
 the grain boundaries impose, with the source function divided out.
 
-The amplitude measure is the one fe_p2plus_ab.analyse() already uses for
+The amplitude measure is the one fe_arbiter_round1_baseline.analyse() already uses for
 its normaliser: the peak of the Hilbert envelope in a 2 us window centred
 on the geometric arrival. It is quoted here because it is the harness's
 own definition, not because it flatters the result; the window half-width

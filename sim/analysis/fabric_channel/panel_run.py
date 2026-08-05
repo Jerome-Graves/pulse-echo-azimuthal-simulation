@@ -112,11 +112,11 @@ def analyse(name, d=None, seed=7, verbose=True):
                 obs_r=obs_r, obs_h=obs_h, p_r=p_r, p_h=p_h, p_c=p_c, holm_r=hr, holm_h=hh,
                 p_rmax=p_rmax, p_hmax=p_hmax, p_cfw=p_cfw, nsh=nsh, dt=dt, bw=bw)
 
-SWEEPS = ("girdle_perp_ppw8", "girdle_perp", "gcheck_ppw8", "iso_gcal")
+SWEEPS = ("girdle_seed11_ppw8_dev", "girdle_seed11_ppw6_axis_perp", "singlemax_seed11_ppw8_12az_check", "isotropic_seed41_ppw6_calibration")
 
 if __name__ == "__main__":
     res = {nm: analyse(nm) for nm in SWEEPS}
-    np.save(os.path.join(CACHE, "res.npy"), res, allow_pickle=True)
+    np.save(os.path.join(CACHE, "observable_panel_results.npy"), res, allow_pickle=True)
     print("\n" + "="*118)
     print("FAMILY-WISE SUMMARY")
     print("="*118)

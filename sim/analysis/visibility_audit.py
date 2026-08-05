@@ -86,7 +86,7 @@ and the two correlations are printed together, so the choice is visible.
 
 READS
   out/tesscache/tess_s<seed>_p8_k-8.npz    eight girdle tessellations
-  out/sweeps/girdle_perp_ppw8/az*.npz      seed 11
+  out/sweeps/girdle_seed11_ppw8_dev/az*.npz      seed 11
   out/sweeps/mx_girdle_s<seed>_ppw8/az*.npz  the other seven
 WRITES
   nothing.
@@ -156,8 +156,8 @@ DT_C = 20e-9                     # common physical time grid
 TG = np.arange(20e-6, 42e-6, DT_C)
 
 SEEDS = (11, 7, 17, 23, 41, 53, 71, 89)
-SWEEP = {11: "girdle_perp_ppw8"}
-SWEEP.update({s: "mx_girdle_s%d_ppw8" % s for s in SEEDS if s != 11})
+SWEEP = {11: "girdle_seed11_ppw8_dev"}
+SWEEP.update({s: "girdle_seed%d_ppw8_ensemble" % s for s in SEEDS if s != 11})
 AZ_COMMON = np.arange(0, 360, 12)
 
 DARK_CUTS = (0.05, 0.10, 0.20)   # INFERRED thresholds, in units of median

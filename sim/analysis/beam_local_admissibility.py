@@ -160,15 +160,15 @@ AZ30 = tuple(range(0, 360, 12))
 
 # The two specimens that cannot backscatter from a grain boundary. Both
 # carry the seed-11 tessellation the predictor is built from.
-CONTROLS = ("zerocontrast_ppw8", "cs_f000_s11_ppw8")
+CONTROLS = ("girdle_seed11_ppw8_uniform_axis", "girdle_seed11_ppw8_contrast_f000")
 
 # The twelve tessellations with a cached label volume at ppw 8, exactly
 # the set of analysis/axis_window_adjudication.py.
-SPECS = ([("girdle_perp_ppw8", 11, "-8")] +
-         [("mx_girdle_s%d_ppw8" % s, s, "-8")
+SPECS = ([("girdle_seed11_ppw8_dev", 11, "-8")] +
+         [("girdle_seed%d_ppw8_ensemble" % s, s, "-8")
           for s in (7, 17, 23, 41, 53, 71, 89)] +
-         [("singlemax_ppw8", 11, "3.93")] +
-         [("mx_single_s%d_ppw8" % s, s, "3.93") for s in (17, 23, 41)])
+         [("singlemax_seed11_ppw8_twin", 11, "3.93")] +
+         [("singlemax_seed%d_ppw8_ensemble" % s, s, "3.93") for s in (17, 23, 41)])
 
 GEOM_KEYS = ("n_cross", "n_grain", "n_pair", "eff_grain", "vol_cv",
              "geom_dir", "d_first", "sep_mean")
@@ -207,7 +207,7 @@ def load_sweep(name, az_keep=None):
 
 
 def load_tess(seed, ppw, kap):
-    p = os.path.join(TESS, "tess_s%d_p%d_k%s.npz" % (seed, ppw, kap))
+    p = os.path.join(TESS, "labels_seed%d_ppw%d_kappa%s.npz" % (seed, ppw, kap))
     if not os.path.exists(p):
         raise SystemExit("missing %s; refusing to build it (CUDA)" % p)
     with np.load(p) as z:
@@ -443,8 +443,8 @@ def report_harness(store):
     print("   %-6s %-6s %-9s %8s %9s %9s"
           % ("ppw", "column", "weight", "r", "rank/n", "rank/(n/2)"))
     ok_r = True
-    for tag, nm, ppw, ref in (("ppw6", "girdle_perp", 6, 0.57),
-                              ("ppw8", "girdle_perp_ppw8", 8, 0.36)):
+    for tag, nm, ppw, ref in (("ppw6", "girdle_seed11_ppw6_axis_perp", 6, 0.57),
+                              ("ppw8", "girdle_seed11_ppw8_dev", 8, 0.36)):
         sw = load_sweep(nm)
         az, y = level_none(sw, GATE)
         for geom in ("cyl", "cone"):
@@ -471,17 +471,17 @@ def report_harness(store):
     print("   the BULK predictor, 30 common azimuths, untreated levels.")
     print("   %-22s %-7s %8s %9s   %s"
           % ("sweep", "window", "r", "rank/15", "published r"))
-    pub = {("girdle_perp_ppw8", "4-16"): 0.284,
-           ("girdle_perp_ppw8", "10-22"): 0.250,
-           ("girdle_perp_ppw8", "24-36"): 0.273,
-           ("zerocontrast_ppw8", "4-16"): 0.734,
-           ("zerocontrast_ppw8", "10-22"): 0.559,
-           ("zerocontrast_ppw8", "24-36"): 0.153,
-           ("cs_f000_s11_ppw8", "4-16"): 0.904,
-           ("cs_f000_s11_ppw8", "10-22"): 0.701,
-           ("cs_f000_s11_ppw8", "24-36"): 0.219}
+    pub = {("girdle_seed11_ppw8_dev", "4-16"): 0.284,
+           ("girdle_seed11_ppw8_dev", "10-22"): 0.250,
+           ("girdle_seed11_ppw8_dev", "24-36"): 0.273,
+           ("girdle_seed11_ppw8_uniform_axis", "4-16"): 0.734,
+           ("girdle_seed11_ppw8_uniform_axis", "10-22"): 0.559,
+           ("girdle_seed11_ppw8_uniform_axis", "24-36"): 0.153,
+           ("girdle_seed11_ppw8_contrast_f000", "4-16"): 0.904,
+           ("girdle_seed11_ppw8_contrast_f000", "10-22"): 0.701,
+           ("girdle_seed11_ppw8_contrast_f000", "24-36"): 0.219}
     ok_b = True
-    for nm in ("girdle_perp_ppw8",) + CONTROLS:
+    for nm in ("girdle_seed11_ppw8_dev",) + CONTROLS:
         sw = load_sweep(nm, AZ30)
         for wn, win in WINDOWS.items():
             az, y = level_none(sw, win)
@@ -508,7 +508,7 @@ def report_periodicity(store):
     print("=" * 74)
     print("   %-22s %-7s %10s %10s"
           % ("sweep", "window", "r(az,+180)", "n azimuths"))
-    for nm, ppw in (("girdle_perp", 6), ("girdle_perp_ppw8", 8)):
+    for nm, ppw in (("girdle_seed11_ppw6_axis_perp", 6), ("girdle_seed11_ppw8_dev", 8)):
         sw = load_sweep(nm)
         az = np.array(sorted(sw))
         for wn, win in WINDOWS.items():
@@ -542,7 +542,7 @@ def report_decisive(store):
     print("   %-22s %-7s %-6s %8s %8s %8s"
           % ("sweep", "window", "treat", "r", "rank/30", "rank/15"))
     tabA = {}
-    for nm in ("girdle_perp_ppw8",) + CONTROLS:
+    for nm in ("girdle_seed11_ppw8_dev",) + CONTROLS:
         sw = load_sweep(nm, AZ30)
         for wn, win in WINDOWS.items():
             for tr in ("none", "loo"):
@@ -557,7 +557,7 @@ def report_decisive(store):
     print("   60 distinct alignments (floor 1/60), 30 under halving.")
     print("   %-22s %-7s %-6s %8s %8s %8s"
           % ("sweep", "window", "treat", "r", "rank/60", "rank/30"))
-    for nm in ("girdle_perp_ppw8", "zerocontrast_ppw8"):
+    for nm in ("girdle_seed11_ppw8_dev", "girdle_seed11_ppw8_uniform_axis"):
         sw = load_sweep(nm)
         for wn, win in WINDOWS.items():
             for tr in ("none", "loo"):
@@ -576,7 +576,7 @@ def report_decisive(store):
     for wn, win in WINDOWS.items():
         for tr in ("none", "loo"):
             v = []
-            for nm in ("girdle_perp_ppw8",) + CONTROLS:
+            for nm in ("girdle_seed11_ppw8_dev",) + CONTROLS:
                 _, y = level(load_sweep(nm, AZ30), win, tr)
                 v.append(10 * np.log10(np.mean(10 ** (y / 10.0))))
             store["lvl_%s_%s" % (wn, tr)] = np.array(v)
@@ -593,7 +593,7 @@ def report_decisive(store):
     for wn in WINDOWS:
         for tr in ("none", "loo"):
             v = [abs(tabA[(nm, wn, tr)][0]) for nm in
-                 ("girdle_perp_ppw8",) + CONTROLS]
+                 ("girdle_seed11_ppw8_dev",) + CONTROLS]
             bad = max(v[1], v[2]) >= v[0]
             store["dec_margin_%s_%s" % (wn, tr)] = np.array(v)
             print("   %-7s %-6s %10.3f %10.3f %10.3f %9s"
@@ -642,7 +642,7 @@ def report_geometry(store):
               ("30 az", AZ30, "cyl", ("none", "loo")),
               ("60 az", None, "cone", ("none",)))
     for grid, keep, geom, treats in panels:
-        sw = load_sweep("girdle_perp_ppw8", keep)
+        sw = load_sweep("girdle_seed11_ppw8_dev", keep)
         az = np.array(sorted(sw))
         for tr in treats:
             print("\n   grid %s, column %s, treatment %s. Family-wise p is"
@@ -707,8 +707,8 @@ def report_permutation(store, ndraw, nens):
     print("\n   Seed 11, analysed gate, native grids, %d draws." % ndraw)
     print("   Published p = 0.005 at ppw 6 and 0.070 at ppw 8.")
     print("   %-6s %8s %10s %10s" % ("ppw", "r true", "p perm", "published"))
-    for tag, nm, ppw, ref in (("ppw6", "girdle_perp", 6, 0.005),
-                              ("ppw8", "girdle_perp_ppw8", 8, 0.070)):
+    for tag, nm, ppw, ref in (("ppw6", "girdle_seed11_ppw6_axis_perp", 6, 0.005),
+                              ("ppw8", "girdle_seed11_ppw8_dev", 8, 0.070)):
         sw = load_sweep(nm)
         az, y = level_none(sw, GATE)
         counts, _, axes = column(11, ppw, "-8", az, GATE)

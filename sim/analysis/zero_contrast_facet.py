@@ -2,7 +2,7 @@
 
 Written BEFORE the sweep finished, so the processing is fixed in advance.
 
-Three numbers to beat, all from the real specimen (girdle_perp_ppw8):
+Three numbers to beat, all from the real specimen (girdle_seed11_ppw8_dev):
   scalar azimuthal, geometry-only predictor   residual r = +0.465
   scalar azimuthal, full facet model          residual r = +0.511
   time-resolved field, full facet model                r = +0.366
@@ -138,7 +138,7 @@ def shift_p(x, y):
 REF = {"geom_only": 0.465, "born_spec": 0.511, "field": 0.366}
 print(f"{'sweep':<21}{'n':>4}{'geom_only':>11}{'p':>7}"
       f"{'born_spec':>11}{'p':>7}{'field':>9}")
-for name in ("girdle_perp_ppw8", "zerocontrast_ppw8"):
+for name in ("girdle_seed11_ppw8_dev", "girdle_seed11_ppw8_uniform_axis"):
     d = os.path.join(SWD, name)
     if not os.path.isdir(d):
         continue

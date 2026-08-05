@@ -83,8 +83,8 @@ GPU labeller is replaced at import in the same way sample_matrix.py does
 it, so that a cache miss falls back to NumPy instead of reaching CUDA.
 
 READS
-  out/sweeps/girdle_perp_ppw8/az*.npz               seed 11
-  out/sweeps/mx_girdle_s{7,17,23,41,53,71,89}_ppw8/az*.npz
+  out/sweeps/girdle_seed11_ppw8_dev/az*.npz               seed 11
+  out/sweeps/girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble/az*.npz
   out/tesscache/tess_s<seed>_p8_k-8.npz             48 candidates
   sim/analysis/tessellation_replication.npz         noiseless reference
 WRITES
@@ -135,10 +135,10 @@ PPW, KAPPA, AXIS = 8.0, -8.0, (1.0, 0.0, 0.0)
 CONE_DEG = np.degrees(FP.HALF)
 N_RAY = 600
 
-GIRDLE = [("girdle_perp_ppw8", 11), ("mx_girdle_s7_ppw8", 7),
-          ("mx_girdle_s17_ppw8", 17), ("mx_girdle_s23_ppw8", 23),
-          ("mx_girdle_s41_ppw8", 41), ("mx_girdle_s53_ppw8", 53),
-          ("mx_girdle_s71_ppw8", 71), ("mx_girdle_s89_ppw8", 89)]
+GIRDLE = [("girdle_seed11_ppw8_dev", 11), ("girdle_seed7_ppw8_ensemble", 7),
+          ("girdle_seed17_ppw8_ensemble", 17), ("girdle_seed23_ppw8_ensemble", 23),
+          ("girdle_seed41_ppw8_ensemble", 41), ("girdle_seed53_ppw8_ensemble", 53),
+          ("girdle_seed71_ppw8_ensemble", 71), ("girdle_seed89_ppw8_ensemble", 89)]
 DISTRACTORS = list(range(100, 140))
 CANDS = sorted(set([s for _, s in GIRDLE] + DISTRACTORS))
 
@@ -316,7 +316,7 @@ def measure(trs, dts):
 # ──────────────────────────── predictors ──────────────────────────────
 def tess(seed):
     """Label volume, c-axes and seed points of a candidate, from cache."""
-    p = os.path.join(TESS, f"tess_s{seed}_p{PPW:g}_k{KAPPA:g}.npz")
+    p = os.path.join(TESS, f"labels_seed{seed}_ppw{PPW:g}_kappa{KAPPA:g}.npz")
     if not os.path.exists(p):                       # cache miss: CPU build
         h = C2.C_REF / C2.F0 / PPW
         b = DiskSpecimen(diameter_m=C2.DIA, thickness_m=0.035,
@@ -333,7 +333,7 @@ def tess(seed):
 def march(seed):
     """Beam-crossed boundary weights and ranges, geometry only, cached."""
     os.makedirs(NFC, exist_ok=True)
-    p = os.path.join(NFC, f"march_s{seed}.npz")
+    p = os.path.join(NFC, f"facet_march_s{seed}.npz")
     if os.path.exists(p):
         with np.load(p) as z:
             w, s, off = z["w"], z["s"], z["off"]
@@ -357,7 +357,7 @@ def march(seed):
 def field_pred(seed):
     """Eq. (facetmodel) as an azimuth-by-time power field, cached."""
     os.makedirs(NFC, exist_ok=True)
-    p = os.path.join(NFC, f"field_s{seed}.npy")
+    p = os.path.join(NFC, f"pred_coda_field_s{seed}.npy")
     if os.path.exists(p):
         return np.load(p)
     lab, axes, sd, h = tess(seed)

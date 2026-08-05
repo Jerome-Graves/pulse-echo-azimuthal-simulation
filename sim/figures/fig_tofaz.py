@@ -24,7 +24,7 @@ Reads (paths resolved from this file, never absolute):
         keys 'rots', 'meas_tof_us', 'model_tof_us', 'alpha_probe_deg',
         'truth_alpha_deg', 'alpha_err_deg', 'truth_kappa', for the fitted
         template and the two axes
-for <sweep> in rigid_seed11, kappa8_seed17 and oos_seed23.
+for <sweep> in singlemax_seed11_ppw6_rigid2, singlemax_seed17_ppw6_kappa8 and singlemax_seed23_ppw6_heldout_axis.
 
 Writes:
     <GitHub>/pulse-echo-cof-paper/figures/tofaz.pdf
@@ -48,15 +48,15 @@ SWEEPS = REPO / "out" / "sweeps"
 
 # Specimens shown, in order of increasing axis error, top row first. All
 # three are single-maximum fabrics fitted by sim/model/fit_sweep.py; the
-# uniform-ODF control iso_gcal is deliberately not shown here, because it
+# uniform-ODF control isotropic_seed41_ppw6_calibration is deliberately not shown here, because it
 # has no axis to recover and belongs with the null tests.
-SPECIMENS = ["rigid_seed11", "kappa8_seed17", "oos_seed23"]
+SPECIMENS = ["singlemax_seed11_ppw6_rigid2", "singlemax_seed17_ppw6_kappa8", "singlemax_seed23_ppw6_heldout_axis"]
 
 # Uniform-ODF sweep, fitted by the same code. Reported but not drawn: it
 # has no axis to recover, so a row for it would need a true-axis mark that
 # does not exist. Its fitted amplitude is the number that matters, because
 # it says what the template returns when there is no fabric to find.
-CONTROL = "iso_gcal"
+CONTROL = "isotropic_seed41_ppw6_calibration"
 
 C_REF = 3850.0                  # mean qP speed (m/s), _t2_common.C_REF
 

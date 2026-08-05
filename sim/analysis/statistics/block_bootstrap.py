@@ -12,10 +12,10 @@ sys.path.insert(0, SIM)
 sys.path[:0] = [os.path.join(sys.path[0], _d)
                 for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 import fit_sweep as FS                                   # noqa: E402
-from measure_sigma import prep, stage2_kappa, stage1_axis, AXIS  # noqa
-from compare import set_fd                               # noqa: E402
+from measure_sigma import prep, stage2_kappa, stagedge1_axis, AXIS  # noqa
+from kappa_frozen_axis_compare import set_fd                               # noqa: E402
 
-SW = ("rigid_seed11", "oos_seed23", "iso_gcal")
+SW = ("singlemax_seed11_ppw6_rigid2", "singlemax_seed23_ppw6_heldout_axis", "isotropic_seed41_ppw6_calibration")
 BLOCK = 15
 NBOOT = 120
 
@@ -45,7 +45,7 @@ def main():
     print("=== FD1 frozen-axis residual rms (sigma comparison) ===")
     set_fd(1)
     FS.SIG_CODA_SWEEP = 1.8
-    P1 = {n: prep(n) for n in ("rigid_seed11", "oos_seed23")}
+    P1 = {n: prep(n) for n in ("singlemax_seed11_ppw6_rigid2", "singlemax_seed23_ppw6_heldout_axis")}
     for n in P1:
         cfg, data, rots, geo, tof_m = P1[n]
         for _ in range(3):
@@ -67,7 +67,7 @@ def main():
     P = {n: prep(n) for n in SW}
     for n in SW:
         cfg, data, rots, geo, tof_m = P[n]
-        a, _ = stage1_axis(cfg, data, rots, geo, tof_m)
+        a, _ = stagedge1_axis(cfg, data, rots, geo, tof_m)
         k0, _, _ = stage2_kappa(cfg, data, rots, geo, tof_m, a)
         ks = boot(cfg, data, rots, geo, tof_m, a, rng)
         lo, hi = np.percentile(ks, [5, 95])

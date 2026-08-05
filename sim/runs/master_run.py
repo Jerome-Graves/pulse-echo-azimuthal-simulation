@@ -54,7 +54,7 @@ SINGLE = dict(kappa=3.93, axis=(0.866, 0.5, 0.0), tag="single")
 
 JOBS = []
 # --- 1. licensing run: does the facet correlation survive ppw 6->10? ---
-JOBS.append(dict(name="lic_girdle_s11_ppw10", ppw=10.0, step=12,
+JOBS.append(dict(name="girdle_seed11_ppw10_licensing", ppw=10.0, step=12,
                  seed=11, mode="normal", **GIRDLE))
 # --- 2. tessellation x fabric matrix at ppw 8 --------------------------
 # Weighted toward TESSELLATION count rather than fabric count. Independent
@@ -65,19 +65,19 @@ JOBS.append(dict(name="lic_girdle_s11_ppw10", ppw=10.0, step=12,
 # seed 11; three of them repeated in single maximum give four
 # same-tessellation fabric pairs.
 for sd in (23, 41, 17, 7, 53, 71, 89):
-    JOBS.append(dict(name="mx_girdle_s%d_ppw8" % sd, ppw=8.0, step=12,
+    JOBS.append(dict(name="girdle_seed%d_ppw8_ensemble" % sd, ppw=8.0, step=12,
                      seed=sd, mode="normal", **GIRDLE))
 for sd in (23, 41, 17):
-    JOBS.append(dict(name="mx_single_s%d_ppw8" % sd, ppw=8.0, step=12,
+    JOBS.append(dict(name="singlemax_seed%d_ppw8_ensemble" % sd, ppw=8.0, step=12,
                      seed=sd, mode="normal", **SINGLE))
 # --- 3. contrast-scaling ladder (f = 1 is the existing 60-az sweep) ----
 for f in (0.0, 0.25, 0.5, 0.75):
-    JOBS.append(dict(name="cs_f%03d_s11_ppw8" % int(f * 100), ppw=8.0,
+    JOBS.append(dict(name="girdle_seed11_ppw8_contrast_f%03d" % int(f * 100), ppw=8.0,
                      step=12, seed=11, mode="contrast", frac=f, **GIRDLE))
 # --- 4. numerical floor at the other two resolutions -------------------
-JOBS.append(dict(name="zc_s11_ppw6", ppw=6.0, step=12, seed=11,
+JOBS.append(dict(name="girdle_seed11_ppw6_zerocontrast", ppw=6.0, step=12, seed=11,
                  mode="zero", **GIRDLE))
-JOBS.append(dict(name="zc_s11_ppw10", ppw=10.0, step=12, seed=11,
+JOBS.append(dict(name="girdle_seed11_ppw10_zerocontrast", ppw=10.0, step=12, seed=11,
                  mode="zero", **GIRDLE))
 
 

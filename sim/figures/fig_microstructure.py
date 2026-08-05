@@ -23,8 +23,8 @@ polygons. The label volume is used only where a volume is needed, which
 is the grain-size distribution of panel (c).
 
 Reads (paths resolved relative to this file):
-  ../../out/sweeps/girdle_perp_ppw8/config.json   girdle run configuration
-  ../../out/sweeps/singlemax_ppw8/config.json     single-maximum ditto
+  ../../out/sweeps/girdle_seed11_ppw8_dev/config.json   girdle run configuration
+  ../../out/sweeps/singlemax_seed11_ppw8_twin/config.json     single-maximum ditto
 and imports ../specimen.py, which generates the specimen.
 
 Writes ../../../pulse-echo-cof-paper/figures/microstructure.pdf and
@@ -72,8 +72,8 @@ sp.DiskSpecimen._label_grid_gpu = staticmethod(lambda *a, **k: None)
 
 # The two sweeps whose specimens the manuscript calls the girdle and the
 # single maximum. Their configurations carry every specimen parameter.
-GIRDLE_RUN = "girdle_perp_ppw8"
-SINGLEMAX_RUN = "singlemax_ppw8"
+GIRDLE_RUN = "girdle_seed11_ppw8_dev"
+SINGLEMAX_RUN = "singlemax_seed11_ppw8_twin"
 
 # Grid for the label volume. The production grid of 0.241 mm is set by
 # the wave, and nothing drawn here is a wave. At 1 mm a mean grain is two

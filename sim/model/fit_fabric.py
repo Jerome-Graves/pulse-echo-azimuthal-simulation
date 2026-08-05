@@ -56,7 +56,7 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from scipy.optimize import minimize            # noqa: E402
 from scipy.signal import hilbert               # noqa: E402
 
@@ -65,7 +65,8 @@ import forward as F                            # noqa: E402
 import ladder                                  # noqa: E402
 import specimen as S                           # noqa: E402
 
-REF = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ref")
+REF = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), "ref")
 W0, W1 = ladder.W_CLEAN
 C_REF = 3850.0
 D = 0.100

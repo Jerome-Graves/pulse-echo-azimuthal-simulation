@@ -24,12 +24,12 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from scipy.signal import hilbert                # noqa: E402
 
 import fdtd                                     # noqa: E402
 import fe_mesh                                  # noqa: E402
-import fe_solver                                # noqa: E402
+import fe_solver_p1 as fe_solver                                # noqa: E402
 
 L = 0.030                                       # 30 mm box
 F0 = 1.0e6

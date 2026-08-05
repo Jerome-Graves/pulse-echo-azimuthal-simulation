@@ -3,7 +3,7 @@
 import os
 
 import numpy as np
-import rev_common as RC
+import review_common as RC
 import fit_sweep as FS
 import sweep_runner as SW
 from scipy.signal import hilbert, butter, sosfiltfilt
@@ -69,7 +69,7 @@ def variants(name):
     return o
 
 
-for nm in ["rigid_seed11", "iso_gcal"]:
+for nm in ["singlemax_seed11_ppw6_rigid2", "isotropic_seed41_ppw6_calibration"]:
     Z = variants(nm)
     az = Z["az"]
     cfg = RC.cfg_of(nm)

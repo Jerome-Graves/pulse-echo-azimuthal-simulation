@@ -20,10 +20,10 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 
 import fdtd                                     # noqa: E402
-from fe_solver import locate                    # noqa: E402  (P1 point-locate
+from fe_solver_p1 import locate                    # noqa: E402  (P1 point-locate
 #                                    on corner sub-tets is fine for placement)
 
 # 4-point Gauss rule on the reference tet (barycentric), degree 2

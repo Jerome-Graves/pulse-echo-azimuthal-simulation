@@ -1,4 +1,4 @@
-"""Validate the E1 BEAM CORRIDOR at 5 MHz vs ref/fw_5mhz_fabric00.npz.
+"""Validate the E1 BEAM CORRIDOR at 5 MHz vs ref/fw_reference_5mhz_fabric00.npz.
 
 The coda/E1 split's second half: E1 (the far-rim specular echo) forms
 in the stationary-phase region around the beam axis - first Fresnel
@@ -21,7 +21,7 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from scipy import ndimage                     # noqa: E402
 from scipy.signal import hilbert              # noqa: E402
 
@@ -45,7 +45,7 @@ def e1_of(tr, dt):
 
 
 def main():
-    d = np.load(os.path.join(REF, "fw_5mhz_fabric00.npz"))
+    d = np.load(os.path.join(REF, "fw_reference_5mhz_fabric00.npz"))
     tr_ref, dt_ref = d["trace"], float(d["dt"])
     E1r, t1r = e1_of(tr_ref, dt_ref)
 
@@ -99,7 +99,7 @@ def main():
         [(pts_c, np.full(len(pts_c), w))], order=8, coeffs=co,
         sponge_width=10, damp_mask=dm_c, progress=prog), float).ravel()
     print(f"corridor run: {(time.time()-t0)/60:.1f} min", flush=True)
-    np.savez(os.path.join(REF, "fw_5mhz_e1corridor.npz"), trace=tr_c,
+    np.savez(os.path.join(REF, "fw_reference_5mhz_e1corridor.npz"), trace=tr_c,
              dt=dt, half_w=HALF_W)
 
     E1c, t1c = e1_of(tr_c, dt)

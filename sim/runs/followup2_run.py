@@ -29,7 +29,7 @@ rather than copied.
      disorientation is at its maximum. Nothing in the paper can be
      attributed to clustering, and nothing can be tested against it: that
      is a design gap rather than a null result. Real ice is clustered.
-     This pairs against girdle_perp_ppw8, which shares seed, fabric and
+     This pairs against girdle_seed11_ppw8_dev, which shares seed, fabric and
      resolution and differs only in the correlation. About 0.9 h.
 
   4  FOUR MORE GIRDLE TESSELLATIONS   seeds 13, 29, 47, 67 at ppw 8,
@@ -63,15 +63,15 @@ SINGLE_NORMAL = dict(kappa=3.93, axis=(0.0, 0.0, 1.0), tag="singlez")
 GIRDLE_WEAK = dict(kappa=-3.0, axis=(1.0, 0.0, 0.0), tag="girdle3")
 
 JOBS = [
-    dict(name="blind_singlez_s11_ppw8", ppw=8.0, step=12, seed=11,
+    dict(name="singlemax_seed11_ppw8_axis_normal", ppw=8.0, step=12, seed=11,
          mode="normal", **SINGLE_NORMAL),
-    dict(name="wk_girdle_k3_s11_ppw8", ppw=8.0, step=12, seed=11,
+    dict(name="girdle_seed11_ppw8_weak_kappa3", ppw=8.0, step=12, seed=11,
          mode="normal", **GIRDLE_WEAK),
-    dict(name="clus_girdle_s11_ppw8", ppw=8.0, step=12, seed=11,
+    dict(name="girdle_seed11_ppw8_clustered", ppw=8.0, step=12, seed=11,
          mode="normal", spatial_corr=0.6, **M.GIRDLE),
 ]
 for sd in (13, 29, 47, 67):
-    JOBS.append(dict(name="mx_girdle_s%d_ppw8" % sd, ppw=8.0, step=12,
+    JOBS.append(dict(name="girdle_seed%d_ppw8_ensemble" % sd, ppw=8.0, step=12,
                      seed=sd, mode="normal", **M.GIRDLE))
 
 

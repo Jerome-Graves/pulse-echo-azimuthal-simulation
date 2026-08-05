@@ -46,7 +46,7 @@ THE DECISIONS THIS MODULE MAKES, and the evidence for each.
   out-of-sample number; the model-set threshold, the largest two-fold any
   girdle concentration can produce, gets ten of thirteen; and the
   statistic is a two-fold-amplitude test, so an isotropic specimen is
-  classified as a girdle, which the iso_gcal control confirms.
+  classified as a girdle, which the isotropic_seed41_ppw6_calibration control confirms.
 
   5. THE CODA LEVEL IS NOT A USABLE FABRIC DISCRIMINANT. On the five
   matched pairs now available the single maximum is louder by 3.53 dB,
@@ -73,15 +73,15 @@ The frame therefore needs the sign and size of nothing. This is printed
 rather than asserted.
 
 READS, all under out/sweeps, each directory az*.npz plus config.json:
-  girdle_perp_ppw8, mx_girdle_s{7,17,23,41,53,71,89}_ppw8
+  girdle_seed11_ppw8_dev, girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble
       eight girdle tessellations, kappa = -8, nominal axis 0 deg
-  singlemax_ppw8, mx_single_s{7,17,23,41}_ppw8
+  singlemax_seed11_ppw8_twin, singlemax_seed{7,17,23,41}_ppw8_ensemble
       the single-maximum sweeps that have landed, kappa = +3.93,
       nominal axis 30 deg, each sharing a bit-identical Laguerre
       tessellation with the girdle sweep of the same seed. The matched
       set is discovered at run time and named in the output, so this
       module reports whatever the GPU queue has finished.
-  iso_gcal, zerocontrast_ppw8, cs_f000_s11_ppw8, cs_f050_s11_ppw8
+  isotropic_seed41_ppw6_calibration, girdle_seed11_ppw8_uniform_axis, girdle_seed11_ppw8_contrast_f000, girdle_seed11_ppw8_contrast_f050
       controls on the two-fold statistic.
 The realised c-axes and grain volumes come from the CPU rebuild cached
 beside tof_axis_recovery.py. Nothing here touches CUDA.
@@ -110,18 +110,18 @@ import tof_axis_recovery as TAR                   # noqa: E402
 # The eight girdle tessellations, and every single-maximum sweep the
 # production queue has ever been asked for. Availability is checked at
 # run time so that a partly finished batch is reported honestly.
-GIRDLE = ("girdle_perp_ppw8", "mx_girdle_s7_ppw8", "mx_girdle_s17_ppw8",
-          "mx_girdle_s23_ppw8", "mx_girdle_s41_ppw8",
-          "mx_girdle_s53_ppw8", "mx_girdle_s71_ppw8",
-          "mx_girdle_s89_ppw8")
-SINGLE_ALL = ("singlemax_ppw8", "mx_single_s7_ppw8", "mx_single_s17_ppw8",
-              "mx_single_s23_ppw8", "mx_single_s41_ppw8",
-              "mx_single_s53_ppw8", "mx_single_s71_ppw8",
-              "mx_single_s89_ppw8")
-CONTROLS = (("iso_gcal", "isotropic, no fabric, ppw 6"),
-            ("zerocontrast_ppw8", "one crystal everywhere, ppw 8"),
-            ("cs_f000_s11_ppw8", "girdle bulk, no grain contrast"),
-            ("cs_f050_s11_ppw8", "girdle, half grain contrast"))
+GIRDLE = ("girdle_seed11_ppw8_dev", "girdle_seed7_ppw8_ensemble", "girdle_seed17_ppw8_ensemble",
+          "girdle_seed23_ppw8_ensemble", "girdle_seed41_ppw8_ensemble",
+          "girdle_seed53_ppw8_ensemble", "girdle_seed71_ppw8_ensemble",
+          "girdle_seed89_ppw8_ensemble")
+SINGLE_ALL = ("singlemax_seed11_ppw8_twin", "singlemax_seed7_ppw8_ensemble", "singlemax_seed17_ppw8_ensemble",
+              "singlemax_seed23_ppw8_ensemble", "singlemax_seed41_ppw8_ensemble",
+              "singlemax_seed53_ppw8_ensemble", "singlemax_seed71_ppw8_ensemble",
+              "singlemax_seed89_ppw8_ensemble")
+CONTROLS = (("isotropic_seed41_ppw6_calibration", "isotropic, no fabric, ppw 6"),
+            ("girdle_seed11_ppw8_uniform_axis", "one crystal everywhere, ppw 8"),
+            ("girdle_seed11_ppw8_contrast_f000", "girdle bulk, no grain contrast"),
+            ("girdle_seed11_ppw8_contrast_f050", "girdle, half grain contrast"))
 
 # Every sweep in the matrix carries these thirty azimuths.
 AZ_STEP = 12

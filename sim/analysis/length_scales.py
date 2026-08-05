@@ -44,9 +44,9 @@ HALF = np.radians(8.9)
 DG = 17.4e-3
 K = 2 * np.pi / LAM
 
-SW = [("girdle_perp_ppw8", 8.0, -8.0, (1.0, 0.0, 0.0), 11, False),
-      ("rigid_seed11", 6.0, 3.93, (0.866, 0.5, 0.0), 11, False),
-      ("iso_gcal", 6.0, 0.001, (1.0, 0.0, 0.0), 41, True)]
+SW = [("girdle_seed11_ppw8_dev", 8.0, -8.0, (1.0, 0.0, 0.0), 11, False),
+      ("singlemax_seed11_ppw6_rigid2", 6.0, 3.93, (0.866, 0.5, 0.0), 11, False),
+      ("isotropic_seed41_ppw6_calibration", 6.0, 0.001, (1.0, 0.0, 0.0), 41, True)]
 
 
 def direc(ct):

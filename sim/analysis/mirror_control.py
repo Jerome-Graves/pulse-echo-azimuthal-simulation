@@ -8,14 +8,14 @@ correlation that knows the specimen's handedness.  If the identification is
 candidate must win on d, not only on r_fwd.
 Also: azimuth jackknife (how many azimuths is rank-1 hostage to).
 """
-import numpy as np, _sk_lib as S
+import numpy as np, _skeptic_lib as S
 CANDS=[11,17,23,41]+list(range(100,140))
 tgrid=np.arange(12e-6,48e-6,S.TBIN)
 
 def rev(M):   # az -> -az on a uniform 0..360 grid
     return np.roll(M[::-1], 1, axis=0)
 
-for nm,own,sub in [("girdle_perp_ppw8",11,1),("singlemax_ppw8",11,1)]:
+for nm,own,sub in [("girdle_seed11_ppw8_dev",11,1),("singlemax_seed11_ppw8_twin",11,1)]:
     az,E,t1,dt=S.measured(nm,tgrid,sub)
     assert np.allclose(np.diff(az), az[1]-az[0])
     z=np.load(f"skP_{nm}_{sub}_1.npz")

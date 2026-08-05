@@ -21,7 +21,7 @@ march that defines the prediction rather than the statistic under test,
 and the cached label volumes in out/tesscache, which are data. The
 locally built pulse kernel is checked against the shared one and the
 whole chain is checked against the stored published number for
-mx_girdle_s23_ppw8 before any other row is believed.
+girdle_seed23_ppw8_ensemble before any other row is believed.
 
 Four things are then varied, one at a time, so that the direction of the
 result can be attributed:
@@ -37,8 +37,8 @@ result can be attributed:
                       the window-sensitivity section, both on the same
                       whole-trace envelope estimator
 
-READS  out/sweeps/{lad_girdle_s23_ppw6, mx_girdle_s23_ppw8,
-       lad_girdle_s23_ppw10}/az*.npz
+READS  out/sweeps/{girdle_seed23_ppw6_ladder, girdle_seed23_ppw8_ensemble,
+       girdle_seed23_ppw10_ladder}/az*.npz
        out/tesscache/tess_s<seed>_p8_k-8.npz, 48 candidates
        sim/analysis/tessellation_replication.npz, published values only
 WRITES sim/analysis/gate_refinement_audit.npz. Prints five tables.
@@ -75,15 +75,15 @@ N_RAY = 600
 PPW_PRED = 8                               # one prediction geometry
 
 SEED = 23
-LADDER = [("lad_girdle_s23_ppw6", 6),
-          ("mx_girdle_s23_ppw8", 8),
-          ("lad_girdle_s23_ppw10", 10)]
+LADDER = [("girdle_seed23_ppw6_ladder", 6),
+          ("girdle_seed23_ppw8_ensemble", 8),
+          ("girdle_seed23_ppw10_ladder", 10)]
 AZ_COMMON = np.arange(0, 360, 12)
 CANDS = sorted(set([7, 11, 17, 23, 41, 53, 71, 89] + list(range(100, 140))))
 MODES = ("raw", "col", "double", "harm")
 
 # Published value this chain must return before anything else is believed.
-PUB = dict(sweep="mx_girdle_s23_ppw8", r=0.1121, rank=1, z=6.54)
+PUB = dict(sweep="girdle_seed23_ppw8_ensemble", r=0.1121, rank=1, z=6.54)
 
 
 # ───────────────────────────── measurement ────────────────────────────
@@ -147,7 +147,7 @@ def pulse_kernel(dt=DT, half_us=2.0):
 
 def load_tess(seed, ppw=PPW_PRED, kappa=-8.0):
     """Cached label volume, c-axes and seed points. Never builds."""
-    p = os.path.join(CACHE, f"tess_s{seed}_p{ppw:g}_k{kappa:g}.npz")
+    p = os.path.join(CACHE, f"labels_seed{seed}_ppw{ppw:g}_kappa{kappa:g}.npz")
     if not os.path.exists(p):
         raise FileNotFoundError(p)
     with np.load(p) as z:

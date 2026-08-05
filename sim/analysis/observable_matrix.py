@@ -47,8 +47,8 @@ them optional.
 
   EVERY AZIMUTH HAS ITS OWN dt, set by the CFL limit and so by the
   fastest speed in the rotated medium. Stacking traces by SAMPLE INDEX is
-  a bug: girdle_perp_ppw8 spreads 0.43 per cent in dt and
-  zerocontrast_ppw8 spreads 3.0 per cent. A-scan observables are
+  a bug: girdle_seed11_ppw8_dev spreads 0.43 per cent in dt and
+  girdle_seed11_ppw8_uniform_axis spreads 3.0 per cent. A-scan observables are
   therefore measured on each trace's OWN axis with windows given in
   PHYSICAL TIME, and every B-scan observable is measured on a stack
   resampled onto one physical axis. report_resample_audit prints what the
@@ -71,7 +71,7 @@ zero. Truncation makes the gate length in samples depend on dt, which
 varies across azimuth by up to 3 per cent here, so it puts an
 azimuth-dependent jitter into the very quantity this module measures the
 azimuthal structure of. The cost is that a_coda sits 0.070 dB above
-db_reconcile's coda_band on girdle_perp_ppw8 over the 30 matched
+db_reconcile's coda_band on girdle_seed11_ppw8_dev over the 30 matched
 azimuths, -85.041 against -85.111, and the difference is entirely the
 index convention: recomputing with truncation reproduces -85.111
 exactly. Everything else reproduces: -81.09, -28.06 at ppw 6 and -26.13
@@ -132,14 +132,14 @@ TINY = 1e-300
 CEN_IB = (0.8e6, 3.0e6)
 CEN_WIDE = (0.5e6, 6.0e6)
 
-GIRDLE8 = ("girdle_perp_ppw8", "mx_girdle_s7_ppw8", "mx_girdle_s17_ppw8",
-           "mx_girdle_s23_ppw8", "mx_girdle_s41_ppw8",
-           "mx_girdle_s53_ppw8", "mx_girdle_s71_ppw8",
-           "mx_girdle_s89_ppw8")
-SINGLE8 = ("singlemax_ppw8", "mx_single_s7_ppw8", "mx_single_s17_ppw8",
-           "mx_single_s23_ppw8", "mx_single_s41_ppw8",
-           "mx_single_s53_ppw8", "mx_single_s71_ppw8",
-           "mx_single_s89_ppw8")
+GIRDLE8 = ("girdle_seed11_ppw8_dev", "girdle_seed7_ppw8_ensemble", "girdle_seed17_ppw8_ensemble",
+           "girdle_seed23_ppw8_ensemble", "girdle_seed41_ppw8_ensemble",
+           "girdle_seed53_ppw8_ensemble", "girdle_seed71_ppw8_ensemble",
+           "girdle_seed89_ppw8_ensemble")
+SINGLE8 = ("singlemax_seed11_ppw8_twin", "singlemax_seed7_ppw8_ensemble", "singlemax_seed17_ppw8_ensemble",
+           "singlemax_seed23_ppw8_ensemble", "singlemax_seed41_ppw8_ensemble",
+           "singlemax_seed53_ppw8_ensemble", "singlemax_seed71_ppw8_ensemble",
+           "singlemax_seed89_ppw8_ensemble")
 PROD8 = GIRDLE8 + SINGLE8
 
 DEGEN_HI, DEGEN_LO = 0.95, 0.90
@@ -1047,7 +1047,7 @@ def report_markers():
     print()
 
 
-def report_resample_audit(name="girdle_perp_ppw8", nshow=6):
+def report_resample_audit(name="girdle_seed11_ppw8_dev", nshow=6):
     """What the common time axis costs, and whether the interpolator is
     the reason for any of it."""
     d, files, az, _ = sweep_index(name)
@@ -1083,7 +1083,7 @@ def report_estimator_audit(res):
     keys = res["keys"]
     ja, je = keys.index("a_coda"), keys.index("a_coda_env")
     jp = keys.index("qc_pedestal")
-    show = GIRDLE8[:3] + SINGLE8[:2] + ("zerocontrast_ppw8", "iso_gcal")
+    show = GIRDLE8[:3] + SINGLE8[:2] + ("girdle_seed11_ppw8_uniform_axis", "isotropic_seed41_ppw6_calibration")
     print("ESTIMATOR AUDIT, coda gate, dB, source-referenced")
     print("  %-22s %9s %9s %9s %9s"
           % ("sweep", "local", "tapered", "diff", "pedestal"))
@@ -1140,9 +1140,9 @@ def lag_curve(az, g, nlag=8):
                      for m in range(min(nlag, n))])
 
 
-def report_decorrelation(fine=("iso_gcal", "rigid_seed11", "oos_seed23"),
-                         coarse=("girdle_perp_ppw8", "mx_girdle_s7_ppw8",
-                                 "zerocontrast_ppw8")):
+def report_decorrelation(fine=("isotropic_seed41_ppw6_calibration", "singlemax_seed11_ppw6_rigid2", "singlemax_seed23_ppw6_heldout_axis"),
+                         coarse=("girdle_seed11_ppw8_dev", "girdle_seed7_ppw8_ensemble",
+                                 "girdle_seed11_ppw8_uniform_axis")):
     """How fast the coda waveform decorrelates with rotation.
 
     This is the B-scan-only observable the project has never measured,
@@ -1173,10 +1173,10 @@ def report_decorrelation(fine=("iso_gcal", "rigid_seed11", "oos_seed23"),
     print()
 
 
-def report_index_stacking(name="zerocontrast_ppw8"):
+def report_index_stacking(name="girdle_seed11_ppw8_uniform_axis"):
     """What stacking by sample index does to a B-scan observable.
 
-    zerocontrast_ppw8 spreads 3.0 per cent in dt across azimuth, the
+    girdle_seed11_ppw8_uniform_axis spreads 3.0 per cent in dt across azimuth, the
     largest spread in the archive, so it is where the bug is visible.
     """
     az, g_ok = gate_stack(name, resampled=True)

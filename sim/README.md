@@ -60,7 +60,7 @@ it is additive in the FIELD, so dB templates do not transfer between
 specimen classes (three-specimen + isotropic-sweep tests). Mitigations:
 per-sweep fit-level 2θ nuisance vector (in fit_sweep), ppw 8 (~3.4×
 cost), or same-class template. It is a digital-twin numerics artifact:
-the physical rig does not rasterise ice. Evidence: iso_gcal sweep +
+the physical rig does not rasterise ice. Evidence: isotropic_seed41_ppw6_calibration sweep +
 scratchpad studies (az_harmonic_decomp / g_fine / threetests npz).
 
 ## Solver validation chain (the paper's verification section)
@@ -72,9 +72,9 @@ scratchpad studies (az_harmonic_decomp / g_fine / threetests npz).
 | `fw_checks/coda_convergence.py` | ppw convergence: amplitude work needs ppw ≥ 6 (series flattens there). |
 | `core/rotation_test.py` | SUPERSEDED as a staircase validation (2026-07-29): the probe never followed the rotation, so the test was an azimuth sweep in disguise (production-settings rerun: 13.7 dB spread = fabric pattern + glint; the old ~2 dB was the ppw-4 noise floor). Staircase validity rests on the FE arbiter. Still hosts `rotated_grid`, the azimuth mechanism reused by sweeps (rigid since 2026-07-29, see frame-convention note above). ppw6→ppw8 coda rms −2.0 dB recorded (production levels carry ~2 dB discretisation allowance). |
 | `fw_checks/validate_oblique.py` | Staircased interface vs Aki-Richards vs tilt angle (error budget: good below ~30°, ×3 at 45°). |
-| `fw_checks/fw_crop_validate.py` | LICENSES the causal coda crop (0.45× cost, window diff −107 dB re E1 = float noise). Reference implementation for coda-only runs. |
-| `fw_checks/fw_e1_corridor_validate.py` | LICENSES the E1 beam corridor (0.52× cells, E1 amp −0.06 dB, ToF 0 ns). Corridor coda is NEVER licensed. |
-| `fw_checks/fw_e1_ppw5_validate.py` | NEGATIVE RESULT: ppw5 E1 leg fails (+2.9 dB amplitude); E1 stays ppw6. |
+| `fw_checks/fw_crop_validate_ray_model.py` | LICENSES the causal coda crop (0.45× cost, window diff −107 dB re E1 = float noise). Reference implementation for coda-only runs. |
+| `fw_checks/fw_e1_corridor_validate_ray_model.py` | LICENSES the E1 beam corridor (0.52× cells, E1 amp −0.06 dB, ToF 0 ns). Corridor coda is NEVER licensed. |
+| `fw_checks/fw_e1_ppw5_validate_ray_model.py` | NEGATIVE RESULT: ppw5 E1 leg fails (+2.9 dB amplitude); E1 stays ppw6. |
 
 ## The FE arbiter (independent cross-check of the staircase: PASSED)
 
@@ -83,20 +83,20 @@ Chronological evidence chain; each file's docstring records its verdict.
 | file | verdict |
 |---|---|
 | `fe_crosscheck/fe_mesh.py` | Conforming tet mesher straight from the Laguerre planes (no Neper). Netgen optimize on (sliver control). |
-| `fe_crosscheck/fe_solver.py` | P1/CST solver. DISQUALIFIED as arbiter: −26.8 dB mesh floor. Its `locate()` (barycentric point placement) is still used everywhere. |
+| `fe_crosscheck/fe_solver_p1.py` | P1/CST solver. DISQUALIFIED as arbiter: −26.8 dB mesh floor. Its `locate()` (barycentric point placement) is still used everywhere. |
 | `fe_crosscheck/fe_solver_p2.py` | TET10 + HRZ. Two documented negative results: HRZ lumping degrades to P1 dispersion; consistent-mass Jacobi provably diverges. `straighten()` (edge-node snap) is still used by the P2+ pipeline. |
 | `fe_crosscheck/fe_solver_p2plus.py` | **ML2n15** (Geevers-Mulder-van der Vegt 2018): the working arbiter element. Exact symbolic reference stiffness, true diagonal mass, power-iteration dt, rate-scaled quartic absorber, monopole/dilatation source-receiver. |
 | `fe_crosscheck/fe_p2_probe.py`, `fe_crosscheck/fe_p2plus_probe.py`, `fe_crosscheck/fe_p2plus_scaling.py` | Element validation: patch tests (machine precision), two-receiver dispersion, order-of-convergence. The scaling probe exposed the bar harness's constant ~0.03-cycle near-field bias (absolute speeds from that harness carry it; solver-vs-solver differences are clean). |
 | `fe_crosscheck/fe_p2_floor.py`, `fe_crosscheck/fe_p2plus_floor.py` | Remesh texture floors. Punchline: floors were solver-independent → not dispersion but box reverberation. |
-| `fe_crosscheck/fe_p2plus_ab.py` … `ab5.py` | The five cross-check rounds. The sequence −19.5 → −19.1 → −22.9 → −35.4 → **−46.2 dB is the finite-element solver's OWN coda level** re its own direct arrival, not a solver-to-solver difference; the finite-difference level over the same rounds is −44.9, −44.9, −44.9, −43.2, −43.2. Round 5 is therefore **−46.2 against −43.2 = PASS, a gap of 2.9 dB** (early window 0.8 dB, and note that gap has the OPPOSITE sign: there the finite-element solver is the louder). Fix per round: (2) padded box + quartic shell, (3) monopole source ends S-wave contamination + **attenuation agreement better than 0.07 dB**, (4) deep src/rec kills wall mirrors, (5) Gaussian-ball source kills numerical S leak. |
-| `fe_crosscheck/fe_ab_forensics.py` | Bin-by-bin trace forensics used to diagnose every round. Run on any `fe_crosscheck/fe_p2plus_ab*_traces.npz`. |
+| `fe_crosscheck/fe_arbiter_round1_baseline.py` … `ab5.py` | The five cross-check rounds. The sequence −19.5 → −19.1 → −22.9 → −35.4 → **−46.2 dB is the finite-element solver's OWN coda level** re its own direct arrival, not a solver-to-solver difference; the finite-difference level over the same rounds is −44.9, −44.9, −44.9, −43.2, −43.2. Round 5 is therefore **−46.2 against −43.2 = PASS, a gap of 2.9 dB** (early window 0.8 dB, and note that gap has the OPPOSITE sign: there the finite-element solver is the louder). Fix per round: (2) padded box + quartic shell, (3) monopole source ends S-wave contamination + **attenuation agreement better than 0.07 dB**, (4) deep src/rec kills wall mirrors, (5) Gaussian-ball source kills numerical S leak. |
+| `fe_crosscheck/fe_arbiter_trace_forensics.py` | Bin-by-bin trace forensics used to diagnose every round. Run on any `fe_crosscheck/fe_arbiter_round1_baseline*_traces.npz`. |
 | `analysis/fe_direct_attenuation.py` | Recomputes the direct-arrival attenuation from the five archives, the numbers Appendix A quotes. Three valid comparisons over **two** src/rec placements: 6-15 mm gives FDTD −1.367 vs FE −1.341 (0.027 dB); 12-21 mm gives −1.805 vs −1.737 (round 4, 0.068) and −1.805 vs −1.791 (round 5, 0.014). FDTD is the more attenuated in all three. Rounds 1-2 (point force) are 1.05 dB out and are the multipole-mismatch evidence, not agreement. |
 | `fe_crosscheck/fe_crosscheck.py` | The original harness (geometry, seeds, FDTD reference runner) the rounds build on. |
 
 ## Other reference runners / studies
 
-`fw_checks/fw_reference.py` (2 MHz reference library),
-`fw_checks/fw_5mhz.py` (5 MHz production trace),
+`fw_checks/fw_reference_2mhz_2mhz.py` (2 MHz reference library),
+`fw_checks/fw_reference_5mhz.py` (5 MHz production trace),
 `pipeline/azimuth_sweep.py` (the original 6-azimuth study; walk-off
 discovery), `fw_checks/freq_blips.py` (boundary-blip frequency study),
 `core/fdtd_ps.py` + `fw_checks/validate_ps.py` (pseudospectral solver:
@@ -106,7 +106,7 @@ NEGATIVE for coda/amplitudes, licensed for timing only, ~4×).
 
 `ref/` holds the clean (decontaminated, fluid_damp 0.02) reference
 traces: inputs to the paper's figures; regenerable but keep them. The
-FE cross-check trace archives (`fe_p2plus_ab*_traces.npz`) sit next to
+FE cross-check trace archives (`fe_arbiter_round1_baseline*_traces.npz`) sit next to
 their scripts in `fe_crosscheck/`. `../out/sweeps/<name>/` holds sweep
 sessions (config + one npz per azimuth + fit results). The large
 `fe_*.npz` arbiter meshes were moved to the sibling

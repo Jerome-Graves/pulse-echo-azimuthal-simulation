@@ -5,7 +5,7 @@ born_spec = SUM over facets of (dv/2vbar)^2 * D(theta) mixes two things:
   FABRIC    the qP velocity jump dv across each facet, which depends on
             the two grains' c-axis orientations relative to this beam
 
-singlemax_ppw8 and girdle_perp_ppw8 share tessellation seed 11, so their
+singlemax_seed11_ppw8_twin and girdle_seed11_ppw8_dev share tessellation seed 11, so their
 facet geometry is IDENTICAL and only the c-axes differ.  That makes two
 clean discriminating tests possible:
 
@@ -35,8 +35,8 @@ from beam_descriptors import OUT                           # noqa: E402
 
 C_REF, F0, DIA = 3850.0, 2.0e6, 0.100
 CODA_W, BAND = (24e-6, 36e-6), (0.8e6, 3.0e6)
-PAIR = [("singlemax_ppw8", 3.93, (0.866, 0.5, 0.0)),
-        ("girdle_perp_ppw8", -8.0, (1.0, 0.0, 0.0))]
+PAIR = [("singlemax_seed11_ppw8_twin", 3.93, (0.866, 0.5, 0.0)),
+        ("girdle_seed11_ppw8_dev", -8.0, (1.0, 0.0, 0.0))]
 
 
 def coda_of(d):

@@ -13,9 +13,9 @@ P.CODA = (24e-6, 36e-6)
 def zs(x):
     s = x.std(); return (x-x.mean())/(s if s > 0 else 1.0)
 
-cfgA, rotA, XA, _, _ = load_sweep("girdle_perp")       # ppw6, fabric in plane
-cfgB, rotB, XB, _, _ = load_sweep("girdle_par")        # ppw6, SAME config, no in-plane fabric
-cfg8, rot8, X8, _, _ = load_sweep("girdle_perp_ppw8")
+cfgA, rotA, XA, _, _ = load_sweep("girdle_seed11_ppw6_axis_perp")       # ppw6, fabric in plane
+cfgB, rotB, XB, _, _ = load_sweep("girdle_seed11_ppw6_axis_par")        # ppw6, SAME config, no in-plane fabric
+cfg8, rot8, X8, _, _ = load_sweep("girdle_seed11_ppw8_dev")
 predA, _ = fabric_pred(cfgA, rotA)
 pred8, _ = fabric_pred(cfg8, rot8)
 keys = sorted(k for k in XA if not k.startswith("_"))
@@ -24,10 +24,10 @@ zpA = zs(predA)
 
 print("="*100)
 print("D1. MATCHED-SPECIMEN NULL for the ppw6 headline (lvl_rms r=+0.693).")
-print("    Null = girdle_par: identical ppw/az/seed/conc/rasterise/fd_kh_max,")
+print("    Null = girdle_seed11_ppw6_axis_par: identical ppw/az/seed/conc/rasterise/fd_kh_max,")
 print("    girdle normal along z so the TRUE in-plane E[R^2] is flat.")
 print("    Null draws = its 22 observables x 30 distinct cyclic rotations vs the")
-print("    girdle_perp predictor (rotation is an exact fabric-phase rotation).")
+print("    girdle_seed11_ppw6_axis_perp predictor (rotation is an exact fabric-phase rotation).")
 print("="*100)
 null = []
 for k in keys:
@@ -65,8 +65,8 @@ def fw_cyc(Xd, predd, kk):
     return obs.max(), float(np.mean(mx >= obs.max()-1e-12)), float(np.median(mx)), nd
 
 print("  %-22s %5s %7s %9s %9s %10s" % ("sweep", "n", "shifts", "max|r|", "p_fw", "med null"))
-for lab, Xd, predd in (("girdle_perp (ppw6)", XA, predA),
-                       ("girdle_perp_ppw8", X8, pred8)):
+for lab, Xd, predd in (("girdle_seed11_ppw6_axis_perp (ppw6)", XA, predA),
+                       ("girdle_seed11_ppw8_dev", X8, pred8)):
     mo, pf, md, nd = fw_cyc(Xd, predd, keys)
     print("  %-22s %5d %7d %9.3f %9.4f %10.3f   observed max %s the median chance max"
           % (lab, len(predd), nd, mo, pf, md, "exceeds" if mo > md else "is below"))
@@ -96,10 +96,10 @@ print("     only its phase can be. The unconditional information is discarded.")
 
 print()
 print("="*100)
-print("D4. UNCONDITIONAL 2-THETA TEST vs the CONFIG-MATCHED ppw6 null (girdle_par)")
+print("D4. UNCONDITIONAL 2-THETA TEST vs the CONFIG-MATCHED ppw6 null (girdle_seed11_ppw6_axis_par)")
 print("="*100)
 nullA2 = np.array([A2(zs(XB[k]), rotB) for k in keys])
-print("  girdle_par A2 across 22 observables: median %.3f  90th %.3f  95th %.3f max %.3f"
+print("  girdle_seed11_ppw6_axis_par A2 across 22 observables: median %.3f  90th %.3f  95th %.3f max %.3f"
       % (np.median(nullA2), np.quantile(nullA2, .9), np.quantile(nullA2, .95), nullA2.max()))
 obsA2 = np.array([A2(zs(XA[k]), rotA) for k in keys])
 o = np.argsort(-obsA2)
@@ -123,7 +123,7 @@ def neff_bartlett(y, p):
     L = n//2
     s = 1 + 2*np.sum(ay[1:L]*ap[1:L])
     return n/max(s, 1.0)
-print("  ppw6 girdle_perp, n=60:")
+print("  ppw6 girdle_seed11_ppw6_axis_perp, n=60:")
 for k in ("lvl_rms", "lvl_early", "f_centroid", "decay"):
     r = float(np.corrcoef(XA[k], predA)[0, 1])
     n1, n2 = neff_theirs(XA[k]), neff_bartlett(XA[k], predA)

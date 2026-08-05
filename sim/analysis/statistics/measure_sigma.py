@@ -20,7 +20,7 @@ import fit_sweep as FS          # noqa: E402
 import fit_fabric as FF         # noqa: E402
 from scipy.optimize import minimize, minimize_scalar   # noqa: E402
 
-AXIS = {"rigid_seed11": 28.8, "oos_seed23": 104.3, "iso_gcal": None}
+AXIS = {"singlemax_seed11_ppw6_rigid2": 28.8, "singlemax_seed23_ppw6_heldout_axis": 104.3, "isotropic_seed41_ppw6_calibration": None}
 
 
 def cfg_of(name):
@@ -85,7 +85,7 @@ def stage2_kappa(cfg, data, rots, geo, tof_m, alpha):
     return k, keep, np.asarray(res, float)
 
 
-def stage1_axis(cfg, data, rots, geo, tof_m):
+def stagedge1_axis(cfg, data, rots, geo, tof_m):
     """Stage 1 exactly as shipped (ToF template + 2-theta channel)."""
     c2t = None
     if FS.C2T_CHANNEL:
@@ -115,11 +115,11 @@ def main():
           f"span={FS.FD_SPAN}  SIG_CODA_SWEEP={FS.SIG_CODA_SWEEP}")
     print(f"calibration file present: "
           f"{os.path.exists(FS.cal_path(2.0))}  (must be False)\n")
-    P = {n: prep(n) for n in ("rigid_seed11", "oos_seed23", "iso_gcal")}
+    P = {n: prep(n) for n in ("singlemax_seed11_ppw6_rigid2", "singlemax_seed23_ppw6_heldout_axis", "isotropic_seed41_ppw6_calibration")}
 
     print("== TASK 2: axis FROZEN at the known sample axis ==")
     sig = {}
-    for n in ("rigid_seed11", "oos_seed23"):
+    for n in ("singlemax_seed11_ppw6_rigid2", "singlemax_seed23_ppw6_heldout_axis"):
         cfg, data, rots, geo, tof_m = P[n]
         a = AXIS[n]
         for it in range(4):
@@ -142,9 +142,9 @@ def main():
 
     print("== TASK 3: free refits at the recommended sigma ==")
     FS.SIG_CODA_SWEEP = round(rec, 2)
-    for n in ("rigid_seed11", "oos_seed23", "iso_gcal"):
+    for n in ("singlemax_seed11_ppw6_rigid2", "singlemax_seed23_ppw6_heldout_axis", "isotropic_seed41_ppw6_calibration"):
         cfg, data, rots, geo, tof_m = P[n]
-        a, c2t = stage1_axis(cfg, data, rots, geo, tof_m)
+        a, c2t = stagedge1_axis(cfg, data, rots, geo, tof_m)
         k, keep, res = stage2_kappa(cfg, data, rots, geo, tof_m, a)
         ax = np.asarray(cfg["fabric_axis"], float)
         ta = float(np.degrees(np.arctan2(ax[1], ax[0])) % 180.0)

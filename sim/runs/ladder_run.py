@@ -2,8 +2,8 @@
 each rung, all on the current code path.
 
 Three sweeps, run back to back:
-  zerocontrast_ppw6    60 az, ppw 6   -> floor at ppw 6
-  girdle_perp_ppw10    30 az, ppw 10  -> is ppw 8 converged?
+  girdle_seed11_ppw6_uniform_axis    60 az, ppw 6   -> floor at ppw 6
+  girdle_seed11_ppw6_axis_perp_ppw10    30 az, ppw 10  -> is ppw 8 converged?
   zerocontrast_ppw10   30 az, ppw 10  -> floor at ppw 10
 
 12 deg steps at ppw 10 so every azimuth has an exact partner in the
@@ -41,8 +41,8 @@ SPONGE, DAMP, ELEM, RECF, KHM = 10, 0.02, 6.35e-3, 2.7, 2.0
 DIA, THK, SEED, KAPPA, AXIS = 0.100, 0.035, 11, -8.0, (1.0, 0.0, 0.0)
 
 #     name                 ppw   step  zero-contrast?
-JOBS = [("zerocontrast_ppw6", 6.0, 6, True),
-        ("girdle_perp_ppw10", 10.0, 12, False),
+JOBS = [("girdle_seed11_ppw6_uniform_axis", 6.0, 6, True),
+        ("girdle_seed11_ppw6_axis_perp_ppw10", 10.0, 12, False),
         ("zerocontrast_ppw10", 10.0, 12, True)]
 
 

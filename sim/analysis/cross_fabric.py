@@ -60,15 +60,15 @@ def meas(name):
 
 
 CASES = [
-    ("girdle_perp",  -8.0,  (1.0, 0.0, 0.0),   11, "single-raster ppw6"),
-    ("girdle_par",   -8.0,  (0.0, 0.0, 1.0),   11, "single-raster ppw6"),
-    ("rigid_seed11",  3.93, (0.866, 0.5, 0.0), 11, "LEGACY ppw6"),
-    ("iso_gcal",      0.001,(1.0, 0.0, 0.0),   41, "LEGACY ppw6"),
-    ("oos_seed23",    3.93, (-0.342, 0.94, 0.0), 23, "LEGACY ppw6"),
-    ("fittest",       3.93, (1.0, 0.0, 0.0),    7, "LEGACY ppw6"),
-    ("kappa8_seed17", 8.0,  (0.5, 0.866, 0.0), 17, "LEGACY ppw6"),
-    ("gcheck_ppw8",   3.93, (0.866, 0.5, 0.0), 11, "LEGACY ppw8"),
-    ("girdle_perp_ppw8", -8.0, (1.0, 0.0, 0.0), 11, "single-raster ppw8"),
+    ("girdle_seed11_ppw6_axis_perp",  -8.0,  (1.0, 0.0, 0.0),   11, "single-raster ppw6"),
+    ("girdle_seed11_ppw6_axis_par",   -8.0,  (0.0, 0.0, 1.0),   11, "single-raster ppw6"),
+    ("singlemax_seed11_ppw6_rigid2",  3.93, (0.866, 0.5, 0.0), 11, "LEGACY ppw6"),
+    ("isotropic_seed41_ppw6_calibration",      0.001,(1.0, 0.0, 0.0),   41, "LEGACY ppw6"),
+    ("singlemax_seed23_ppw6_heldout_axis",    3.93, (-0.342, 0.94, 0.0), 23, "LEGACY ppw6"),
+    ("singlemax_seed7_ppw6_fittest_legacy",       3.93, (1.0, 0.0, 0.0),    7, "LEGACY ppw6"),
+    ("singlemax_seed17_ppw6_kappa8", 8.0,  (0.5, 0.866, 0.0), 17, "LEGACY ppw6"),
+    ("singlemax_seed11_ppw8_12az_check",   3.93, (0.866, 0.5, 0.0), 11, "LEGACY ppw8"),
+    ("girdle_seed11_ppw8_dev", -8.0, (1.0, 0.0, 0.0), 11, "single-raster ppw8"),
 ]
 
 print(f"{'sweep':<20}{'group':<22}{'n':>4}{'<sig_d^2>':>11}{'dB(sig2)':>10}"
@@ -82,7 +82,7 @@ for nm, conc, ax, sd, grp in CASES:
     print(f"{nm:<20}{grp:<22}{len(az):>4}{s2.mean():>11.4e}"
           f"{10*np.log10(s2.mean()):>10.2f}{10*np.log10(P.mean()):>9.2f}")
 
-np.save(os.path.join(os.path.dirname(__file__), "ref2_rows.npy"), rows,
+np.save(os.path.join(os.path.dirname(__file__), "cross_fabric_coda_rows.npy"), rows,
         allow_pickle=True)
 
 print("\n--- within a fixed solver group, does level track sigma_d^2 1:1? ---")

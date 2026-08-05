@@ -31,7 +31,7 @@ rotations {0,17,31,47} = the physical azimuthal fabric pattern + grain
 glint, exactly as an azimuth sweep should show. The historical "~2 dB
 invariance" at order 4 / ppw 4 was the coarse grid's staircase noise
 floor flattening the physics - it validated nothing. Staircase
-validity rests on the FE arbiter instead (fe_p2plus_ab5: conforming
+validity rests on the FE arbiter instead (fe_arbiter_round5_gauss_ball: conforming
 mesh agrees to 2.9 dB, attenuation to 0.03 dB), which is stronger
 evidence than this test could ever give. `rotated_grid` itself remains
 production machinery for sweeps. Same-day ppw record (order 8, rot 0,
@@ -48,7 +48,7 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from ringfwi import anisotropy as an          # noqa: E402
 from scipy import ndimage                     # noqa: E402
 from scipy.signal import hilbert              # noqa: E402

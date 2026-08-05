@@ -59,13 +59,13 @@ AZ30 = tuple(range(0, 360, 12))
 
 # The twelve tessellations with a cached label volume at ppw 8, as in
 # axis_window_adjudication.SPECS.
-SPECS = ([("girdle_perp_ppw8", 11, "k-8")] +
-         [("mx_girdle_s%d_ppw8" % s, s, "k-8")
+SPECS = ([("girdle_seed11_ppw8_dev", 11, "k-8")] +
+         [("girdle_seed%d_ppw8_ensemble" % s, s, "k-8")
           for s in (7, 17, 23, 41, 53, 71, 89)] +
-         [("singlemax_ppw8", 11, "k3.93")] +
-         [("mx_single_s%d_ppw8" % s, s, "k3.93") for s in (17, 23, 41)])
+         [("singlemax_seed11_ppw8_twin", 11, "k3.93")] +
+         [("singlemax_seed%d_ppw8_ensemble" % s, s, "k3.93") for s in (17, 23, 41)])
 
-CONTROLS = ("zerocontrast_ppw8", "cs_f000_s11_ppw8")
+CONTROLS = ("girdle_seed11_ppw8_uniform_axis", "girdle_seed11_ppw8_contrast_f000")
 
 # Orientation-blind column descriptors.  Not one of these can be
 # computed differently if every c-axis in the disc is replaced.
@@ -310,8 +310,8 @@ def main(nperm=2000):
     print("    %-6s %-8s %8s %10s %10s" % ("res", "stat", "r", "rank/60",
                                            "rank/30 fold"))
     val = {}
-    for sw, tk, tag in (("girdle_perp", "tess_s11_p6_k-8.npz", "ppw6"),
-                        ("girdle_perp_ppw8", "tess_s11_p8_k-8.npz", "ppw8")):
+    for sw, tk, tag in (("girdle_seed11_ppw6_axis_perp", "labels_seed11_ppw6_kappa-8.npz", "ppw6"),
+                        ("girdle_seed11_ppw8_dev", "labels_seed11_ppw8_kappa-8.npz", "ppw8")):
         rots, lev = levels(sw, WINDOWS["24-36"], "env")
         W, G, CR = column(tk, rots, WINDOWS["24-36"])
         _, ax, _, _ = tess_path(tk)
@@ -367,14 +367,14 @@ def main(nperm=2000):
     print("    zerocontrast only).  GRID 30 = the 30 azimuths at 12 deg")
     print("    that cs_f000 also holds.  Ranks are never compared across")
     print("    grids.")
-    tk8 = "tess_s11_p8_k-8.npz"
+    tk8 = "labels_seed11_ppw8_kappa-8.npz"
     _, ax8, _, _ = tess_path(tk8)
     rows = []
     for grid, keep in (("60", None), ("30", AZ30)):
-        sweeps = (("girdle_perp_ppw8", "specimen"),
-                  ("zerocontrast_ppw8", "control"))
+        sweeps = (("girdle_seed11_ppw8_dev", "specimen"),
+                  ("girdle_seed11_ppw8_uniform_axis", "control"))
         if grid == "30":
-            sweeps = sweeps + (("cs_f000_s11_ppw8", "control"),)
+            sweeps = sweeps + (("girdle_seed11_ppw8_contrast_f000", "control"),)
         for sw, role in sweeps:
             for wn, wv in WINDOWS.items():
                 for kind in ("env", "tf"):
@@ -410,9 +410,9 @@ def main(nperm=2000):
             for g, sw, role, w2, k2, r, k, n, rg in rows:
                 if w2 == wn and k2 == kind:
                     got.setdefault(sw, {})[g] = abs(r)
-            sp = got["girdle_perp_ppw8"]
-            zc = got["zerocontrast_ppw8"]
-            cs = got["cs_f000_s11_ppw8"]
+            sp = got["girdle_seed11_ppw8_dev"]
+            zc = got["girdle_seed11_ppw8_uniform_axis"]
+            cs = got["girdle_seed11_ppw8_contrast_f000"]
             for g in ("60", "30"):
                 if g not in sp:
                     continue
@@ -440,7 +440,7 @@ def main(nperm=2000):
           ("window", "spec", "zeroc", "cs_f000", "marg zc", "marg cs"))
     for wn, wv in WINDOWS.items():
         a = [10 * np.log10(np.mean(10 ** (levels(s, wv, "abs", AZ30)[1] / 10)))
-             for s in ("girdle_perp_ppw8",) + CONTROLS]
+             for s in ("girdle_seed11_ppw8_dev",) + CONTROLS]
         print("    %-6s %9.2f %9.2f %9.2f %9.2f %9.2f"
               % (wn, a[0], a[1], a[2], a[0] - a[1], a[0] - a[2]))
     print("    (An 'env' dB margin is referenced to each sweep's own")
@@ -456,10 +456,10 @@ def main(nperm=2000):
            "partial|zc"))
     for wn, wv in WINDOWS.items():
         for kind in ("env", "tf"):
-            _, ls = levels("girdle_perp_ppw8", wv, kind, AZ30)
-            _, lz = levels("zerocontrast_ppw8", wv, kind, AZ30)
-            _, lc = levels("cs_f000_s11_ppw8", wv, kind, AZ30)
-            rots = levels("girdle_perp_ppw8", wv, kind, AZ30)[0]
+            _, ls = levels("girdle_seed11_ppw8_dev", wv, kind, AZ30)
+            _, lz = levels("girdle_seed11_ppw8_uniform_axis", wv, kind, AZ30)
+            _, lc = levels("girdle_seed11_ppw8_contrast_f000", wv, kind, AZ30)
+            rots = levels("girdle_seed11_ppw8_dev", wv, kind, AZ30)[0]
             W, G, CR = column(tk8, rots, wv)
             vv = v_var(W, vmat(ax8, rots))
             print("    %-6s %-5s %+10.3f %+10.3f %+12.3f %+12.3f"
@@ -477,7 +477,7 @@ def main(nperm=2000):
     print("    the single strongest of them, GRID 60, seed 11 ppw 8.")
     print("    %-6s %8s %-11s %8s" % ("window", "R2", "worst one", "r"))
     for wn, wv in WINDOWS.items():
-        rots = levels("girdle_perp_ppw8", wv, "env")[0]
+        rots = levels("girdle_seed11_ppw8_dev", wv, "env")[0]
         W, G, CR = column(tk8, rots, wv)
         vv = v_var(W, vmat(ax8, rots))
         rr = resid(vv, G, GEOM)
@@ -504,7 +504,7 @@ def main(nperm=2000):
     geo_cells = 0
     for wn, wv in WINDOWS.items():
         for kind in ("env", "tf"):
-            rots, lev = levels("girdle_perp_ppw8", wv, kind)
+            rots, lev = levels("girdle_seed11_ppw8_dev", wv, kind)
             W, G, CR = column(tk8, rots, wv)
             vv = v_var(W, vmat(ax8, rots))
             rs = shift(vv, lev)
@@ -533,8 +533,8 @@ def main(nperm=2000):
     print("    %-6s %-5s %-6s %8s %10s %12s" %
           ("res", "lvl", "window", "|r|", "p perm", "p perm resid"))
     perm_gate = {}
-    for sw, tk, tag in (("girdle_perp", "tess_s11_p6_k-8.npz", "ppw6"),
-                        ("girdle_perp_ppw8", "tess_s11_p8_k-8.npz", "ppw8")):
+    for sw, tk, tag in (("girdle_seed11_ppw6_axis_perp", "labels_seed11_ppw6_kappa-8.npz", "ppw6"),
+                        ("girdle_seed11_ppw8_dev", "labels_seed11_ppw8_kappa-8.npz", "ppw8")):
         _, axl, _, _ = tess_path(tk)
         for wn, wv in WINDOWS.items():
             rots, lev = levels(sw, wv, "env")

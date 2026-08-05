@@ -3,7 +3,7 @@ against WITHOUT new computation?
 
 Three numbers are produced here, all from the cached Laguerre geometry in
 physical_optics/po_src_geom.npz and the CPU physical-optics kernel of
-po_src_3po.py.  Nothing here touches CUDA and nothing here runs an FDTD
+po_src_03_kirchhoff_pred.py.  Nothing here touches CUDA and nothing here runs an FDTD
 forward model.
 
   (1) FACET POWER CONCENTRATION.  How much of the gated coda power is
@@ -53,8 +53,8 @@ PO_DIR = os.path.join(HERE, "physical_optics")
 if PO_DIR not in sys.path:
     sys.path.insert(0, PO_DIR)
 
-import po_src_3po as PO                                  # noqa: E402
-from po_src_3po import (C, F0, LAM, DIA, THK, GATE, NF, FAREA,   # noqa: E402
+import po_src_03_kirchhoff_pred as PO                                  # noqa: E402
+from po_src_03_kirchhoff_pred import (C, F0, LAM, DIA, THK, GATE, NF, FAREA,   # noqa: E402
                         ricker_spec, trace_from, env_rms_gate)
 
 AZ = np.arange(0, 360, 12)          # the 30 production azimuths
@@ -67,7 +67,7 @@ def per_facet_gate_energy(az_deg, ds, Wspec):
     Returns (facet_index, energy) for the boundaries that put any energy
     in the gate at this azimuth.  Facets are traced individually, so the
     decomposition is incoherent by construction; the coherent sum over
-    all of them is what po_src_3po reports as the azimuth level.
+    all of them is what po_src_03_kirchhoff_pred reports as the azimuth level.
     """
     a = np.radians(az_deg)
     nb = np.array([np.cos(a), np.sin(a), 0.0])

@@ -110,15 +110,15 @@ would not identify anything.
 Reads, all under ../../out/sweeps, each directory az*.npz with keys
 'trace' and 'dt' plus a config.json, on the 30 azimuths at 12 degree
 spacing every sweep has in common:
-    girdle_perp_ppw8, mx_girdle_s{7,17,23,41,53,71,89}_ppw8
+    girdle_seed11_ppw8_dev, girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble
         eight independent girdle tessellations at ppw 8
-    girdle_perp, lic_girdle_s11_ppw10
+    girdle_seed11_ppw6_axis_perp, girdle_seed11_ppw10_licensing
         seed 11 at ppw 6 and ppw 10, for the resolution series
-    zc_s11_ppw6, zerocontrast_ppw8, zc_s11_ppw10
+    girdle_seed11_ppw6_zerocontrast, girdle_seed11_ppw8_uniform_axis, girdle_seed11_ppw10_zerocontrast
         uniform-orientation controls on the same code path. zerocontrast
         _ppw6 is deliberately unused: it predates the production
         programme and holds only 22 of the 30 azimuths
-    singlemax_ppw8, mx_single_s{17,23,41}_ppw8
+    singlemax_seed11_ppw8_twin, singlemax_seed{17,23,41}_ppw8_ensemble
         four single-maximum sweeps, for the 4.34 dB audit only
 Rebuilds the eight tessellations through sim/core/specimen.py to count grain
 boundaries along the beam axis. That build is done on the CPU here: this
@@ -162,20 +162,20 @@ DB_PER_NAT = 10.0 / np.log(10.0)
 AZ_STEP_DEG = 12
 AZ_COMMON = np.arange(0, 360, AZ_STEP_DEG)
 
-GIRDLE = [("girdle_perp_ppw8", 11), ("mx_girdle_s7_ppw8", 7),
-          ("mx_girdle_s17_ppw8", 17), ("mx_girdle_s23_ppw8", 23),
-          ("mx_girdle_s41_ppw8", 41), ("mx_girdle_s53_ppw8", 53),
-          ("mx_girdle_s71_ppw8", 71), ("mx_girdle_s89_ppw8", 89)]
-SINGLE = [("singlemax_ppw8", 11), ("mx_single_s17_ppw8", 17),
-          ("mx_single_s23_ppw8", 23), ("mx_single_s41_ppw8", 41)]
+GIRDLE = [("girdle_seed11_ppw8_dev", 11), ("girdle_seed7_ppw8_ensemble", 7),
+          ("girdle_seed17_ppw8_ensemble", 17), ("girdle_seed23_ppw8_ensemble", 23),
+          ("girdle_seed41_ppw8_ensemble", 41), ("girdle_seed53_ppw8_ensemble", 53),
+          ("girdle_seed71_ppw8_ensemble", 71), ("girdle_seed89_ppw8_ensemble", 89)]
+SINGLE = [("singlemax_seed11_ppw8_twin", 11), ("singlemax_seed17_ppw8_ensemble", 17),
+          ("singlemax_seed23_ppw8_ensemble", 23), ("singlemax_seed41_ppw8_ensemble", 41)]
 
 # Fixed-tessellation resolution series, seed 11, and the uniform-
 # orientation control at each of the same three resolutions. Both maps
 # are the ones db_reconcile.py uses, so a scatter and a resolution step
 # are measured on the same runs.
-RESOLUTION = {6: "girdle_perp", 8: "girdle_perp_ppw8",
-              10: "lic_girdle_s11_ppw10"}
-UNIFORM = {6: "zc_s11_ppw6", 8: "zerocontrast_ppw8", 10: "zc_s11_ppw10"}
+RESOLUTION = {6: "girdle_seed11_ppw6_axis_perp", 8: "girdle_seed11_ppw8_dev",
+              10: "girdle_seed11_ppw10_licensing"}
+UNIFORM = {6: "girdle_seed11_ppw6_zerocontrast", 8: "girdle_seed11_ppw8_uniform_axis", 10: "girdle_seed11_ppw10_zerocontrast"}
 
 # The audited estimator and the published one, in that order. Keys into
 # every power dictionary this module passes about.

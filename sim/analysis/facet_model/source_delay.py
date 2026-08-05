@@ -13,7 +13,7 @@ import acquisition as AQ
 from config import Config
 import item4b_blips as B
 
-for name in ("rigid_seed11", "prod5mhz"):
+for name in ("singlemax_seed11_ppw6_rigid2", "singlemax_seed7_ppw6_5mhz_production"):
     build = B.get_build(name); cfg = Config(); cfg.err.enabled = False
     az, X, dt, f0, dts = A.load_sweep(name); fs = 1/dt
     w = B.ricker(f0, dt, int(round(3.0/f0/dt)) | 1); w /= np.linalg.norm(w)

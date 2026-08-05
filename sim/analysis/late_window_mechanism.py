@@ -67,7 +67,7 @@ WHAT IS MEASURED, IN ORDER.
   4. THE TWO AXIS TESTS, T1 and T2, for the specimen AND both controls,
      then the twelve-tessellation first-rank count.
 
-THE GRID. cs_f000_s11_ppw8 holds 30 azimuths where the production sweeps
+THE GRID. girdle_seed11_ppw8_contrast_f000 holds 30 azimuths where the production sweeps
 hold 60, so every cell carrying both controls runs on the 30 common
 azimuths: 15 DISTINCT alignments, because the bulk predictor is a
 function of |c . n| alone and is exactly 180 degree periodic, and an
@@ -360,7 +360,7 @@ def report_harness():
     print("=" * 79)
     print("\n  T1  coda level against the E[R^2] predictor, circular-shift null")
     print(f"  {'sweep':<20}{'r':>9}{'pub':>7}{'rank':>10}{'pub':>8}")
-    for name, ppw in (("girdle_perp", 6), ("girdle_perp_ppw8", 8)):
+    for name, ppw in (("girdle_seed11_ppw6_axis_perp", 6), ("girdle_seed11_ppw8_dev", 8)):
         s = FAW.sweep(name, None)
         y = FAW.level_native(name, FAW.PUBLISHED, None, ref="src_mean")
         pr = FAW.predictor(11, s["az"], -8.0, 0.0, ppw)
@@ -376,7 +376,7 @@ def report_harness():
     print(f"  {'sweep':<20}{'n':>5}{'shifts':>7}{'max|r|':>9}{'pub':>7}"
           f"{'p_fw':>9}{'pub':>9}  {'argmax':<14}")
     for name, seed, kappa, _ in FAW.PANEL_SWEEPS:
-        ppw = 6 if name in ("girdle_perp", "iso_gcal") else 8
+        ppw = 6 if name in ("girdle_seed11_ppw6_axis_perp", "isotropic_seed41_ppw6_calibration") else 8
         az, X = FAW.panel_native(name, FAW.PUBLISHED, None)
         keys = sorted(X)
         pr = FAW.predictor_for(name, seed, kappa, az, ppw)
@@ -596,8 +596,8 @@ def report_axis(store):
 def report_grid60(store):
     """The production grid, where a rank is out of thirty and not fifteen.
 
-    cs_f000_s11_ppw8 holds 30 azimuths, so any cell carrying it runs on
-    the 30 common azimuths. The specimen and zerocontrast_ppw8 both hold
+    girdle_seed11_ppw8_contrast_f000 holds 30 azimuths, so any cell carrying it runs on
+    the 30 common azimuths. The specimen and girdle_seed11_ppw8_uniform_axis both hold
     60, and on those the null has 30 distinct alignments and a floor of
     1/30 = 0.033, which is twice the resolution section 4 can offer. The
     price is that only ONE of the two zero-scattering controls is
@@ -606,9 +606,9 @@ def report_grid60(store):
     rank out of 15 there.
     """
     print("\n" + "=" * 79)
-    print("5. THE PRODUCTION GRID. Specimen and zerocontrast_ppw8 only,")
+    print("5. THE PRODUCTION GRID. Specimen and girdle_seed11_ppw8_uniform_axis only,")
     print("   60 azimuths, 30 DISTINCT alignments, exact floor")
-    print("   1/30 = 0.0333. cs_f000_s11_ppw8 has no rows here: it holds")
+    print("   1/30 = 0.0333. girdle_seed11_ppw8_contrast_f000 has no rows here: it holds")
     print("   30 azimuths and cannot be put on this grid.")
     print("=" * 79)
     for nm, note in ((SPECIMEN, "specimen, girdle k = -8"),

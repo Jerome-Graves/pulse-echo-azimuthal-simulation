@@ -6,7 +6,7 @@ archive that nobody checked against the archive. It first said the gate
 The replacement said the ladder rises, which is true, but justified it
 with "Seed 23 is the one specimen that exists at ppw = 6, 8 and 10",
 which is false. Seed 11 carries a full ladder as well, in out/sweeps as
-girdle_perp at ppw 6, girdle_perp_ppw8 at ppw 8 and lic_girdle_s11_ppw10
+girdle_seed11_ppw6_axis_perp at ppw 6, girdle_seed11_ppw8_dev at ppw 8 and girdle_seed11_ppw10_licensing
 at ppw 10; analysis/eight_pairs_two_ladders.py has had all three
 hard-coded as its LADDER[11] since the levels were reconciled, and the
 supplement's own scatter paragraph already says two tessellations carry a
@@ -42,7 +42,7 @@ reported and Section 3 says whether the choice moves anything:
 
   A, adopted     keep the 30 azimuths at 12 degrees that all three rungs
                  share. Identical beam positions at every rung, and the
-                 set the stored published row for girdle_perp_ppw8 was
+                 set the stored published row for girdle_seed11_ppw8_dev was
                  computed on.
   B, complement  keep the other 30, at 6, 18, ... 354 degrees. Exists at
                  ppw 6 and 8 only, so it cannot make a third rung; it
@@ -70,10 +70,10 @@ and correlation. Only _t2_common.facet_events is shared, that being the
 ray march which DEFINES the prediction rather than the statistic under
 test, along with the cached label volumes, which are data. Nothing is
 reported until the whole chain returns the stored published row for
-girdle_perp_ppw8 with a difference of exactly zero.
+girdle_seed11_ppw8_dev with a difference of exactly zero.
 
-READS  out/sweeps/{girdle_perp, girdle_perp_ppw8, lic_girdle_s11_ppw10,
-       lad_girdle_s23_ppw6, mx_girdle_s23_ppw8, lad_girdle_s23_ppw10}
+READS  out/sweeps/{girdle_seed11_ppw6_axis_perp, girdle_seed11_ppw8_dev, girdle_seed11_ppw10_licensing,
+       girdle_seed23_ppw6_ladder, girdle_seed23_ppw8_ensemble, girdle_seed23_ppw10_ladder}
        az*.npz and config.json
        out/tesscache/tess_s<seed>_p8_k-8.npz, 48 candidates
        sim/analysis/tessellation_replication.npz, published rows only
@@ -114,10 +114,10 @@ PPW_PRED = 8                             # one prediction geometry
 TNARROW = np.arange(20e-6, 42e-6, DT)    # the published time grid
 TWIDE = np.arange(6e-6, 44e-6, DT)       # wide enough for both windows
 
-LADDERS = {11: [("girdle_perp", 6), ("girdle_perp_ppw8", 8),
-                ("lic_girdle_s11_ppw10", 10)],
-           23: [("lad_girdle_s23_ppw6", 6), ("mx_girdle_s23_ppw8", 8),
-                ("lad_girdle_s23_ppw10", 10)]}
+LADDERS = {11: [("girdle_seed11_ppw6_axis_perp", 6), ("girdle_seed11_ppw8_dev", 8),
+                ("girdle_seed11_ppw10_licensing", 10)],
+           23: [("girdle_seed23_ppw6_ladder", 6), ("girdle_seed23_ppw8_ensemble", 8),
+                ("girdle_seed23_ppw10_ladder", 10)]}
 
 AZ_SHARED = np.arange(0, 360, 12)        # rule A, all three rungs
 AZ_OTHER = np.arange(6, 360, 12)         # rule B, ppw 6 and 8 only
@@ -128,8 +128,8 @@ CANDS = sorted(set([7, 11, 17, 23, 41, 53, 71, 89] + list(range(100, 140))))
 # The two stored published rows. The first is the gate this module is
 # gated on; the second is carried because the same chain has to return
 # both if it is the published chain at all.
-PUB = {11: ("girdle_perp_ppw8", 0.393359393, 2, 3.51850405),
-       23: ("mx_girdle_s23_ppw8", 0.112119627, 1, 6.53615739)}
+PUB = {11: ("girdle_seed11_ppw8_dev", 0.393359393, 2, 3.51850405),
+       23: ("girdle_seed23_ppw8_ensemble", 0.112119627, 1, 6.53615739)}
 
 
 # ───────────────────────────── the archive ────────────────────────────
@@ -202,7 +202,7 @@ def pulse_kernel(dt=DT, half_us=2.0):
 
 def load_tess(seed, ppw=PPW_PRED, kappa=-8.0):
     """Cached label volume, c-axes and seed points. Never builds."""
-    p = os.path.join(CACHE, f"tess_s{seed}_p{ppw:g}_k{kappa:g}.npz")
+    p = os.path.join(CACHE, f"labels_seed{seed}_ppw{ppw:g}_kappa{kappa:g}.npz")
     if not os.path.exists(p):
         raise FileNotFoundError(p)
     with np.load(p) as z:

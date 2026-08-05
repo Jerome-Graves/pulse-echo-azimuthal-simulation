@@ -9,7 +9,7 @@ The measurement was retired onto an AUDITED estimator in
 analysis/db_reconcile.py: local, in band 0.8 to 3.0 MHz, filtered before
 gating, averaged over azimuth as energies. The prediction was never
 audited. It applies no band limit at all: analysis/physical_optics/
-po_src_3po.py builds the whole rfft axis out to the 60 MHz trace Nyquist
+po_src_03_kirchhoff_pred.py builds the whole rfft axis out to the 60 MHz trace Nyquist
 and weights it only by the Ricker spectrum, the transmit factor
 S_t/lambda^2 and the two-way piston directivity. So the question is
 whether the prediction has to be compared unfiltered, or whether it can
@@ -40,19 +40,19 @@ azimuth mean of |H(f)|^2 with the source divided out. It varies by less
 than 3 dB across 0.8 to 3.0 MHz, and by less than 1 dB over 1.5 to
 3.0 MHz, against the factor of 195 that an f^4 weighting would impose
 over the same band. That confirms the spectral
-bookkeeping of po_src_11final.py, in which the orientation-averaged
+bookkeeping of po_src_11_closed_form.py, in which the orientation-averaged
 backscatter form factor is frequency flat, and refutes the f^2
-pulse-shape shortcut of the earlier po_src_6close.py, which weights the
+pulse-shape shortcut of the earlier po_src_06_reconcile.py, which weights the
 integrand by an extra (f/f0)^4 and so inflates the closed form by
 3.4 dB. The closed-form levels quoted in Section 2 are the shortcut
 values. See report_closed_form.
 
 Reads, nothing written:
-    analysis/physical_optics/po_src_3po.py        the PO integral
+    analysis/physical_optics/po_src_03_kirchhoff_pred.py        the PO integral
     analysis/physical_optics/po_src_geom.npz      cached tessellation
     analysis/physical_optics/po_src_diag.npz      insonified-facet stats
-    out/sweeps/lic_girdle_s11_ppw10               the ppw 10 measurement
-    out/sweeps/zc_s11_ppw10                       uniform-orientation
+    out/sweeps/girdle_seed11_ppw10_licensing               the ppw 10 measurement
+    out/sweeps/girdle_seed11_ppw10_zerocontrast                       uniform-orientation
 
 CPU and disk only. Nothing here touches the GPU.
 """
@@ -69,7 +69,7 @@ SWD = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 if PO_DIR not in sys.path:
     sys.path.insert(0, PO_DIR)
 
-import po_src_3po as PO                                   # noqa: E402
+import po_src_03_kirchhoff_pred as PO                                   # noqa: E402
 
 # Acquisition constants, Section 3, and the analysis band of Table 1.
 GATE = (24e-6, 36e-6)
@@ -162,7 +162,7 @@ def load_sweep(name):
 def po_traces(speed, azimuths=AZ_DENSE):
     """Synthetic A-scans from the Kirchhoff integral, one per azimuth.
 
-    PO.C is the delay-to-range map of po_src_3po, so it has to be set
+    PO.C is the delay-to-range map of po_src_03_kirchhoff_pred, so it has to be set
     before the histogram is built and restored afterwards. Everything
     else in that module is a cached tessellation.
     """
@@ -232,7 +232,7 @@ def closed_form(speed, band=None, shortcut=False):
     """The closed form of Eq. (posum), integrated over the source.
 
     With shortcut=True the integrand carries the extra (f/f0)^4 of
-    po_src_6close.py, which is what Section 2 currently quotes.
+    po_src_06_reconcile.py, which is what Section 2 currently quotes.
     """
     geom = np.load(os.path.join(PO_DIR, "po_src_geom.npz"))
     diag = np.load(os.path.join(PO_DIR, "po_src_diag.npz"))
@@ -305,8 +305,8 @@ def report_transfer(freq, h2):
     print("  an f^4 weighting would impose         : %.2f dB"
           % db((BAND[1] / BAND[0]) ** 4))
     print("  The transfer is near flat, which is what the closed form of")
-    print("  po_src_11final assumes and what the (f/f0)^4 shortcut of")
-    print("  po_src_6close does not.")
+    print("  po_src_11_closed_form assumes and what the (f/f0)^4 shortcut of")
+    print("  po_src_06_reconcile does not.")
     print()
 
 
@@ -471,7 +471,7 @@ def report_closed_form():
     print("  the same, truncated to the band    : %8.2f dB" % band)
     print("  isotropic normals, g removed       : %8.2f dB"
           % (full - db(g)))
-    print("  (f/f0)^4 shortcut of po_src_6close : %8.2f dB" % short)
+    print("  (f/f0)^4 shortcut of po_src_06_reconcile : %8.2f dB" % short)
     print("  the shortcut inflates the level by : %+8.2f dB"
           % (short - full))
     print("  out of band, of predicted power    : %8.1f per cent"
@@ -488,8 +488,8 @@ def report_closed_form():
 
 
 def main():
-    spec = load_sweep("lic_girdle_s11_ppw10")
-    unif = load_sweep("zc_s11_ppw10")
+    spec = load_sweep("girdle_seed11_ppw10_licensing")
+    unif = load_sweep("girdle_seed11_ppw10_zerocontrast")
     pred = {c: po_levels(po_traces(c)) for c in SPEEDS}
     freq, h2 = po_transfer(C_SECTION2)
     report_source_spectrum()

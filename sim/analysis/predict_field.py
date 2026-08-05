@@ -13,14 +13,14 @@ VARIANTS = {"full": (True, True), "geom": (False, True),
             "nodirec": (True, False), "flat": (False, False)}
 
 # (sweep, build tag)  -- build tag may deliberately mismatch (controls)
-JOBS = [("girdle_perp_ppw8", "gp8"),
-        ("singlemax_ppw8", "sm8"),
-        ("girdle_perp_ppw8", "wrongseed8"),
-        ("singlemax_ppw8", "wrongseed8"),
-        ("iso_gcal", "iso6"),
-        ("iso_gcal", "wrongseed6"),
-        ("girdle_perp_ppw8", "sm8"),      # same tessellation, WRONG fabric
-        ("singlemax_ppw8", "gp8")]        # same tessellation, WRONG fabric
+JOBS = [("girdle_seed11_ppw8_dev", "gp8"),
+        ("singlemax_seed11_ppw8_twin", "sm8"),
+        ("girdle_seed11_ppw8_dev", "wrongseed8"),
+        ("singlemax_seed11_ppw8_twin", "wrongseed8"),
+        ("isotropic_seed41_ppw6_calibration", "iso6"),
+        ("isotropic_seed41_ppw6_calibration", "wrongseed6"),
+        ("girdle_seed11_ppw8_dev", "sm8"),      # same tessellation, WRONG fabric
+        ("singlemax_seed11_ppw8_twin", "gp8")]        # same tessellation, WRONG fabric
 
 
 def predict(tag, az_list, variant, n_ray=600, rayseed=0):
@@ -42,13 +42,13 @@ def predict(tag, az_list, variant, n_ray=600, rayseed=0):
 
 if __name__ == "__main__":
     for sweep, tag in JOBS:
-        fp = os.path.join(C.HERE, f"t2p_{sweep}__{tag}.npz")
+        fp = os.path.join(C.HERE, f"coda_field_{sweep}__{tag}.npz")
         if os.path.exists(fp):
             print(f"{sweep} <- {tag}: cached")
             continue
         t0 = time.time()
         az, E, e1, tb = C.load_sweep(sweep, TG)
-        if len(az) > 90:                                  # iso_gcal has 360
+        if len(az) > 90:                                  # isotropic_seed41_ppw6_calibration has 360
             sel = np.arange(0, len(az), 6)
             az, E = az[sel], E[sel]
         out = {v: predict(tag, az, v) for v in VARIANTS}

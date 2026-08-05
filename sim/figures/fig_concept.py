@@ -10,7 +10,7 @@ their ratio are drawn to scale from the same configuration the
 simulations used, so the figure cannot disagree with Fig. geometry.
 
 Reads (path resolved relative to this file):
-  ../../out/sweeps/girdle_perp_ppw8/config.json   specimen and probe sizes
+  ../../out/sweeps/girdle_seed11_ppw8_dev/config.json   specimen and probe sizes
 
 Writes ../../../pulse-echo-cof-paper/figures/concept.pdf and prints the
 dimensions it draws.
@@ -24,7 +24,7 @@ from matplotlib.patches import Ellipse, FancyBboxPatch, Rectangle
 import figstyle as fs
 
 REPO = Path(__file__).resolve().parents[2]
-CONFIG = REPO / "out" / "sweeps" / "girdle_perp_ppw8" / "config.json"
+CONFIG = REPO / "out" / "sweeps" / "girdle_seed11_ppw8_dev" / "config.json"
 
 # Where the drawing sits in its own millimetre world. The core is drawn
 # at true scale about (CORE_X, base to top); everything to the right of

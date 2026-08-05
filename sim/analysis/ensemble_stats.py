@@ -36,9 +36,9 @@ its parts. report_convention prints the whole two-by-two.
 
 Reads, all under ../../out/sweeps, each directory az*.npz with keys
 'trace' and 'dt' plus a config.json:
-    girdle_perp_ppw8, mx_girdle_s{7,17,23,41,53,71,89}_ppw8
+    girdle_seed11_ppw8_dev, girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble
         eight independent tessellations, girdle fabric, kappa = -8
-    singlemax_ppw8, mx_single_s{7,17,23,41,53,71,89}_ppw8
+    singlemax_seed11_ppw8_twin, singlemax_seed{7,17,23,41,53,71,89}_ppw8_ensemble
         four single-maximum sweeps, kappa = +3.93, each sharing a
         bit-identical tessellation with the girdle sweep of the same seed
 Question 3 also rebuilds the eight tessellations on the CPU at a coarse
@@ -91,14 +91,14 @@ BAND = (0.8e6, 3.0e6)
 AZ_STEP_DEG = 12
 AZ_COMMON = np.arange(0, 360, AZ_STEP_DEG)
 
-GIRDLE = [("girdle_perp_ppw8", 11), ("mx_girdle_s7_ppw8", 7),
-          ("mx_girdle_s17_ppw8", 17), ("mx_girdle_s23_ppw8", 23),
-          ("mx_girdle_s41_ppw8", 41), ("mx_girdle_s53_ppw8", 53),
-          ("mx_girdle_s71_ppw8", 71), ("mx_girdle_s89_ppw8", 89)]
-SINGLE = [("singlemax_ppw8", 11), ("mx_single_s7_ppw8", 7),
-          ("mx_single_s17_ppw8", 17), ("mx_single_s23_ppw8", 23),
-          ("mx_single_s41_ppw8", 41), ("mx_single_s53_ppw8", 53),
-          ("mx_single_s71_ppw8", 71), ("mx_single_s89_ppw8", 89)]
+GIRDLE = [("girdle_seed11_ppw8_dev", 11), ("girdle_seed7_ppw8_ensemble", 7),
+          ("girdle_seed17_ppw8_ensemble", 17), ("girdle_seed23_ppw8_ensemble", 23),
+          ("girdle_seed41_ppw8_ensemble", 41), ("girdle_seed53_ppw8_ensemble", 53),
+          ("girdle_seed71_ppw8_ensemble", 71), ("girdle_seed89_ppw8_ensemble", 89)]
+SINGLE = [("singlemax_seed11_ppw8_twin", 11), ("singlemax_seed7_ppw8_ensemble", 7),
+          ("singlemax_seed17_ppw8_ensemble", 17), ("singlemax_seed23_ppw8_ensemble", 23),
+          ("singlemax_seed41_ppw8_ensemble", 41), ("singlemax_seed53_ppw8_ensemble", 53),
+          ("singlemax_seed71_ppw8_ensemble", 71), ("singlemax_seed89_ppw8_ensemble", 89)]
 
 # The audited estimator and the published one, in that order. Keys into
 # every power dictionary this module passes about.
@@ -183,7 +183,7 @@ def load_matrix():
     """
     matrix = {}
     for name, seed in GIRDLE + SINGLE:
-        step = 1 if name in ("girdle_perp_ppw8", "singlemax_ppw8") else \
+        step = 1 if name in ("girdle_seed11_ppw8_dev", "singlemax_seed11_ppw8_twin") else \
             AZ_STEP_DEG
         az, powers, cfg = sweep_powers(name, step_deg=step)
         if cfg["seed"] != seed:
@@ -276,7 +276,7 @@ def quadrature_error(matrix, key=AUDITED, convention="energy"):
     resolves a girdle.
     """
     out = {}
-    for name in ("girdle_perp_ppw8", "singlemax_ppw8"):
+    for name in ("girdle_seed11_ppw8_dev", "singlemax_seed11_ppw8_twin"):
         power = matrix[name][key]
         halves = np.array([level(power[0::2], convention),
                            level(power[1::2], convention)])
@@ -685,7 +685,7 @@ def report_sampling(matrix, g_mat, g_sd):
               "%.3f,\n  %-18s half difference %.3f dB"
               % (name, q["n"], q["full"], q["halves"][0], q["halves"][1],
                  "", q["err"]))
-    girdle_err = quad["girdle_perp_ppw8"]["err"]
+    girdle_err = quad["girdle_seed11_ppw8_dev"]["err"]
     print("  A girdle revolution mean is repeatable to %.2f dB, which is "
           "%.0f%% of\n  the %.2f dB ensemble spread and cannot explain it."
           % (girdle_err, 100 * girdle_err / g_sd, g_sd))
@@ -693,7 +693,7 @@ def report_sampling(matrix, g_mat, g_sd):
           "under the\n  energy convention its revolution energy is carried "
           "by a few bright\n  azimuths that a 30-azimuth grid samples "
           "coarsely."
-          % quad["singlemax_ppw8"]["err"])
+          % quad["singlemax_seed11_ppw8_twin"]["err"])
     sd, neff, err = effective_sample_size_error(g_mat)
     print("  The estimator this replaces, per-azimuth scatter %.2f dB over "
           "an\n  effective sample size of %.1f, returns %.2f dB, which is "

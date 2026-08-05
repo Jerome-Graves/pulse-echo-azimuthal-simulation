@@ -29,10 +29,10 @@ OUT = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 C_REF, F0 = 3850.0, 2.0e6
 CODA_W, BAND = (24e-6, 36e-6), (0.8e6, 3.0e6)
 
-SW = [("girdle_perp", 6.0, -8.0, (1.0, 0.0, 0.0), 11),
-      ("girdle_perp_ppw8", 8.0, -8.0, (1.0, 0.0, 0.0), 11),
-      ("girdle_par", 6.0, -8.0, (0.0, 0.0, 1.0), 11),
-      ("iso_gcal", 6.0, 0.001, (1.0, 0.0, 0.0), 41)]
+SW = [("girdle_seed11_ppw6_axis_perp", 6.0, -8.0, (1.0, 0.0, 0.0), 11),
+      ("girdle_seed11_ppw8_dev", 8.0, -8.0, (1.0, 0.0, 0.0), 11),
+      ("girdle_seed11_ppw6_axis_par", 6.0, -8.0, (0.0, 0.0, 1.0), 11),
+      ("isotropic_seed41_ppw6_calibration", 6.0, 0.001, (1.0, 0.0, 0.0), 41)]
 
 
 def load(d):

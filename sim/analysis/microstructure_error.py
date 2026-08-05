@@ -80,7 +80,7 @@ which is checked for every seed and printed.
 
 READS
   out/tesscache/tess_s<seed>_p8_k-8.npz      48 cached tessellations
-  out/sweeps/{girdle_perp,mx_girdle_s*}_ppw8 the eight girdle sweeps
+  out/sweeps/{girdle_seed11_ppw6_axis_perp,mx_girdle_s*}_ppw8 the eight girdle sweeps
 WRITES
   out/tesscache/replay_s<seed>_p8.npz        replayed seeds and weights
   sim/results/microstructure_error.npz       every number printed
@@ -190,7 +190,7 @@ def replay_build(seed):
     checked against the cached label volume and the cached c-axis draw
     and must reproduce both bit-exactly.
     """
-    path = os.path.join(CACHE, "replay_s%d_p%g.npz" % (seed, PPW))
+    path = os.path.join(CACHE, "build_replay_seed%d_ppw%g.npz" % (seed, PPW))
     if os.path.exists(path):
         with np.load(path) as z:
             return {k: z[k] for k in z.files}
@@ -671,7 +671,7 @@ def main():
     rnd = (tess11[0], rng.normal(size=tess11[1].shape), tess11[2], tess11[3])
     rnd = (rnd[0], rnd[1] / np.linalg.norm(rnd[1], axis=1, keepdims=True),
            rnd[2], rnd[3])
-    E, c_az = meas["girdle_perp_ppw8"]
+    E, c_az = meas["girdle_seed11_ppw8_dev"]
     a = score_all(tess11, E, c_az)
     b = score_all(rnd, E, c_az)
     for q, v in enumerate(VARIANTS):

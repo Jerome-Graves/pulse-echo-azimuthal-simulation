@@ -7,13 +7,13 @@ from scipy import stats
 # p_2D from every wrong-tessellation test I ran (sk4: 16 seeds x 2 ppw8 sweeps,
 # sk7: 8 seeds x 4 ppw6 sweeps).  Under a valid null these must be ~U(0,1).
 p_wrong = [
-    # girdle_perp_ppw8, 16 wrong seeds
+    # girdle_seed11_ppw8_dev, 16 wrong seeds
     0.72950, 0.87164, 0.52331, 0.59119, 0.86553, 0.68000, 0.13689, 0.41944,
     0.47067, 0.40183, 0.95789, 0.83461, 0.60175, 0.67303, 0.38850, 0.93378,
-    # singlemax_ppw8, 16 wrong seeds
+    # singlemax_seed11_ppw8_twin, 16 wrong seeds
     0.48792, 0.08697, 0.17694, 0.81761, 0.14592, 0.83039, 0.30700, 0.63711,
     0.05514, 0.92792, 0.64219, 0.93067, 0.04833, 0.62569, 0.24219, 0.99997,
-    # iso_gcal, oos_seed23, kappa8_seed17, rigid_seed11: 8 wrong seeds each
+    # isotropic_seed41_ppw6_calibration, singlemax_seed23_ppw6_heldout_axis, singlemax_seed17_ppw6_kappa8, singlemax_seed11_ppw6_rigid2: 8 wrong seeds each
     0.63457, 0.40932, 0.73792, 0.87346, 0.95516, 0.82528, 0.48602, 0.10013,
     0.06186, 0.36884, 0.84951, 0.49330, 0.85200, 0.30531, 0.12676, 0.08865,
     0.92978, 0.87717, 0.31911, 0.66633, 0.13583, 0.44087, 0.52472, 0.47828,
@@ -33,16 +33,16 @@ print()
 print("META-COMBINATION over the FOUR INDEPENDENT TESSELLATIONS, redone on the")
 print("AZIMUTH-ONLY randomisation p (azimuth is genuinely cyclic; time is not).")
 # p_az measured by me
-cases = {"seed11 (rigid_seed11, 360 az)": 0.0111,
-         "seed23 (oos_seed23, 360 az)": 0.0056,
-         "seed17 (kappa8_seed17, 90 az)": 0.0111,
-         "seed41 (iso_gcal, 360 az)": 0.0111}
+cases = {"seed11 (singlemax_seed11_ppw6_rigid2, 360 az)": 0.0111,
+         "seed23 (singlemax_seed23_ppw6_heldout_axis, 360 az)": 0.0056,
+         "seed17 (singlemax_seed17_ppw6_kappa8, 90 az)": 0.0111,
+         "seed41 (isotropic_seed41_ppw6_calibration, 360 az)": 0.0111}
 p = np.array(list(cases.values()))
 X2 = -2 * np.log(p).sum()
 print(f"  p_az = {p}  ->  Fisher X2 = {X2:.1f}, df = 8, "
       f"p = {stats.chi2.sf(X2, 8):.2e}")
 alt = p.copy()
-alt[0] = 0.0167          # use girdle_perp_ppw8 (floor 1/60) for seed 11
+alt[0] = 0.0167          # use girdle_seed11_ppw8_dev (floor 1/60) for seed 11
 X2b = -2 * np.log(alt).sum()
 print(f"  with the ppw8 sweep for seed 11: X2 = {X2b:.1f}, "
       f"p = {stats.chi2.sf(X2b, 8):.2e}")

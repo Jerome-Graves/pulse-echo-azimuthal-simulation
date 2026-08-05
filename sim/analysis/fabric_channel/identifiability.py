@@ -13,7 +13,7 @@ import sys
 import numpy as np
 from scipy.linalg import subspace_angles
 
-import odf_harm as O
+import odf_harmonics as O
 
 QUAD = int(sys.argv[1]) if len(sys.argv) > 1 else 40000
 O.set_quadrature(QUAD)

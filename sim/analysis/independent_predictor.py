@@ -136,8 +136,8 @@ def stats(mc, P):
         float((np.abs(R[:, 0]) >= abs(r0)).mean())
 
 
-SW = {"girdle_perp_ppw8": (-8.0, (1.0, 0.0, 0.0), 11, "gp8"),
-      "singlemax_ppw8": (3.93, (0.866, 0.5, 0.0), 11, "sm8")}
+SW = {"girdle_seed11_ppw8_dev": (-8.0, (1.0, 0.0, 0.0), 11, "gp8"),
+      "singlemax_seed11_ppw8_twin": (3.93, (0.866, 0.5, 0.0), 11, "sm8")}
 
 if __name__ == "__main__":
     for sw, (kap, axis, seed, tag) in SW.items():

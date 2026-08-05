@@ -27,7 +27,7 @@ It then attacks the result where it is most likely to be wrong.
      independent ways; the ordering of taper and Hilbert transform
      verified by constructing the failure it is supposed to prevent;
      and the smear the band-pass itself puts on a 48 dB arrival.
-  D  the controls, on the 30 azimuths cs_f000_s11_ppw8 actually holds,
+  D  the controls, on the 30 azimuths girdle_seed11_ppw8_contrast_f000 actually holds,
      with the exact floor 1/15, and every rank labelled with its grid.
   E  the confound the controls cannot see. Neither zero-scattering
      record carries the seed-11 girdle, so neither controls for bulk
@@ -43,7 +43,7 @@ MEASURED versus INFERRED is stated in each section header.
 READS, all read-only
   out/sweeps/<name>/az*.npz              trace, dt, E1, t1_s
   out/tesscache/tess_s<seed>_p8_k<k>.npz labels and axes
-  sim/analysis/tofaxis_build_*.npz       axes and volumes, cross-check
+  sim/analysis/grain_axes_volumes_*.npz       axes and volumes, cross-check
 WRITES stdout and late_window_adjudication.npz beside this file.
 
 TOUCHES NO CUDA. No forward model, no DiskSpecimen.build, no label
@@ -83,18 +83,18 @@ PAD = 2e-6
 TMAX = 70e-6
 AZ30 = tuple(range(0, 360, 12))
 
-SPEC = "girdle_perp_ppw8"
-CTL = ("zerocontrast_ppw8", "cs_f000_s11_ppw8")
+SPEC = "girdle_seed11_ppw8_dev"
+CTL = ("girdle_seed11_ppw8_uniform_axis", "girdle_seed11_ppw8_contrast_f000")
 
 SEEDS = (11, 7, 17, 23, 41, 53, 71, 89)
-GIR = {11: "girdle_perp_ppw8", 7: "mx_girdle_s7_ppw8",
-       17: "mx_girdle_s17_ppw8", 23: "mx_girdle_s23_ppw8",
-       41: "mx_girdle_s41_ppw8", 53: "mx_girdle_s53_ppw8",
-       71: "mx_girdle_s71_ppw8", 89: "mx_girdle_s89_ppw8"}
-SIN = {11: "singlemax_ppw8", 7: "mx_single_s7_ppw8",
-       17: "mx_single_s17_ppw8", 23: "mx_single_s23_ppw8",
-       41: "mx_single_s41_ppw8", 53: "mx_single_s53_ppw8",
-       71: "mx_single_s71_ppw8", 89: "mx_single_s89_ppw8"}
+GIR = {11: "girdle_seed11_ppw8_dev", 7: "girdle_seed7_ppw8_ensemble",
+       17: "girdle_seed17_ppw8_ensemble", 23: "girdle_seed23_ppw8_ensemble",
+       41: "girdle_seed41_ppw8_ensemble", 53: "girdle_seed53_ppw8_ensemble",
+       71: "girdle_seed71_ppw8_ensemble", 89: "girdle_seed89_ppw8_ensemble"}
+SIN = {11: "singlemax_seed11_ppw8_twin", 7: "singlemax_seed7_ppw8_ensemble",
+       17: "singlemax_seed17_ppw8_ensemble", 23: "singlemax_seed23_ppw8_ensemble",
+       41: "singlemax_seed41_ppw8_ensemble", 53: "singlemax_seed53_ppw8_ensemble",
+       71: "singlemax_seed71_ppw8_ensemble", 89: "singlemax_seed89_ppw8_ensemble"}
 TWELVE = ([(GIR[s], s, -8.0) for s in SEEDS]
           + [(SIN[s], s, 3.93) for s in (11, 17, 23, 41)])
 
@@ -259,7 +259,7 @@ def er2(seed, kappa=-8.0, ppw=8, src="labels"):
     if key in _C:
         return _C[key]
     if src == "labels":
-        p = os.path.join(TESS, f"tess_s{seed}_p{ppw:g}_k{kappa:g}.npz")
+        p = os.path.join(TESS, f"labels_seed{seed}_ppw{ppw:g}_kappa{kappa:g}.npz")
         if not os.path.exists(p):
             raise SystemExit(f"not cached, would reach CUDA: {p}")
         with np.load(p) as z:
@@ -269,7 +269,7 @@ def er2(seed, kappa=-8.0, ppw=8, src="labels"):
         v = v.astype(np.float64)
     else:
         a0 = 1.000 if kappa < 0 else 0.866
-        p = os.path.join(HERE, f"tofaxis_build_s{seed}_k{kappa:g}_"
+        p = os.path.join(HERE, f"grain_axes_volumes_s{seed}_k{kappa:g}_"
                                f"a{a0:.3f}.npz")
         with np.load(p) as z:
             ax = np.asarray(z["axes"], np.float64)
@@ -343,7 +343,7 @@ def fresnel(win, lam=LAM):
 
 def grain_d(seed=11, ppw=8, kappa=-8.0):
     with np.load(os.path.join(TESS,
-                              f"tess_s{seed}_p{ppw:g}_k{kappa:g}.npz")) as zz:
+                              f"labels_seed{seed}_ppw{ppw:g}_kappa{kappa:g}.npz")) as zz:
         n = len(zz["seeds"])
     v = np.pi * (DIA / 2) ** 2 * THK
     return float((6.0 * v / (np.pi * n)) ** (1 / 3)), n
@@ -379,8 +379,8 @@ def sec_a():
     print("      estimator: mean square of the band-passed envelope over")
     print("      the gate re the sweep-mean source peak.")
     print(f"      {'sweep':<20}{'r':>8}{'pub':>7}{'rank':>9}{'pub':>7}")
-    for nm, ppw, k in (("girdle_perp", 6, "t1_p6"),
-                       ("girdle_perp_ppw8", 8, "t1_p8")):
+    for nm, ppw, k in (("girdle_seed11_ppw6_axis_perp", 6, "t1_p6"),
+                       ("girdle_seed11_ppw8_dev", 8, "t1_p8")):
         s = load(nm)
         y = level_native(nm, GATE, None, ref="src_mean")
         r, rk, nd = shift_rank(y, pred(11, s["az"], -8.0, 0.0, ppw), s["az"])
@@ -391,8 +391,8 @@ def sec_a():
               f"{prk:>4d}/{pnd:<3}  {'ok' if g else 'MISMATCH'}")
 
     print("\n  A2  tab:reconcile ladder, revolution level re source, 30 az.")
-    for nm, k in (("girdle_perp", "lad_p6"), ("girdle_perp_ppw8", "lad_p8"),
-                  ("lic_girdle_s11_ppw10", "lad_p10")):
+    for nm, k in (("girdle_seed11_ppw6_axis_perp", "lad_p6"), ("girdle_seed11_ppw8_dev", "lad_p8"),
+                  ("girdle_seed11_ppw10_licensing", "lad_p10")):
         v = rev_level(nm, GATE)
         g = abs(v - PUB[k]) < 0.02
         ok &= g
@@ -707,7 +707,7 @@ def sec_d():
                   f"{row[3]:>8}{row[4]:>+9.3f}{row[5]:>8}")
 
     print("\n  GRID 60: specimen and zerocontrast only, 30 alignments,")
-    print("  exact floor 1/30 = 0.0333. cs_f000_s11_ppw8 holds 30")
+    print("  exact floor 1/30 = 0.0333. girdle_seed11_ppw8_contrast_f000 holds 30")
     print("  azimuths and cannot appear here.")
     for nm in (SPEC, CTL[0]):
         s = load(nm, None)

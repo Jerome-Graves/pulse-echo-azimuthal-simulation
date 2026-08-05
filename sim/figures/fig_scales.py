@@ -22,9 +22,9 @@ Reads
         Exact Laguerre (power) tessellation of the reference specimen,
         seed 11: 104 seed positions, their power weights, and the 536
         grain-boundary polygons. Written on the CPU by the physical-optics
-        pipeline (po_src_2geom.py) from DiskSpecimen(seed=11), and copied
+        pipeline (po_src_02_facet_geometry.py) from DiskSpecimen(seed=11), and copied
         here so this figure is reproducible from the repository alone.
-    ../../out/sweeps/girdle_perp_ppw8/config.json
+    ../../out/sweeps/girdle_seed11_ppw8_dev/config.json
         Acquisition: centre frequency, element diameter, disc dimensions.
 
 Writes
@@ -49,7 +49,7 @@ import figstyle as S
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GEOM = os.path.join(HERE, "data", "po_src_geom.npz")
-SWEEP = os.path.join(HERE, "..", "..", "out", "sweeps", "girdle_perp_ppw8")
+SWEEP = os.path.join(HERE, "..", "..", "out", "sweeps", "girdle_seed11_ppw8_dev")
 
 # Isotropic-equivalent qP speed of the simulated ice, m/s. This is the
 # reference speed used throughout the analysis (C_REF in

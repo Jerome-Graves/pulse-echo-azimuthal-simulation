@@ -47,10 +47,10 @@ import master_run as M                                     # noqa: E402
 JOBS = []
 
 # --- 1. resolution ladder on a second tessellation --------------------
-# ppw 8 already exists as mx_girdle_s23_ppw8, so only the outer rungs are
+# ppw 8 already exists as girdle_seed23_ppw8_ensemble, so only the outer rungs are
 # run and the ladder is 6, 8, 10 like seed 11's.
 for ppw in (6.0, 10.0):
-    JOBS.append(dict(name="lad_girdle_s23_ppw%d" % int(ppw), ppw=ppw,
+    JOBS.append(dict(name="girdle_seed23_ppw%d_ladder" % int(ppw), ppw=ppw,
                      step=12, seed=23, mode="normal", **M.GIRDLE))
 
 # --- 2. the remaining single-maximum twins ----------------------------
@@ -58,7 +58,7 @@ for ppw in (6.0, 10.0):
 # programme. These four complete the set, so that every one of the eight
 # girdle tessellations has a twin sharing its geometry exactly.
 for sd in (7, 53, 71, 89):
-    JOBS.append(dict(name="mx_single_s%d_ppw8" % sd, ppw=8.0, step=12,
+    JOBS.append(dict(name="singlemax_seed%d_ppw8_ensemble" % sd, ppw=8.0, step=12,
                      seed=sd, mode="normal", **M.SINGLE))
 
 

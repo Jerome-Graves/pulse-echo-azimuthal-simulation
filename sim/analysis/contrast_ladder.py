@@ -16,11 +16,11 @@ uniform-orientation control also measures.
 
 Reads, all under out/sweeps, on the 30 azimuths at 12 degree spacing that
 every sweep has in common:
-    cs_f000_s11_ppw8 cs_f025_s11_ppw8 cs_f050_s11_ppw8
-    cs_f075_s11_ppw8                    ladder rungs f = 0 to 0.75
-    girdle_perp_ppw8                    the f = 1 rung
-    zerocontrast_ppw8 zc_s11_ppw6 zc_s11_ppw10   uniform orientation
-    girdle_perp lic_girdle_s11_ppw10    specimen at ppw 6 and ppw 10
+    girdle_seed11_ppw8_contrast_f000 girdle_seed11_ppw8_contrast_f025 girdle_seed11_ppw8_contrast_f050
+    girdle_seed11_ppw8_contrast_f075                    ladder rungs f = 0 to 0.75
+    girdle_seed11_ppw8_dev                    the f = 1 rung
+    girdle_seed11_ppw8_uniform_axis girdle_seed11_ppw6_zerocontrast girdle_seed11_ppw10_zerocontrast   uniform orientation
+    girdle_seed11_ppw6_axis_perp girdle_seed11_ppw10_licensing    specimen at ppw 6 and ppw 10
 
 Writes nothing. Everything printed is a number quoted in Section 4.6.
 
@@ -57,12 +57,12 @@ NOISE_LO = 8.0e6
 
 AZ_MATCHED = tuple(range(0, 360, 12))
 
-LADDER = ((0.00, "cs_f000_s11_ppw8"), (0.25, "cs_f025_s11_ppw8"),
-          (0.50, "cs_f050_s11_ppw8"), (0.75, "cs_f075_s11_ppw8"),
-          (1.00, "girdle_perp_ppw8"))
-SPECIMEN = {6: "girdle_perp", 8: "girdle_perp_ppw8",
-            10: "lic_girdle_s11_ppw10"}
-UNIFORM = {6: "zc_s11_ppw6", 8: "zerocontrast_ppw8", 10: "zc_s11_ppw10"}
+LADDER = ((0.00, "girdle_seed11_ppw8_contrast_f000"), (0.25, "girdle_seed11_ppw8_contrast_f025"),
+          (0.50, "girdle_seed11_ppw8_contrast_f050"), (0.75, "girdle_seed11_ppw8_contrast_f075"),
+          (1.00, "girdle_seed11_ppw8_dev"))
+SPECIMEN = {6: "girdle_seed11_ppw6_axis_perp", 8: "girdle_seed11_ppw8_dev",
+            10: "girdle_seed11_ppw10_licensing"}
+UNIFORM = {6: "girdle_seed11_ppw6_zerocontrast", 8: "girdle_seed11_ppw8_uniform_axis", 10: "girdle_seed11_ppw10_zerocontrast"}
 
 N_BOOT = 2000
 RNG_SEED = 11                    # the specimen seed, so the run is traceable

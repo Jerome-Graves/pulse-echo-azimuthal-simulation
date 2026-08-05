@@ -66,8 +66,8 @@ what the rest of Section 4.6 already does.
 
 Reads, all under out/sweeps, on the 30 azimuths at 12 degree spacing that
 every sweep has in common:
-    girdle_perp girdle_perp_ppw8 lic_girdle_s11_ppw10   specimen
-    zc_s11_ppw6 zerocontrast_ppw8 zc_s11_ppw10          uniform
+    girdle_seed11_ppw6_axis_perp girdle_seed11_ppw8_dev girdle_seed11_ppw10_licensing   specimen
+    girdle_seed11_ppw6_zerocontrast girdle_seed11_ppw8_uniform_axis girdle_seed11_ppw10_zerocontrast          uniform
                                                         orientation
 
 Writes nothing. Run with --legacy to print the published table instead,
@@ -94,13 +94,13 @@ BAND = (0.8e6, 3.0e6)
 BW_HALF = 2e-6
 
 # Fixed-code-path sweeps of the SAME specimen, seed 11, girdle k = -8.
-SPECIMEN = {6: "girdle_perp", 8: "girdle_perp_ppw8",
-            10: "lic_girdle_s11_ppw10"}
+SPECIMEN = {6: "girdle_seed11_ppw6_axis_perp", 8: "girdle_seed11_ppw8_dev",
+            10: "girdle_seed11_ppw10_licensing"}
 # Zero-contrast controls, seed 11 on the same code path, so the floor is
-# measured on the geometry it is compared against. zerocontrast_ppw6 is
+# measured on the geometry it is compared against. girdle_seed11_ppw6_uniform_axis is
 # deliberately not used: it predates the production programme and holds
 # only 22 of 30 azimuths.
-UNIFORM = {6: "zc_s11_ppw6", 8: "zerocontrast_ppw8", 10: "zc_s11_ppw10"}
+UNIFORM = {6: "girdle_seed11_ppw6_zerocontrast", 8: "girdle_seed11_ppw8_uniform_axis", 10: "girdle_seed11_ppw10_zerocontrast"}
 
 AZ_MATCHED = tuple(range(0, 360, 12))
 

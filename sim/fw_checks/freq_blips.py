@@ -31,7 +31,7 @@ MEASURED OUTCOME (2026-07-24, ref/fw_3mhz.npz):
     at azimuths where their wall faces the probe, and the tilted-wall
     boundaries never.
 
-FALSIFIED BY THE 5 MHz MEASUREMENT (2026-07-25, ref/fw_5mhz_fabric00.npz):
+FALSIFIED BY THE 5 MHz MEASUREMENT (2026-07-25, ref/fw_reference_5mhz_fabric00.npz):
   * At 5 MHz ZERO of 7 boundaries clear the speckle null (+0.3..+3.7 vs
     99th pct +3.6) - the two boundaries that were clearly detected at
     3 MHz VANISH. The monotonic model ignores propagation decoherence:
@@ -61,7 +61,7 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from scipy.signal import hilbert                # noqa: E402
 
 import born                                     # noqa: E402
@@ -125,7 +125,7 @@ def fw_blip_table(npz_path, build, f0=None):
     """Measured blip-above-local-background from a full-wave trace.
 
     Two corrections landed 2026-07-31 (adversarial review of the
-    'blips are dead' verdict), measured on rigid_seed11 pooled over
+    'blips are dead' verdict), measured on singlemax_seed11_ppw6_rigid2 pooled over
     360 azimuths / 3238 boundary tests:
       (1) SOURCE DELAY - fdtd.ricker peaks at t0 = 1.2/f0 (0.60 us at
           2 MHz, more than one period) while t_bnd starts at t = 0, so

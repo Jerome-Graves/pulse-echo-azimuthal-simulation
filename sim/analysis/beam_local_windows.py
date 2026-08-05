@@ -56,10 +56,10 @@ THE GRIDS ARE KEPT APART, because the two controls do not share azimuths.
 
   GRID 60  the production grid: 60 azimuths at 6 degrees, 60 alignments,
            floor 1/60 = 0.017 (30 and 1/30 on the halving convention).
-           Specimen and zerocontrast_ppw8 only.
+           Specimen and girdle_seed11_ppw8_uniform_axis only.
   GRID 30  the 30 azimuths at 12 degrees every ppw 8 sweep shares: 30
            alignments, floor 1/30 (15 and 1/15 halved). Any cell carrying
-           cs_f000_s11_ppw8, and the twelve-tessellation ensemble.
+           girdle_seed11_ppw8_contrast_f000, and the twelve-tessellation ensemble.
 
 A rank of 1 of 30 and a rank of 1 of 60 are not the same evidence and are
 never compared here; every table names its grid.
@@ -112,21 +112,21 @@ WINDOWS = (("4-16", (4e-6, 16e-6)), ("10-22", (10e-6, 22e-6)),
 AZ60 = tuple(range(0, 360, 6))
 AZ30 = tuple(range(0, 360, 12))
 
-SPECIMEN = "girdle_perp_ppw8"
-SPEC_PPW6 = "girdle_perp"
+SPECIMEN = "girdle_seed11_ppw8_dev"
+SPEC_PPW6 = "girdle_seed11_ppw6_axis_perp"
 
 # Neither control can backscatter from a grain boundary and both carry
 # the seed-11 geometry the predictor is built from.
-CONTROLS = (("zerocontrast_ppw8", "one c-axis in every grain"),
-            ("cs_f000_s11_ppw8", "contrast f = 0.00"))
+CONTROLS = (("girdle_seed11_ppw8_uniform_axis", "one c-axis in every grain"),
+            ("girdle_seed11_ppw8_contrast_f000", "contrast f = 0.00"))
 
 # The twelve tessellations with a cached ppw 8 label volume: the ensemble
 # of Sec. sec:ensemble.
 SPECS = ([(SPECIMEN, 11, "k-8")]
-         + [("mx_girdle_s%d_ppw8" % s, s, "k-8")
+         + [("girdle_seed%d_ppw8_ensemble" % s, s, "k-8")
             for s in (7, 17, 23, 41, 53, 71, 89)]
-         + [("singlemax_ppw8", 11, "k3.93")]
-         + [("mx_single_s%d_ppw8" % s, s, "k3.93") for s in (17, 23, 41)])
+         + [("singlemax_seed11_ppw8_twin", 11, "k3.93")]
+         + [("singlemax_seed%d_ppw8_ensemble" % s, s, "k3.93") for s in (17, 23, 41)])
 
 # Sec. 5.2: r and the first rank it reports out of thirty alignments.
 REF_R = {SPEC_PPW6: 0.57, SPECIMEN: 0.36}

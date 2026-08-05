@@ -5,7 +5,7 @@ error per specimen, the recovered against realised Watson concentration,
 and the axis error against azimuth count.
 
 Figure tofaz does NOT rest on this module. sim/figures/fig_tofaz.py
-draws rigid_seed11, kappa8_seed17 and oos_seed23 from the
+draws singlemax_seed11_ppw6_rigid2, singlemax_seed17_ppw6_kappa8 and singlemax_seed23_ppw6_heldout_axis from the
 fit_result.json each of those sweeps carries; all three are at ppw 6,
 none of them is among the twelve sweeps analysed here, and that figure
 folds azimuths modulo 180 and smooths before fitting, which this module
@@ -24,9 +24,9 @@ READS
   the twelve sweeps with a known fabric axis:
       eight girdle tessellations, kappa = -8,  nominal axis 0 deg
       four single-maximum tessellations, kappa = +3.93, nominal 30 deg
-  the seed-11 contrast ladder cs_f000..cs_f075 with girdle_perp_ppw8 as
-  its f = 1 rung, and the three homogeneous-crystal sweeps zc_s11_ppw6,
-  zerocontrast_ppw8, zc_s11_ppw10, which are used as controls on the
+  the seed-11 contrast ladder cs_f000..cs_f075 with girdle_seed11_ppw8_dev as
+  its f = 1 rung, and the three homogeneous-crystal sweeps girdle_seed11_ppw6_zerocontrast,
+  girdle_seed11_ppw8_uniform_axis, girdle_seed11_ppw10_zerocontrast, which are used as controls on the
   time-of-flight observable itself.
   The realised microstructure is rebuilt on the CPU from
   sim/core/specimen.py at BUILD_H and cached alongside this file; the
@@ -36,7 +36,7 @@ READS
   104 of Section 5.1 is what seed 11 realises.
 
 WRITES
-  stdout, and one tofaxis_build_s<seed>_k<kappa>_a<axis>.npz cache per
+  stdout, and one grain_axes_volumes_s<seed>_k<kappa>_a<axis>.npz cache per
   tessellation beside this file, written on first use and read
   thereafter. Most of the printed numbers are Section 5.1's. The
   arrival-time budget is Section 3.3's, and the pick repeatability, the
@@ -86,16 +86,16 @@ TOF_FRAC, TOF_HALF_W = 0.25, 2.0e-6
 # sample axis moves by 0.04 deg between h = 1.0 and 0.35 mm).
 BUILD_H = 0.5e-3
 
-GIRDLE = ("girdle_perp_ppw8", "mx_girdle_s7_ppw8", "mx_girdle_s17_ppw8",
-          "mx_girdle_s23_ppw8", "mx_girdle_s41_ppw8",
-          "mx_girdle_s53_ppw8", "mx_girdle_s71_ppw8",
-          "mx_girdle_s89_ppw8")
-SINGLE = ("singlemax_ppw8", "mx_single_s17_ppw8", "mx_single_s23_ppw8",
-          "mx_single_s41_ppw8")
-LADDER = (("cs_f000_s11_ppw8", 0.00), ("cs_f025_s11_ppw8", 0.25),
-          ("cs_f050_s11_ppw8", 0.50), ("cs_f075_s11_ppw8", 0.75),
-          ("girdle_perp_ppw8", 1.00))
-HOMOGENEOUS = ("zc_s11_ppw6", "zerocontrast_ppw8", "zc_s11_ppw10")
+GIRDLE = ("girdle_seed11_ppw8_dev", "girdle_seed7_ppw8_ensemble", "girdle_seed17_ppw8_ensemble",
+          "girdle_seed23_ppw8_ensemble", "girdle_seed41_ppw8_ensemble",
+          "girdle_seed53_ppw8_ensemble", "girdle_seed71_ppw8_ensemble",
+          "girdle_seed89_ppw8_ensemble")
+SINGLE = ("singlemax_seed11_ppw8_twin", "singlemax_seed17_ppw8_ensemble", "singlemax_seed23_ppw8_ensemble",
+          "singlemax_seed41_ppw8_ensemble")
+LADDER = (("girdle_seed11_ppw8_contrast_f000", 0.00), ("girdle_seed11_ppw8_contrast_f025", 0.25),
+          ("girdle_seed11_ppw8_contrast_f050", 0.50), ("girdle_seed11_ppw8_contrast_f075", 0.75),
+          ("girdle_seed11_ppw8_dev", 1.00))
+HOMOGENEOUS = ("girdle_seed11_ppw6_zerocontrast", "girdle_seed11_ppw8_uniform_axis", "girdle_seed11_ppw10_zerocontrast")
 
 PSI = np.arange(0.0, 90.001, 0.5)
 ALPHAS = np.arange(0.0, 180.0, 0.25)
@@ -167,7 +167,7 @@ def load_tof(name, level=TOF_FRAC):
 
 def load_specimen(seed, kappa, axis):
     """Realised c-axes and grain volumes of one tessellation."""
-    tag = f"tofaxis_build_s{seed}_k{kappa:g}_a{axis[0]:.3f}.npz"
+    tag = f"grain_axes_volumes_s{seed}_k{kappa:g}_a{axis[0]:.3f}.npz"
     p = os.path.join(HERE, tag)
     if os.path.exists(p):
         with np.load(p) as z:
@@ -513,7 +513,7 @@ def compute_controls():
     crystal, where the pattern is known in closed form, and the contrast
     ladder, whose f = 0 rung removes grain-scale scattering while
     keeping the specimen's bulk anisotropy."""
-    cfg = load_config("girdle_perp_ppw8")
+    cfg = load_config("girdle_seed11_ppw8_dev")
     axes, vol = load_specimen(cfg["seed"], cfg["concentration"],
                               tuple(cfg["fabric_axis"]))
     homo = []
@@ -545,11 +545,11 @@ def compute_controls():
                            mean=float(tof.mean()), a2=a2, p2=p2,
                            a4=a4, p4=p4, n=len(az),
                            corr=float(np.corrcoef(tof, orc)[0, 1])))
-    az0 = load_tof("cs_f000_s11_ppw8")[0]
+    az0 = load_tof("girdle_seed11_ppw8_contrast_f000")[0]
     return homo, ladder, harmonic(az0, oracle_tof(axes, vol, az0), 2)
 
 
-def compute_arrival_budget(names=("girdle_perp_ppw8", "singlemax_ppw8")):
+def compute_arrival_budget(names=("girdle_seed11_ppw8_dev", "singlemax_seed11_ppw8_twin")):
     """Where the backwall arrival actually sits.
 
     Section 3.3 reads a realised diameter-average speed off the envelope

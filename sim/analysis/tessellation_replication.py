@@ -32,10 +32,10 @@ cross-check, and is conservative because those p values are discrete
 multiples of 1/n.
 
 READS
-  out/sweeps/girdle_perp_ppw8/az*.npz                seed 11, 60 azimuths
-  out/sweeps/mx_girdle_s{7,17,23,41,53,71,89}_ppw8/az*.npz
-  out/sweeps/singlemax_ppw8/az*.npz                  seed 11, other fabric
-  out/sweeps/mx_single_s{17,23,41}_ppw8/az*.npz
+  out/sweeps/girdle_seed11_ppw8_dev/az*.npz                seed 11, 60 azimuths
+  out/sweeps/girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble/az*.npz
+  out/sweeps/singlemax_seed11_ppw8_twin/az*.npz                  seed 11, other fabric
+  out/sweeps/singlemax_seed{17,23,41}_ppw8_ensemble/az*.npz
 WRITES
   out/tesscache/tess_s<seed>_p<ppw>_k<kappa>.npz     cached label volumes
   sim/analysis/tessellation_replication.npz          every number printed
@@ -90,25 +90,25 @@ CENTRING = sys.argv[1] if len(sys.argv) > 1 else "double"
 
 PULSE_KERNEL = C2.pulse_power_kernel(C2.DT_C)
 
-GIRDLE = [("girdle_perp_ppw8", 11), ("mx_girdle_s7_ppw8", 7),
-          ("mx_girdle_s17_ppw8", 17), ("mx_girdle_s23_ppw8", 23),
-          ("mx_girdle_s41_ppw8", 41), ("mx_girdle_s53_ppw8", 53),
-          ("mx_girdle_s71_ppw8", 71), ("mx_girdle_s89_ppw8", 89)]
-SINGLE = [("singlemax_ppw8", 11), ("mx_single_s17_ppw8", 17),
-          ("mx_single_s23_ppw8", 23), ("mx_single_s41_ppw8", 41)]
+GIRDLE = [("girdle_seed11_ppw8_dev", 11), ("girdle_seed7_ppw8_ensemble", 7),
+          ("girdle_seed17_ppw8_ensemble", 17), ("girdle_seed23_ppw8_ensemble", 23),
+          ("girdle_seed41_ppw8_ensemble", 41), ("girdle_seed53_ppw8_ensemble", 53),
+          ("girdle_seed71_ppw8_ensemble", 71), ("girdle_seed89_ppw8_ensemble", 89)]
+SINGLE = [("singlemax_seed11_ppw8_twin", 11), ("singlemax_seed17_ppw8_ensemble", 17),
+          ("singlemax_seed23_ppw8_ensemble", 23), ("singlemax_seed41_ppw8_ensemble", 41)]
 
 # Controls, all carried on the seed-11 tessellation, so the geometry a
 # candidate can match is present and only the acoustic contrast across the
 # boundaries changes. zerocontrast gives every grain the same c-axis;
 # the cs_f ladder interpolates each grain's stiffness a fraction f from the
 # orientation-averaged tensor toward its own, so scattered power must scale
-# as f^2 and girdle_perp_ppw8 is the f = 1 rung. If identification survives
+# as f^2 and girdle_seed11_ppw8_dev is the f = 1 rung. If identification survives
 # at f = 0 it is matching the rendering of the tessellation, not scattering.
-CONTROL = [("zerocontrast_ppw8", 11, "same c-axis in every grain"),
-           ("cs_f000_s11_ppw8", 11, "contrast f = 0.00"),
-           ("cs_f025_s11_ppw8", 11, "contrast f = 0.25"),
-           ("cs_f050_s11_ppw8", 11, "contrast f = 0.50"),
-           ("cs_f075_s11_ppw8", 11, "contrast f = 0.75")]
+CONTROL = [("girdle_seed11_ppw8_uniform_axis", 11, "same c-axis in every grain"),
+           ("girdle_seed11_ppw8_contrast_f000", 11, "contrast f = 0.00"),
+           ("girdle_seed11_ppw8_contrast_f025", 11, "contrast f = 0.25"),
+           ("girdle_seed11_ppw8_contrast_f050", 11, "contrast f = 0.50"),
+           ("girdle_seed11_ppw8_contrast_f075", 11, "contrast f = 0.75")]
 
 # The 40 wrong-tessellation seeds of the Sec. 5.2 identification test.
 # With the eight real girdle tessellations they make 48 candidates,
@@ -163,7 +163,7 @@ def tessellation(seed, kappa=KAPPA_GIRDLE, axis=AXIS_GIRDLE, ppw=PPW):
     the one the solver saw.
     """
     os.makedirs(CACHE, exist_ok=True)
-    path = os.path.join(CACHE, f"tess_s{seed}_p{ppw:g}_k{kappa:g}.npz")
+    path = os.path.join(CACHE, f"labels_seed{seed}_ppw{ppw:g}_kappa{kappa:g}.npz")
     if not os.path.exists(path):
         t0 = time.time()
         h = C2.C_REF / C2.F0 / ppw
@@ -250,7 +250,7 @@ def coda_field(sweep, tgrid, az_keep=AZ_COMMON, median_removal=False,
     Normalised by the SWEEP-mean backwall, not the per-azimuth one, so that
     the azimuthal variation of the coda is not divided away. The backwall
     time is remeasured from the trace because the multi-tessellation sweeps
-    were written without the t1_s field; on girdle_perp_ppw8, where both
+    were written without the t1_s field; on girdle_seed11_ppw8_dev, where both
     exist, remeasured and recorded agree to 37 ns rms on a 52.6 us arrival
     and track each other across azimuth at r = 0.995.
 
@@ -548,8 +548,8 @@ def report_scalar(sweeps, rows, ref60):
         g, b = rows[name]["geom_only"], rows[name]["born_spec"]
         print(f"{name:<20}{seed:>5}{g[0]:>9.3f}{g[1]:>6}{g[2]:>8.4f}"
               f"{b[0]:>9.3f}{b[1]:>6}{b[2]:>8.4f}")
-    g60 = ref60["girdle_perp_ppw8"]["geom_only"]
-    b60 = ref60["girdle_perp_ppw8"]["born_spec"]
+    g60 = ref60["girdle_seed11_ppw8_dev"]["geom_only"]
+    b60 = ref60["girdle_seed11_ppw8_dev"]["born_spec"]
     print(f"\n  seed 11 on its native {len(AZ_SEED11)} azimuths, against the"
           f" {REF['r_geom']} and {REF['r_full']} of Sec. 5.2:")
     print(f"    r_geom = {g60[0]:.3f} (rank {g60[1]}/{len(AZ_SEED11)}), "
@@ -685,8 +685,8 @@ def report_identification(sweeps, cands, hits):
         r, rank, p, z, _, _ = hits[name]
         print(f"{name:<20}{r:>9.3f}{rank:>5}/{len(cands):<2}{p:>9.4f}"
               f"{z:>7.1f}   {note}")
-    r1, k1 = hits["girdle_perp_ppw8"][0], hits["girdle_perp_ppw8"][1]
-    print(f"{'girdle_perp_ppw8':<20}{r1:>9.3f}{k1:>5}/{len(cands):<2}"
+    r1, k1 = hits["girdle_seed11_ppw8_dev"][0], hits["girdle_seed11_ppw8_dev"][1]
+    print(f"{'girdle_seed11_ppw8_dev':<20}{r1:>9.3f}{k1:>5}/{len(cands):<2}"
           f"{'':>9}{'':>7}   contrast f = 1.00, the f = 1 rung")
     print("  The score is a double-centred correlation and so is blind to")
     print("  level: it is zero at f = 0 and near its final value by")

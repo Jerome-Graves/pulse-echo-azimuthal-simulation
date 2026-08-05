@@ -1,9 +1,9 @@
 """Does SINGLE rasterisation reduce the numerical artefact?
 
 Same specimen (seed 11) and the SAME legacy FD coefficients as
-out/sweeps/rigid_seed11, so the only difference is how the rotated
+out/sweeps/singlemax_seed11_ppw6_rigid2, so the only difference is how the rotated
 label field is produced:
-  double (rigid_seed11, already on disk) - nearest-neighbour resample
+  double (singlemax_seed11_ppw6_rigid2, already on disk) - nearest-neighbour resample
       of an already-rasterised label volume
   single (run here)                      - tessellation evaluated on
       the solver grid directly, by rotating the SEEDS
@@ -31,7 +31,7 @@ C_REF, F0, PPW, ORDER, SPONGE, DAMP = 3850.0, 2.0e6, 6.0, 8, 10, 0.02
 ELEM, RECF = 6.35e-3, 2.7
 PAIRS = [(a, a + 180) for a in (0, 18, 36, 54, 72, 90, 108, 126, 144, 162)]
 REPO = ((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")) +
-        r"\out\sweeps\rigid_seed11"))
+        r"\out\sweeps\singlemax_seed11_ppw6_rigid2"))
 
 h = C_REF / F0 / PPW
 co = fdtd.optimised_coeffs(ORDER, kh_max=1.6, multistart=False)  # legacy

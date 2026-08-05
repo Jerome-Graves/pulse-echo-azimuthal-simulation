@@ -16,7 +16,7 @@ PROTOCOL (do not change any of it without re-running the full wave):
     (0.776 is the measured full-wave E1 amplitude, so levels are dB re E1)
   * FW reference levels: -28.1 / -32.9 / -31.6 / -43.4 dB (historical,
     contaminated-era; scoring now reads the decontaminated traces in
-    sim/ref via fw_reference_levels - see the comment on FW below)
+    sim/ref via fw_reference_2mhz_levels - see the comment on FW below)
 
 SCORES:
   * level  = model level at fabric 0, minus FW's -28.1 (0 is perfect)
@@ -36,7 +36,7 @@ import time
 import numpy as np
 from scipy.signal import hilbert
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 
 import born                                    # noqa: E402
 from config import Config                      # noqa: E402
@@ -44,10 +44,10 @@ from specimen import DiskSpecimen              # noqa: E402
 
 DT = 2.164e-8
 # CONTAMINATED-ERA constants (fluid_damp 0.01, unstable tail; see
-# fw_reference.py) - kept ONLY for the historical comparison print in
-# fw_reference.py. Decontaminated 2 MHz max-metric levels are
+# fw_reference_2mhz_2mhz.py) - kept ONLY for the historical comparison print in
+# fw_reference_2mhz_2mhz.py. Decontaminated 2 MHz max-metric levels are
 # -41.1/-32.2/-31.2/-43.2 (only fabric00 moved - it was floor-
-# dominated). NEVER score against these: fw_reference_levels() now
+# dominated). NEVER score against these: fw_reference_2mhz_levels() now
 # raises instead of falling back here (2026-07-29).
 FW = np.array([-28.1, -32.9, -31.6, -43.4])    # full-wave dB re E1
 FRACS = (0.0, 0.25, 0.5, 1.0)
@@ -112,12 +112,13 @@ def level_db(env, metric="max", window=None):
     return 20.0 * np.log10(v / E1 + 1e-30)
 
 
-def fw_reference_levels(metric="max", window=None):
+def fw_reference_2mhz_levels(metric="max", window=None):
     """FW levels from the saved reference traces (sim/ref). Raises
     FileNotFoundError if any trace is missing (2026-07-29: no fallback to
     the contaminated-era FW constants, see the comment on FW above)."""
     import os
-    ref = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ref")
+    ref = os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "ref")
     w0, w1 = (22e-6, 42e-6) if window is None else window
     out = []
     for tag in ("00", "25", "50", "100"):
@@ -126,7 +127,7 @@ def fw_reference_levels(metric="max", window=None):
             # no silent fallback: the FW constants are contaminated-era
             # numbers 13 dB off the decontaminated fabric00 truth
             raise FileNotFoundError(
-                f"{fp} missing: run fw_reference.py first (refusing to "
+                f"{fp} missing: run fw_reference_2mhz_2mhz.py first (refusing to "
                 "fall back to the contaminated-era FW constants)")
         d = np.load(fp)
         tr, dt = d["trace"].ravel(), float(d["dt"])
@@ -144,7 +145,7 @@ def fw_reference_levels(metric="max", window=None):
 def score(model_fn, build, cfg, fabrics, name="", metric="max", fw=None,
           window=None):
     """Run one model over the four fabrics; return dict of scores."""
-    fw = fw_reference_levels(metric, window) if fw is None else fw
+    fw = fw_reference_2mhz_levels(metric, window) if fw is None else fw
     levels, secs = [], 0.0
     for ax in fabrics:
         bb = dict(build); bb["axes"] = ax
@@ -163,7 +164,7 @@ def score(model_fn, build, cfg, fabrics, name="", metric="max", fw=None,
 
 
 def report(rows, fw=None):
-    fw = fw_reference_levels() if fw is None else fw
+    fw = fw_reference_2mhz_levels() if fw is None else fw
     print(f"\n{'model':<26}{'lvl@0%':>8}{'offset':>8}{'sensRMS':>9}"
           f"{'d25':>7}{'d50':>7}{'d100':>7}{'s/tr':>7}")
     dfw = fw - fw[0]
@@ -237,12 +238,12 @@ def main():
     # reference itself; RMS averages ~24 resolution cells and is the metric
     # that can actually rank models this close together.
     try:
-        fw_rms = fw_reference_levels("rms")
+        fw_rms = fw_reference_2mhz_levels("rms")
     except FileNotFoundError:
-        print("\n(no sim/ref traces yet: run fw_reference.py for RMS scoring)")
+        print("\n(no sim/ref traces yet: run fw_reference_2mhz_2mhz.py for RMS scoring)")
         return
     print("\n=== RMS metric (fw reference from saved traces) ===")
-    fw_max = fw_reference_levels("max")
+    fw_max = fw_reference_2mhz_levels("max")
     print(f"fw max-metric from saved traces: "
           f"{np.array2string(fw_max, precision=1)} "
           f"(recorded {np.array2string(FW, precision=1)})")

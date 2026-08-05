@@ -8,12 +8,12 @@ fastest physical qP 4046 AND the order-8 grid's slightly superluminal
 numerical precursors) plus a 2 mm margin; even the cut-face reflection
 and the relocated sponge live behind the horizon.
 
-Protocol: exact fw_reference setup (ladder.standard_build, fabric00,
+Protocol: exact fw_reference_2mhz setup (ladder.standard_build, fabric00,
 h = lambda/6 at 2 MHz, damp 0.02), cropped run vs ref/fw_fabric00.npz.
 PASS if the window-region difference is <= -70 dB re E1 (a -70 dB
 perturbation moves the -51 dB coda RMS by < 0.1 dB).
 The mechanism is frequency-independent: a PASS here licenses the same
-crop at 5 MHz (fw_5mhz coda runs -> ~0.45x cost).
+crop at 5 MHz (fw_reference_5mhz coda runs -> ~0.45x cost).
 """
 import os
 import os as _os, sys as _sys
@@ -25,7 +25,7 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from scipy import ndimage                     # noqa: E402
 from scipy.signal import hilbert              # noqa: E402
 

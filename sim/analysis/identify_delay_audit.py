@@ -46,8 +46,8 @@ the gate and the uncorrected numbers of the caption come from the
 same events, the same measured fields and the same scorer.
 
 READS
-  out/sweeps/girdle_perp_ppw8/az*.npz
-  out/sweeps/mx_girdle_s{7,17,23,41,53,71,89}_ppw8/az*.npz
+  out/sweeps/girdle_seed11_ppw8_dev/az*.npz
+  out/sweeps/girdle_seed{7,17,23,41,53,71,89}_ppw8_ensemble/az*.npz
   out/tesscache/tess_s<seed>_p8_k-8.npz          cached label volumes
   sim/analysis/tessellation_replication.npz      the gate reference
 WRITES
@@ -194,7 +194,7 @@ def main():
     first_raw = [s for (_, s), h in zip(TR.GIRDLE, hits_raw)
                  if int(h[1]) == 1]
     survive = [s for s in first_cor if s in first_raw]
-    k41 = int(hits_raw[names.index("mx_girdle_s41_ppw8"), 1])
+    k41 = int(hits_raw[names.index("girdle_seed41_ppw8_ensemble"), 1])
     n_raw, n_sur = len(first_raw), len(survive)
     print(f"\n   uncorrected firsts: {n_raw} of {len(names)}"
           + (": seeds " + ", ".join(str(s) for s in first_raw)

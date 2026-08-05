@@ -33,7 +33,7 @@ def fabric_pred(cfg, rots):
     must not be provoked while a sweep is running.
     """
     rots = np.asarray(rots)
-    key = "pred_%s.npz" % cfg["name"]
+    key = "fabric_pred_%s.npz" % cfg["name"]
     p = os.path.join(CACHE, key)
     want = np.mod(np.asarray(rots, float), 180.0)
     if os.path.exists(p):

@@ -122,7 +122,7 @@ def _label_plane_by_plane(x, z, R, seeds, weights):
     """Exact all-seeds Laguerre argmin, one z-plane at a time, in NumPy.
 
     Substituted for the CuPy path of specimen.py so that nothing in this
-    module can reach CUDA. Only the iso_gcal control needs it; every
+    module can reach CUDA. Only the isotropic_seed41_ppw6_calibration control needs it; every
     other specimen comes from the cache.
     """
     nx, nz = len(x), len(z)
@@ -146,7 +146,7 @@ DiskSpecimen._label_grid_gpu = staticmethod(_label_plane_by_plane)
 # ------------------------------------------------------------------ load
 
 def cache_path(seed, kappa, ppw=PPW):
-    return os.path.join(TESS, "tess_s%d_p%g_k%g.npz" % (seed, ppw, kappa))
+    return os.path.join(TESS, "labels_seed%d_ppw%g_kappa%g.npz" % (seed, ppw, kappa))
 
 
 def load_cached(seed, kappa, ppw=PPW):
@@ -241,24 +241,24 @@ def specimen_registry():
         rows.append(dict(name="girdle_s%d" % s, seed=s, kind="girdle",
                          fabric="girdle", kappa=GIRDLE_KAPPA,
                          axis=GIRDLE_AXIS, contrast_f=1.0,
-                         sweep="girdle_perp_ppw8" if s == 11
-                         else "mx_girdle_s%d_ppw8" % s))
+                         sweep="girdle_seed11_ppw8_dev" if s == 11
+                         else "girdle_seed%d_ppw8_ensemble" % s))
     for s in SEEDS:
         rows.append(dict(name="single_s%d" % s, seed=s, kind="single",
                          fabric="single_max", kappa=SINGLE_KAPPA,
                          axis=SINGLE_AXIS, contrast_f=1.0,
-                         sweep="singlemax_ppw8" if s == 11
-                         else "mx_single_s%d_ppw8" % s))
+                         sweep="singlemax_seed11_ppw8_twin" if s == 11
+                         else "singlemax_seed%d_ppw8_ensemble" % s))
     rows.append(dict(name="zerocontrast_s11", seed=11, kind="control",
                      fabric="uniform", kappa=GIRDLE_KAPPA,
                      axis=GIRDLE_AXIS, contrast_f=0.0,
-                     sweep="zerocontrast_ppw8", uniform=True))
+                     sweep="girdle_seed11_ppw8_uniform_axis", uniform=True))
     for f in (0.00, 0.25, 0.50, 0.75):
         rows.append(dict(name="cs_f%03d_s11" % round(f * 100), seed=11,
                          kind="control", fabric="girdle",
                          kappa=GIRDLE_KAPPA, axis=GIRDLE_AXIS,
                          contrast_f=f,
-                         sweep="cs_f%03d_s11_ppw8" % round(f * 100)))
+                         sweep="girdle_seed11_ppw8_contrast_f%03d" % round(f * 100)))
     return rows
 
 
@@ -888,7 +888,7 @@ def specimen_row(reg, store):
         row[key + "_m"] = float(cube[key].mean())
     # Every _m column above is the arithmetic mean over azimuth. The
     # contrast is also summarised quadratically, because that is the
-    # convention channel_network/e23_links.py uses for its dv_ray and a
+    # convention channel_network/edgedge23_links.py uses for its dv_ray and a
     # column that reconciles with an existing repo number is worth more
     # than a column that nearly does. On the eight girdle tessellations
     # the two summaries correlate at 0.98 and differ by about 6 per cent.

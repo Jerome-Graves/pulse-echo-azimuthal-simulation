@@ -27,15 +27,15 @@ for nm, i in INFO.items():
                  r=np.corrcoef(strip(P["geom_only"], rots),
                                strip(coda, rots))[0, 1], n=len(rots))
 
-R465 = R["girdle_perp_ppw8"]["r"]
-R164 = R["rigid_seed11"]["r"]
+R465 = R["girdle_seed11_ppw8_dev"]["r"]
+R164 = R["singlemax_seed11_ppw6_rigid2"]["r"]
 print("=== reference effect sizes (geom_only, residual space) ===")
-print(f"   seed 11, ppw8, single raster  (girdle_perp_ppw8) r = {R465:.3f}")
-print(f"   seed 11, ppw6, DOUBLE raster  (rigid_seed11)     r = {R164:.3f}")
+print(f"   seed 11, ppw8, single raster  (girdle_seed11_ppw8_dev) r = {R465:.3f}")
+print(f"   seed 11, ppw6, DOUBLE raster  (singlemax_seed11_ppw6_rigid2)     r = {R164:.3f}")
 print(f"   attenuation factor from the ppw6/double numerics: "
       f"{R164/R465:.2f}")
 
-IND = ["kappa8_seed17", "oos_seed23", "iso_gcal"]
+IND = ["singlemax_seed17_ppw6_kappa8", "singlemax_seed23_ppw6_heldout_axis", "isotropic_seed41_ppw6_calibration"]
 print(f"\n   independent tessellations (all ppw6 double raster):")
 for nm in IND:
     print(f"     {nm:<16} seed {INFO[nm]['seed']:>2}  r = {R[nm]['r']:+.3f}")
@@ -76,9 +76,9 @@ print("\n=== MODEL-FREE TEST (no descriptor at all) ===")
 print("   The hypothesis says the coda is set by grain-boundary geometry.")
 print("   Then two sweeps sharing a TESSELLATION but with DIFFERENT fabric")
 print("   must have strongly correlated coda-vs-azimuth curves.")
-pairs = [("girdle_perp", "girdle_par"), ("girdle_perp", "singlemax_ppw8"),
-         ("girdle_par", "singlemax_ppw8"), ("girdle_par", "girdle_perp_ppw8"),
-         ("girdle_perp_ppw8", "singlemax_ppw8")]
+pairs = [("girdle_seed11_ppw6_axis_perp", "girdle_seed11_ppw6_axis_par"), ("girdle_seed11_ppw6_axis_perp", "singlemax_seed11_ppw8_twin"),
+         ("girdle_seed11_ppw6_axis_par", "singlemax_seed11_ppw8_twin"), ("girdle_seed11_ppw6_axis_par", "girdle_seed11_ppw8_dev"),
+         ("girdle_seed11_ppw8_dev", "singlemax_seed11_ppw8_twin")]
 vals = []
 print(f"   {'same tessellation (seed 11), different fabric':<48}"
       f"{'n':>4}{'r':>8}{'p':>8}")

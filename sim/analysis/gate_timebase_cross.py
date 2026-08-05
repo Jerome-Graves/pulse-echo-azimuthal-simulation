@@ -6,7 +6,7 @@ first version claimed the analysis gate WEAKENS under refinement,
 unreproducible. The replacement claims it STRENGTHENS, and the three
 correlations in it are right: gate_refinement_audit.py rebuilt the
 estimator from scratch and reproduced the stored published value for
-mx_girdle_s23_ppw8 exactly, and gate_refinement_crosscheck.py varied
+girdle_seed23_ppw8_ensemble exactly, and gate_refinement_crosscheck.py varied
 the free choices. The rise did not in fact survive all of them.
 gate_refinement_crosscheck.npz holds 0.1814, 0.1148, 0.1338 for the
 single constant speed and 0.2458, 0.1484, 0.2436 for one azimuth half,
@@ -54,9 +54,9 @@ amplitude ladder that exists is the decibel ladder of the validation
 section, and section 4 below recomputes it from the audited estimator so
 that the direction of the level can be stated from measurement.
 
-READS  out/sweeps/{lad_girdle_s23_ppw6, mx_girdle_s23_ppw8,
-       lad_girdle_s23_ppw10}/az*.npz
-       out/sweeps/{girdle_perp, girdle_perp_ppw8, lic_girdle_s11_ppw10}
+READS  out/sweeps/{girdle_seed23_ppw6_ladder, girdle_seed23_ppw8_ensemble,
+       girdle_seed23_ppw10_ladder}/az*.npz
+       out/sweeps/{girdle_seed11_ppw6_axis_perp, girdle_seed11_ppw8_dev, girdle_seed11_ppw10_licensing}
        out/tesscache/tess_s<seed>_p8_k-8.npz, 48 candidates
        sim/analysis/tessellation_replication.npz, published value only
 WRITES sim/analysis/gate_timebase_cross.npz. Prints five tables.
@@ -92,16 +92,16 @@ PPW_PRED = 8                               # one prediction geometry
 N_RAY = 600
 
 SEED = 23
-LADDER = [("lad_girdle_s23_ppw6", 6),
-          ("mx_girdle_s23_ppw8", 8),
-          ("lad_girdle_s23_ppw10", 10)]
+LADDER = [("girdle_seed23_ppw6_ladder", 6),
+          ("girdle_seed23_ppw8_ensemble", 8),
+          ("girdle_seed23_ppw10_ladder", 10)]
 AZ_ALL = np.arange(0, 360, 12)
 CANDS = sorted(set([7, 11, 17, 23, 41, 53, 71, 89] + list(range(100, 140))))
 TGRID = np.arange(20e-6, 42e-6, DT)        # the published grid
 
 # The stored published row this chain must return before anything else
 # is believed, and the ladder the diagonal of the cross must reproduce.
-PUB = dict(sweep="mx_girdle_s23_ppw8", r=0.11211963, z=6.53615739)
+PUB = dict(sweep="girdle_seed23_ppw8_ensemble", r=0.11211963, z=6.53615739)
 PUB_LADDER = {6: 0.09563330, 8: 0.11211963, 10: 0.13181387}
 
 # The decibel ladders the validation section states, for section 4. Coda
@@ -109,10 +109,10 @@ PUB_LADDER = {6: 0.09563330, 8: 0.11211963, 10: 0.13181387}
 #   sections/04-validation.tex and supplementary.tex, sec on whether the
 #   ladder is a property of the regime.
 PUB_DB_STEPS = {11: (-4.02, -2.68), 23: (-3.72, -2.54)}
-DB_SPECIMEN = {11: {6: "girdle_perp", 8: "girdle_perp_ppw8",
-                    10: "lic_girdle_s11_ppw10"},
-               23: {6: "lad_girdle_s23_ppw6", 8: "mx_girdle_s23_ppw8",
-                    10: "lad_girdle_s23_ppw10"}}
+DB_SPECIMEN = {11: {6: "girdle_seed11_ppw6_axis_perp", 8: "girdle_seed11_ppw8_dev",
+                    10: "girdle_seed11_ppw10_licensing"},
+               23: {6: "girdle_seed23_ppw6_ladder", 8: "girdle_seed23_ppw8_ensemble",
+                    10: "girdle_seed23_ppw10_ladder"}}
 
 
 # ───────────────────────────── measurement ────────────────────────────
@@ -172,7 +172,7 @@ def kernel(dt=DT, half_us=2.0):
 
 def load_tess(seed, ppw=PPW_PRED, kappa=-8.0):
     """Cached label volume, c-axes and seed points. Never builds."""
-    p = os.path.join(CACHE, f"tess_s{seed}_p{ppw:g}_k{kappa:g}.npz")
+    p = os.path.join(CACHE, f"labels_seed{seed}_ppw{ppw:g}_kappa{kappa:g}.npz")
     if not os.path.exists(p):
         raise FileNotFoundError(p)
     with np.load(p) as z:

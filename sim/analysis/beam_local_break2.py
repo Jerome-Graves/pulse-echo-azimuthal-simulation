@@ -86,7 +86,7 @@ def lvl_taper(name, win, az_keep=AZ30):
 
 
 def main():
-    tk8 = "tess_s11_p8_k-8.npz"
+    tk8 = "labels_seed11_ppw8_kappa-8.npz"
     _, ax8, _, _ = tess_path(tk8)
 
     print("=" * 72)
@@ -101,7 +101,7 @@ def main():
     print("    excludes.  Leakage remeasured here, seed 11 ppw 8, GRID 30:")
     for wn, wv in WINDOWS.items():
         print("      %-6s imported from outside the window: %5.1f %%"
-              % (wn, 100 * leak("girdle_perp_ppw8", wv)))
+              % (wn, 100 * leak("girdle_seed11_ppw8_dev", wv)))
     print("    (Section 5.6 reports 53.7 %% at 10-22 and 15.6 %% in the")
     print("    gate.)")
     print()
@@ -109,15 +109,15 @@ def main():
     print("    GRID 60 where available, window-matched column:")
     print("    %-6s %-22s %8s %9s" % ("window", "estimator", "r", "rank"))
     for wn, wv in WINDOWS.items():
-        rots, _ = levels("girdle_perp_ppw8", wv, "env")
+        rots, _ = levels("girdle_seed11_ppw8_dev", wv, "env")
         W, G, CR = column(tk8, rots, wv)
         vv = v_var(W, vmat(ax8, rots))
         for tag, lev in (("whole-trace envelope",
-                          levels("girdle_perp_ppw8", wv, "env")[1]),
+                          levels("girdle_seed11_ppw8_dev", wv, "env")[1]),
                          ("window-tapered envelope",
-                          lvl_taper("girdle_perp_ppw8", wv, None)[1]),
+                          lvl_taper("girdle_seed11_ppw8_dev", wv, None)[1]),
                          ("transform-free 2<x^2>",
-                          levels("girdle_perp_ppw8", wv, "tf")[1])):
+                          levels("girdle_seed11_ppw8_dev", wv, "tf")[1])):
             rs = shift(vv, lev)
             r, k, p = rank_of(rs)
             print("    %-6s %-22s %+8.3f %9s"
@@ -158,9 +158,9 @@ def main():
     print("    %-6s %9s %9s %9s %9s" %
           ("window", "scatt frac", "r pred~raw", "r pred~scat", "rank"))
     for wn, wv in WINDOWS.items():
-        rots, ls = levels("girdle_perp_ppw8", wv, "abs", AZ30)
-        _, lz = levels("zerocontrast_ppw8", wv, "abs", AZ30)
-        _, lc = levels("cs_f000_s11_ppw8", wv, "abs", AZ30)
+        rots, ls = levels("girdle_seed11_ppw8_dev", wv, "abs", AZ30)
+        _, lz = levels("girdle_seed11_ppw8_uniform_axis", wv, "abs", AZ30)
+        _, lc = levels("girdle_seed11_ppw8_contrast_f000", wv, "abs", AZ30)
         ps = 10 ** (ls / 10)
         pn = 0.5 * (10 ** (lz / 10) + 10 ** (lc / 10))
         sc = np.maximum(ps - pn, 1e-30 * ps.max())
@@ -210,8 +210,8 @@ def main():
     print("    The shift p is exact whatever the autocorrelation, but the")
     print("    RANK is not a robust statistic when neighbouring shifts")
     print("    are near-copies of each other.")
-    for tk, sw, tag in (("tess_s11_p6_k-8.npz", "girdle_perp", "ppw6"),
-                        ("tess_s11_p8_k-8.npz", "girdle_perp_ppw8", "ppw8")):
+    for tk, sw, tag in (("labels_seed11_ppw6_kappa-8.npz", "girdle_seed11_ppw6_axis_perp", "ppw6"),
+                        ("labels_seed11_ppw8_kappa-8.npz", "girdle_seed11_ppw8_dev", "ppw8")):
         rots, lev = levels(sw, WINDOWS["24-36"], "env")
         W, G, CR = column(tk, rots, WINDOWS["24-36"])
         _, axl, _, _ = tess_path(tk)
@@ -242,8 +242,8 @@ def main():
            "rank res"))
     for wn, wv in WINDOWS.items():
         for kind in ("env", "tf"):
-            rots, lev = levels("girdle_perp_ppw8", wv, kind)
-            W, G, CR = column("tess_s11_p8_k-8.npz", rots, wv)
+            rots, lev = levels("girdle_seed11_ppw8_dev", wv, kind)
+            W, G, CR = column("labels_seed11_ppw8_kappa-8.npz", rots, wv)
             vv = v_var(W, vmat(ax8, rots))
             cc = {k: abs(np.corrcoef(vv, G[k])[0, 1]) for k in GEOM
                   if G[k].std() > 1e-12}

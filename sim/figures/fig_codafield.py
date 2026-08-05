@@ -15,9 +15,9 @@ curve or a peak in an arbitrary place.
 
 Reads (cached azimuth-by-time fields; no simulation, no specimen rebuild,
 no GPU):
-    <cache>/t2p_girdle_perp_ppw8__gp8.npz          measured + true model
-    <cache>/t2p_girdle_perp_ppw8__wrongseed8.npz   unrelated tessellation
-    <cache>/t2p_girdle_perp_ppw8__sm8.npz          same tessellation,
+    <cache>/coda_field_girdle_seed11_ppw8_dev__gp8.npz          measured + true model
+    <cache>/coda_field_girdle_seed11_ppw8_dev__wrongseed8.npz   unrelated tessellation
+    <cache>/coda_field_girdle_seed11_ppw8_dev__sm8.npz          same tessellation,
                                                    different fabric
 Each file carries 'az', 'tgrid', 'meas' (envelope), 'e1' (backwall
 envelope peak) and the four predictor variants written by t2_predict.py.
@@ -66,7 +66,7 @@ EPS = 1e-30
 # scatterers that would otherwise set the scale for everything.
 CLIP_PERCENTILE = 95.0
 
-SWEEP = "girdle_perp_ppw8"          # girdle fabric, seed 11, ppw 8
+SWEEP = "girdle_seed11_ppw8_dev"          # girdle fabric, seed 11, ppw 8
 TAG_TRUE = "gp8"                    # the specimen that was simulated
 TAG_WRONG = "wrongseed8"            # seed 23, same construction rules
 TAG_FABRIC = "sm8"                  # seed 11 again, single-maximum fabric
@@ -84,7 +84,7 @@ def cache_dir():
     candidates = (here.parents[4] / "pulse-echo-analysis-scratch",
                   here.parents[1] / "analysis" / "facet_model")
     for d in candidates:
-        if (d / ("t2p_%s__%s.npz" % (SWEEP, TAG_TRUE))).exists():
+        if (d / ("coda_field_%s__%s.npz" % (SWEEP, TAG_TRUE))).exists():
             return d
     raise FileNotFoundError(
         "no t2p_*.npz cache in any of %s; regenerate with "
@@ -101,7 +101,7 @@ def load_field(tag):
     power, so the envelope is squared. Dividing by the backwall peak e1
     first makes the level independent of the source amplitude.
     """
-    with np.load(cache_dir() / ("t2p_%s__%s.npz" % (SWEEP, tag))) as z:
+    with np.load(cache_dir() / ("coda_field_%s__%s.npz" % (SWEEP, tag))) as z:
         t_s = z["tgrid"]
         gate = (t_s >= CODA_GATE_S[0]) & (t_s < CODA_GATE_S[1])
         meas = (z["meas"][:, gate] / float(z["e1"])) ** 2

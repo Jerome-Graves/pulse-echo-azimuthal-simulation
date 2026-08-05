@@ -41,10 +41,10 @@ from math import factorial
 
 import numpy as np
 
-sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 
 import fdtd                                     # noqa: E402
-from fe_solver import locate                    # noqa: E402
+from fe_solver_p1 import locate                    # noqa: E402
 
 EDGES = [(0, 1), (1, 2), (2, 0), (3, 0), (3, 2), (3, 1)]   # gmsh pair order
 FACES = [(1, 2, 3), (0, 2, 3), (0, 1, 3), (0, 1, 2)]       # opposite vertex f
@@ -286,7 +286,7 @@ def forward(nodes15, tets15, grain, axes, dt, nt, wavelet, src_xyz,
             shell_pow=2, src_type="force_x", rec_type="ux",
             src_radius=1.0e-3, D=None, vol=None, progress=None):
     """shell_rate is per SECOND (damp = exp(-rate*dt*q^pow)): absorption
-    per unit time is dt-invariant. MEASURED (fe_p2plus_ab forensics):
+    per unit time is dt-invariant. MEASURED (fe_arbiter_round1_baseline forensics):
     rate=1.4e8 with pow=2 is an overdamped BRICK WALL - it reflects
     ~-16 dB at the shell entrance and the box rings at -20 dB re direct
     for the whole record. An absorber must be weak and wide: for a
