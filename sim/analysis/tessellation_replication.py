@@ -257,8 +257,9 @@ def coda_field(sweep, tgrid, az_keep=AZ_COMMON, median_removal=False,
     a measured arrival is 2*DIA/c + T0_SRC. Dividing DIA by the raw arrival
     folds that delay into the speed and returns 3782 to 3806 m/s against a
     reference 3850, low by 1.14 to 1.75 per cent; bin_events then adds
-    T0_SRC back, so every predicted arrival is stretched late by 1.16 per
-    cent of its own time, which is 0.34 us at 30 us. Three checks fix the
+    T0_SRC back, so every predicted arrival is stretched late by 1.15 per
+    cent of its own time, which is 0.35 us at 30 us (the eight-sweep
+    mean is 1.1528 +- 0.0024 per cent; identify_delay_audit.py). Three checks fix the
     sign of this. The corrected estimator returns 3826 to 3850 m/s. The
     residual best rigid offset between prediction and measurement falls
     from -0.356 +- 0.168 us to -0.019 +- 0.146 us. And the account predicts
