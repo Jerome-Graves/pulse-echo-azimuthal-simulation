@@ -120,7 +120,7 @@ spacing every sweep has in common:
         programme and holds only 22 of the 30 azimuths
     singlemax_ppw8, mx_single_s{17,23,41}_ppw8
         four single-maximum sweeps, for the 4.34 dB audit only
-Rebuilds the eight tessellations through sim/specimen.py to count grain
+Rebuilds the eight tessellations through sim/core/specimen.py to count grain
 boundaries along the beam axis. That build is done on the CPU here: this
 module is analysis, it has to run on the release machine whether or not
 it has a CUDA device, and it must not compete for one.
@@ -657,6 +657,8 @@ def column_geometry(seed, ppw=8.0, azimuths=np.arange(0, 360, 6)):
 def _label_volumes(seeds, ppw):
     """Rasterised tessellations for the given seeds, built on the CPU."""
     sys.path.insert(0, str(ROOT / "sim"))
+    sys.path[:0] = [os.path.join(sys.path[0], _d)
+                    for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
     from specimen import DiskSpecimen
 
     def cpu_label(x, z, radius, centres, weights):

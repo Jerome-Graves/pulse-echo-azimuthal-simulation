@@ -14,12 +14,15 @@ f_base is normalised to unit MEAN over the quadrature, so a coefficient
 c_k is on the same footing as the isotropic "1".  Only EVEN l matter
 (c-axes are headless); l = 2 and 4 are carried, 14 free coefficients.
 """
+import os
 import sys
 
 import numpy as np
 from scipy.special import sph_harm_y
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim"))))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import fit_fabric as FF      # noqa: E402
 import forward as F          # noqa: E402

@@ -14,11 +14,13 @@ import sys
 import numpy as np
 from scipy.signal import butter, hilbert, sosfiltfilt
 
-SIM = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim"
+SIM = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim")))
 sys.path.insert(0, SIM)
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "vendor"))))
 
-OUT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+OUT = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "out", "sweeps")))
 SCR = os.path.dirname(os.path.abspath(__file__))
 
 C_REF, F0, DIA, THK = 3850.0, 2.0e6, 0.100, 0.035

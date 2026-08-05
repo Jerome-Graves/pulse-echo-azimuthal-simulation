@@ -42,7 +42,7 @@ Reads, all under ../../out/sweeps, each directory az*.npz with keys
         four single-maximum sweeps, kappa = +3.93, each sharing a
         bit-identical tessellation with the girdle sweep of the same seed
 Question 3 also rebuilds the eight tessellations on the CPU at a coarse
-grid, through sim/specimen.py, to measure their geometry directly.
+grid, through sim/core/specimen.py, to measure their geometry directly.
 
 Writes ../results/ensemble.npz for figures/fig_ensemble.py, and prints
 every number the section quotes.
@@ -485,7 +485,11 @@ def tessellation_geometry(seeds, coarse_ppw=4.0):
     """
     import sys
     sys.path.insert(0, str(ROOT / "sim"))
+    sys.path[:0] = [os.path.join(sys.path[0], _d)
+                    for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
     sys.path.insert(0, str(ROOT / "sim" / "analysis"))
+    sys.path[:0] = [os.path.join(sys.path[0], _d)
+                    for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
     import facet_predictors as fp
     from specimen import DiskSpecimen
 
@@ -542,6 +546,8 @@ def tessellations_are_shared(seed, coarse_ppw=4.0):
     """
     import sys
     sys.path.insert(0, str(ROOT / "sim"))
+    sys.path[:0] = [os.path.join(sys.path[0], _d)
+                    for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
     from specimen import DiskSpecimen
     DiskSpecimen._label_grid_gpu = staticmethod(lambda *a, **k: None)
     h = C_REF / F0 / coarse_ppw

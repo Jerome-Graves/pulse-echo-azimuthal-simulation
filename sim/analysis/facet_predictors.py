@@ -20,13 +20,15 @@ import numpy as np
 from scipy.signal import butter, hilbert, sosfiltfilt
 from scipy.special import j1
 
-SIM = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim"
+SIM = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim")))
 sys.path.insert(0, SIM)
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 import forward as F                                   # noqa: E402
 from specimen import DiskSpecimen                     # noqa: E402
 
-OUT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+OUT = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "out", "sweeps")))
 SCR = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(SCR, "t1cache")
 os.makedirs(CACHE, exist_ok=True)

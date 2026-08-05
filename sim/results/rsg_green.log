@@ -1,0 +1,21 @@
+==============================================================================
+GREEN-FUNCTION PROBE  2026-08-04 18:19:35   arc radius 16.0 mm, step 5.0 deg
+  ssg iso ppw 4  N 121  dt 25.3897 ns  nt 275  4 s
+  rsg iso ppw 4  N 121  dt 10.1559 ns  nt 689  20 s
+  ssg ani ppw 4  N 121  dt 25.3897 ns  nt 275  4 s
+  rsg ani ppw 4  N 121  dt 10.1559 ns  nt 689  20 s
+done
+==============================================================================
+GREEN-FUNCTION PROBE  2026-08-04 18:25:38   arc radius 16.0 mm, step 5.0 deg
+  ssg iso ppw 6  N 158  dt 16.9265 ns  nt 413  5 s
+  rsg iso ppw 6  N 158  dt 6.7706 ns  nt 1033  87 s
+  ssg ani ppw 6  N 158  dt 16.9265 ns  nt 413  5 s
+  rsg ani ppw 6  N 158  dt 6.7706 ns  nt 1033  87 s
+done
+==============================================================================
+GREEN-FUNCTION PROBE  2026-08-04 18:48:26   arc radius 16.0 mm, step 5.0 deg
+  ssg iso ppw 10  N 233  dt 10.1559 ns  nt 689  8 s
+  rsg iso ppw 10  N 233  dt 4.0624 ns  nt 1723  623 s
+  ssg ani ppw 10  N 233  dt 10.1559 ns  nt 689  8 s
+  rsg ani ppw 10  N 233  dt 4.0624 ns  nt 1723  636 s
+done

@@ -91,7 +91,7 @@ from scipy.signal import butter, find_peaks, hilbert, sosfiltfilt
 from scipy.signal.windows import tukey
 from scipy.stats import kurtosis, skew
 
-ROOT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
+ROOT = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")))
 SWD = os.path.join(ROOT, "out", "sweeps")
 OUTD = os.path.join(ROOT, "out", "observables")
 OUTF = os.path.join(OUTD, "observable_matrix.npz")

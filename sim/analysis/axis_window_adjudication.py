@@ -99,11 +99,11 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 SWD = os.path.join(ROOT, "out", "sweeps")
 TESS = os.path.join(ROOT, "out", "tesscache")
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from ringfwi import anisotropy as an                       # noqa: E402
 
 # Acquisition constants, Section 3. The qP curve is tabulated exactly as
-# sim/forward.py does, but imported from ringfwi directly so that nothing
+# sim/model/forward.py does, but imported from ringfwi directly so that nothing
 # on the solver's import path is touched.
 C_REF, F0, DIA, THICK = 3850.0, 2.0e6, 0.100, 0.035
 BAND = (0.8e6, 3.0e6)

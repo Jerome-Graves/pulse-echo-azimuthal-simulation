@@ -1,0 +1,8 @@
+17:53:57  ========================================================================
+17:53:57  time-step control, RSG, n_lambda = 6: tilt 0 run at the time steps the other tilts chose
+17:53:57  dt from tilt    dt (ns)       tx at 2d  vs own dt        s
+17:55:25  0                6.7706     1.2226e-09       0.00       87
+17:56:48  30               6.9436     1.2226e-09       0.00       84
+17:58:14  45               6.7864     1.2225e-09      -0.00       86
+17:59:40  60               6.8057     1.2225e-09      -0.00       85
+17:59:40  The tilt-0 geometry is identical in every run above, so any spread here is the time step alone.

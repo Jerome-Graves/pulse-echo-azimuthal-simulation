@@ -18,10 +18,11 @@ import numpy as np
 from scipy import ndimage
 from scipy.signal import hilbert
 
-SP = (r"C:\Users\Jerome\AppData\Local\Temp\claude\C--Users-Jerome"
-      r"\72aa31c0-c0c1-48de-881e-9470fe03e8ba\scratchpad")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+SP = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim", "results")))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim"))))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "vendor"))))
 import fdtd                                       # noqa: E402
 from rotation_test import rotated_grid            # noqa: E402
 from specimen import DiskSpecimen                 # noqa: E402
@@ -29,8 +30,8 @@ from specimen import DiskSpecimen                 # noqa: E402
 C_REF, F0, PPW, ORDER, SPONGE, DAMP = 3850.0, 2.0e6, 6.0, 8, 10, 0.02
 ELEM, RECF = 6.35e-3, 2.7
 PAIRS = [(a, a + 180) for a in (0, 18, 36, 54, 72, 90, 108, 126, 144, 162)]
-REPO = (r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
-        r"\out\sweeps\rigid_seed11")
+REPO = ((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")) +
+        r"\out\sweeps\rigid_seed11"))
 
 h = C_REF / F0 / PPW
 co = fdtd.optimised_coeffs(ORDER, kh_max=1.6, multistart=False)  # legacy

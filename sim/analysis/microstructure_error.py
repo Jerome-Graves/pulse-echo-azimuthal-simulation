@@ -103,6 +103,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, "sim"))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import tessellation_replication as TR                    # noqa: E402
 import _t2_common as C2                                  # noqa: E402

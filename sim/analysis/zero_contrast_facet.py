@@ -23,12 +23,14 @@ from scipy.ndimage import uniform_filter1d
 from scipy.signal import butter, hilbert, sosfiltfilt
 from scipy.special import j1
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim"))))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 import forward as F                                    # noqa: E402
 from specimen import DiskSpecimen                      # noqa: E402
 
-SWD = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+SWD = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "out", "sweeps")))
 C, F0, DIA = 3850.0, 2.0e6, 0.100
 GATE, BAND = (24e-6, 36e-6), (0.8e6, 3.0e6)
 DG, HALF = 17.4e-3, np.radians(8.9)

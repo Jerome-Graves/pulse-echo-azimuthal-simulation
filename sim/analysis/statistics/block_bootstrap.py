@@ -2,12 +2,15 @@
 correlation length), plus the FD1 frozen-axis residual rms for the
 sigma comparison.
 """
+import os
 import sys
 
 import numpy as np
 
-SIM = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim"
+SIM = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim")))
 sys.path.insert(0, SIM)
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 import fit_sweep as FS                                   # noqa: E402
 from measure_sigma import prep, stage2_kappa, stage1_axis, AXIS  # noqa
 from compare import set_fd                               # noqa: E402

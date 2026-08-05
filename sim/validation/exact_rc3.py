@@ -12,7 +12,7 @@ import os
 import sys
 import numpy as np
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from ringfwi import anisotropy as an  # noqa: E402
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))   # siblings
 from exact_rc import setup, exact_normal_RT, RHO, banner  # noqa: E402
@@ -56,8 +56,8 @@ for psi in [0, 10, 20, 27, 35, 45, 51, 60, 70, 80, 90]:
           f"{np.sqrt(fi*fo):>16.4f}")
 
 banner("7.  DOES IT EXPLAIN THE FIVE MEASURED POINTS?")
-val = np.load(r"C:\Users\Jerome\Documents\pulse-echo-analysis-scratch"
-              r"\bicrystal_val.npz")['res']
+val = np.load((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim", "analysis", "facet_model")) +
+              r"\bicrystal_val.npz"))['res']
 rows = []
 for pa, pb, riso, amp, va, vb in val[1:]:
     r = exact_normal_RT(*setup(pa, pb)[:2], RHO)

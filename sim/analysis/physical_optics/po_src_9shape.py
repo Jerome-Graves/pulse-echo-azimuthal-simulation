@@ -11,7 +11,7 @@ import po_src_3po as PO
 from po_src_3po import DT, F0, LAM, NT, ricker_spec
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SWD = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+SWD = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "out", "sweeps")))
 Wspec, _ = ricker_spec(NT, DT, F0)
 
 t = np.arange(NT) * DT

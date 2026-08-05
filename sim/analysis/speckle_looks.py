@@ -436,6 +436,8 @@ def published_crossings(seeds):
     spacing, which is what makes this the slow block of the module.
     """
     sys.path.insert(0, os.path.join(ROOT, "sim", "analysis"))
+    sys.path[:0] = [os.path.join(sys.path[0], _d)
+                    for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
     import speckle_scatter
     return speckle_scatter.axis_crossings(list(seeds))
 

@@ -116,7 +116,7 @@ WHAT IS MEASURED, AND WHAT WAS FOUND.
 TOUCHES NO CUDA. Nothing here calls fdtd.forward_*, DiskSpecimen.build,
 or any solver path. Every tessellation quantity is read from
 out/tesscache/tess_s<seed>_p<ppw>_k<kappa>.npz and the module raises
-SystemExit rather than build a missing one. sim/forward.py is imported
+SystemExit rather than build a missing one. sim/model/forward.py is imported
 for its tabulated qP velocity surface alone and imports numpy only.
 
 READS   out/sweeps/<name>/az*.npz          trace and dt
@@ -139,6 +139,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 SWD = os.path.join(ROOT, "out", "sweeps")
 TESS = os.path.join(ROOT, "out", "tesscache")
 sys.path.insert(0, os.path.dirname(HERE))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import forward as FW                                      # noqa: E402
 

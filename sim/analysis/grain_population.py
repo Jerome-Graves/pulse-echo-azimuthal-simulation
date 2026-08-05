@@ -9,12 +9,15 @@ For an incoherent sum of N equal scatterers the envelope is Rayleigh and
 the level has a standard deviation of 5.57 dB per independent look; with
 N discrete facets the per-azimuth level fluctuates by ~5.57/sqrt(N_eff).
 """
+import os
 import sys
 
 import numpy as np
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim"))))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from specimen import DiskSpecimen              # noqa: E402
 
 C_REF, F0, PPW = 3850.0, 2.0e6, 8.0

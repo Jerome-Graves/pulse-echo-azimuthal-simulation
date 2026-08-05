@@ -48,7 +48,7 @@ CODA_W = (24e-6, 36e-6)         # coda gate, s (_t2_common.CODA_W)
 BAND = (0.8e6, 3.0e6)           # coda passband, Hz (_t2_common.BAND)
 
 # The solver pads the specimen bounding box by sponge + 3 cells on every
-# face (sim/rotation_test.py, rotated_grid: m = sponge + 3). The extra
+# face (sim/core/rotation_test.py, rotated_grid: m = sponge + 3). The extra
 # three cells keep the finite-difference stencil off the sponge.
 PAD_EXTRA_CELLS = 3
 
@@ -275,7 +275,7 @@ def draw_plan(ax, g):
 
     # Rotation detail: the specimen turns under a fixed probe, and the
     # azimuth index advances clockwise in this frame (the sign convention
-    # of rotated_grid, sim/rotation_test.py).
+    # of rotated_grid, sim/core/rotation_test.py).
     r_arc = 46.0
     arc = np.radians(np.linspace(-40.0, -82.0, 60))
     ax.plot(r_arc * np.cos(arc), r_arc * np.sin(arc), color=fs.GREY,

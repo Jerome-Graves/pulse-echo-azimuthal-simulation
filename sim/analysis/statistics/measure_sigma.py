@@ -12,8 +12,10 @@ import sys
 
 import numpy as np
 
-SIM = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim"
+SIM = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim")))
 sys.path.insert(0, SIM)
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 import fit_sweep as FS          # noqa: E402
 import fit_fabric as FF         # noqa: E402
 from scipy.optimize import minimize, minimize_scalar   # noqa: E402

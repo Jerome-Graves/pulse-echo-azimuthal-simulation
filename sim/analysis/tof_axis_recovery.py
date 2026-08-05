@@ -29,7 +29,7 @@ READS
   zerocontrast_ppw8, zc_s11_ppw10, which are used as controls on the
   time-of-flight observable itself.
   The realised microstructure is rebuilt on the CPU from
-  sim/specimen.py at BUILD_H and cached alongside this file; the
+  sim/core/specimen.py at BUILD_H and cached alongside this file; the
   c-axis draw depends only on the realised grain count, which is stable
   in h (from 1.0 mm down to 0.35 mm) but not across seeds: the twelve
   tessellations realise 100 to 108 grains of the 100 requested, and the
@@ -60,16 +60,18 @@ import sys
 import numpy as np
 from scipy.signal import hilbert
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
-                   r"\sim")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")) +
+                   r"\sim"))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import fit_fabric as FF                          # noqa: E402
 import forward as FW                             # noqa: E402
 import specimen as SP                            # noqa: E402
 
-SWD = (r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
-       r"\out\sweeps")
+SWD = ((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")) +
+       r"\out\sweeps"))
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # Section 3.3: 100 mm diameter, and 3850 m/s is the isotropic reference

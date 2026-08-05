@@ -19,14 +19,16 @@ Variants at the same grid spacing:
                       normal: a crude band-limited step.
 Plus A at half the grid spacing, as the refinement comparison.
 """
+import os
 import sys
 import numpy as np
 from scipy.signal import hilbert
 
-SP = (r"C:\Users\Jerome\AppData\Local\Temp\claude\C--Users-Jerome"
-      r"\72aa31c0-c0c1-48de-881e-9470fe03e8ba\scratchpad")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+SP = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim", "results")))
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim"))))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "vendor"))))
 from ringfwi import anisotropy as an              # noqa: E402
 import fdtd                                       # noqa: E402
 

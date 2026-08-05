@@ -19,7 +19,7 @@ import sys
 
 import numpy as np
 
-ANA = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\analysis"
+ANA = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim", "analysis")))
 sys.path.insert(0, ANA)
 import fabric_type as FT                                  # noqa: E402
 import tof_axis_recovery as TOF                           # noqa: E402

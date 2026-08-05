@@ -51,6 +51,8 @@ from scipy.stats import binom, chi2, t as student
 HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
+    sys.path[:0] = [os.path.join(sys.path[0], _d)
+                    for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import facet_predictors as FP                          # noqa: E402
 import _t2_common as C2                                # noqa: E402

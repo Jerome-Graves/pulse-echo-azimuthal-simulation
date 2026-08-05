@@ -2,10 +2,14 @@
 coda level, for the ISOTROPIC control (all of whose azimuthal variation is
 speckle by construction) and for the anisotropic sweeps for comparison.
 """
+import os
+
 import numpy as np
 
-SCR = r"C:\Users\Jerome\AppData\Local\Temp\claude\C--Users-Jerome\72aa31c0-c0c1-48de-881e-9470fe03e8ba\scratchpad"
-Z = np.load(SCR + r"\coda_levels.npz")
+# the stored coda levels live with the other analysis products in sim/results
+RES = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                   "results")
+Z = np.load(os.path.join(RES, "coda_levels.npz"))
 
 
 def circ_acf(x):

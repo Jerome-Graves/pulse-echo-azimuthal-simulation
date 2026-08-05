@@ -9,10 +9,11 @@ Geometry follows tilt_testbed.py / the bicrystal validation exactly:
 so psi is the angle between the c-axis and the interface normal, which at
 normal incidence is also the angle to the propagation direction.
 """
+import os
 import sys
 import numpy as np
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from ringfwi import anisotropy as an  # noqa: E402
 
 np.set_printoptions(precision=6, suppress=False, linewidth=140)

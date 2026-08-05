@@ -131,7 +131,7 @@ from scipy.signal import butter, hilbert, sosfiltfilt
 from scipy.special import j1
 from scipy.stats import spearmanr, t as student
 
-ROOT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
+ROOT = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")))
 TESS = os.path.join(ROOT, "out", "tesscache")
 SWD = os.path.join(ROOT, "out", "sweeps")
 

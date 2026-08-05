@@ -6,7 +6,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))   # siblings
 from exact_rc import (MAT, RHO, C0, setup, exact_normal_RT, modes_at_normal,
                       polar_tilt_deg, rot_y, v2t, banner)  # noqa: E402
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from ringfwi import anisotropy as an  # noqa: E402
 
 
@@ -54,8 +54,8 @@ def db(x, y):
 
 
 banner("2.  THE BICRYSTAL LADDER: EXACT vs ISOTROPIC, AT EVERY INTERFACE TILT")
-val = np.load(r"C:\Users\Jerome\Documents\pulse-echo-analysis-scratch"
-              r"\bicrystal_val.npz")['res']
+val = np.load((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim", "analysis", "facet_model")) +
+              r"\bicrystal_val.npz"))['res']
 print("measured validation set (bicrystal_val.npz):")
 print(f"{'psi_a':>6}{'psi_b':>7}{'R_iso(file)':>14}{'echo amp':>12}"
       f"{'v_a':>10}{'v_b':>10}")

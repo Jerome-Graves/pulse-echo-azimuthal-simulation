@@ -50,7 +50,7 @@ import shift_null_2d as S                                # noqa: E402
 # The cached azimuth-by-time fields are analysis products rather than
 # repository content, so they sit beside the repository. Every location
 # that has held them is tried.
-CACHE_DIRS = (r"C:\Users\Jerome\Documents\pulse-echo-analysis-scratch",
+CACHE_DIRS = ((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim", "analysis", "facet_model"))),
               os.path.join(C.HERE, "facet_model"), C.HERE)
 
 SWEEP = "girdle_perp_ppw8"          # girdle kappa = -8, seed 11, ppw 8

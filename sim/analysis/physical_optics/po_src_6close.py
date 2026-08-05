@@ -76,7 +76,7 @@ print(f"  brute-force PO, 180 az : "
       f"{10*np.log10((dense**2).mean()):7.2f} dB re source")
 
 print("\n=== (c) where the coda energy sits in frequency ===")
-SWD = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+SWD = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "out", "sweeps")))
 acc_m = None
 for az in range(0, 360, 12):
     with np.load(os.path.join(SWD, "lic_girdle_s11_ppw10", f"az{az:03d}.npz")) as z:

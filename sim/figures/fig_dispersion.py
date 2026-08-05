@@ -38,6 +38,8 @@ import numpy as np
 import figstyle as fs
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 import fdtd                                             # noqa: E402
 
 # The operator the sweeps ran with. CuPy is imported lazily inside fdtd,

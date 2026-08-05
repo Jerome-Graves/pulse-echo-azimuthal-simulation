@@ -41,6 +41,8 @@ _PARENT = os.path.normpath(os.path.join(_HERE, '..'))
 for _p in (_HERE, _PARENT):
     if _p not in sys.path:
         sys.path.insert(0, _p)
+        sys.path[:0] = [os.path.join(sys.path[0], _d)
+                        for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import fdtd                                             # noqa: E402
 from dispersion_coeffs import keff_h, taylor_sg          # noqa: E402

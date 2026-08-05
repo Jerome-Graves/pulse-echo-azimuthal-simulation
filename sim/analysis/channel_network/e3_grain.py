@@ -10,7 +10,7 @@ import numpy as np
 from scipy import stats
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TESS = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\tesscache"
+TESS = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "out", "tesscache")))
 SEEDS = [11, 7, 17, 23, 41, 53, 71, 89]
 E = np.load(os.path.join(HERE, "edge23.npz"))
 

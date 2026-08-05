@@ -25,6 +25,8 @@ import streamlit as st
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, "sim"))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import specimen as S                           # noqa: E402
 import sweep_runner as SW                      # noqa: E402
@@ -418,9 +420,9 @@ def _panel(sel):
                         "complete" if len(done) == total else "idle"))
     sec_per_az = stat.get("sec_per_az")
     m3.metric("per azimuth",
-              f"{sec_per_az:.0f} s" if sec_per_az else "—")
+              f"{sec_per_az:.0f} s" if sec_per_az else "-")
     m4.metric("ETA", (f"{sec_per_az*(total-len(done))/3600:.1f} h"
-                      if sec_per_az and len(done) < total else "—"))
+                      if sec_per_az and len(done) < total else "-"))
     if running:
         st.info(f"runner: {stat.get('phase', '?')}")
     st.progress(len(done) / max(total, 1))
@@ -471,7 +473,7 @@ def _panel(sel):
 
 def _fit_section(sel, d, done, fitting):
     st.divider()
-    st.markdown("**Fabric inversion** — Watson ODF fit (axis + "
+    st.markdown("**Fabric inversion**: Watson ODF fit (axis + "
                 "concentration) on this sweep's azimuthal coda + E1 ToF "
                 "observables. Runs in the background; refits itself as "
                 "azimuths arrive.")
@@ -508,7 +510,7 @@ def _fit_section(sel, d, done, fitting):
     r4.metric("misfit χ²", f"{fit['chi2']:.1f}",
               f"from {fit['n_azimuths']} azimuths "
               f"({2*fit['n_azimuths']} data values)", delta_color="off")
-    st.caption(f"fitted {fit['fitted_at']} — grey lines under each "
+    st.caption(f"fitted {fit['fitted_at']}; grey lines under each "
                "number show the specimen's TRUE value (what the sweep "
                "was built with), not a difference")
     if fit.get("c2t_used"):
@@ -528,10 +530,10 @@ def _fit_section(sel, d, done, fitting):
     fr = go.Figure()
     fr.add_bar(x=[rots_f[i] for i in used],
                y=[fit["coda_res_db"][i] for i in used],
-               name="coda residual (dB) — fitted")
+               name="coda residual (dB), fitted")
     fr.add_bar(x=[rots_f[i] for i in excl],
                y=[fit["coda_res_db"][i] for i in excl],
-               name="coda residual — EXCLUDED (null / walk-off "
+               name="coda residual, EXCLUDED (null / walk-off "
                     "bands, known unmodeled physics)",
                marker_color="rgba(160,160,160,0.45)")
     fr.add_scatter(x=rots_f, y=fit["tof_res_us"],
@@ -543,7 +545,7 @@ def _fit_section(sel, d, done, fitting):
         yaxis_title="coda residual (dB, measured - model)",
         yaxis2=dict(title="ToF residual (µs)", overlaying="y",
                     side="right"),
-        title="per-azimuth fit residuals — grey bars were excluded "
+        title="per-azimuth fit residuals; grey bars were excluded "
               "from the fit by the physics doctrine, not failures "
               "of it",
         margin=dict(l=30, r=30, t=40, b=20))
@@ -581,7 +583,7 @@ def _fit_section(sel, d, done, fitting):
                 fh.write("stop")
             st.rerun()
         phase = (gstat or {}).get("phase", "solving")
-        gb2.caption(f"continuous grid fitter RUNNING — {phase}; it "
+        gb2.caption(f"continuous grid fitter RUNNING ({phase}); it "
                     "re-solves every few seconds and folds in new "
                     "azimuths and fit updates as they land")
     else:
@@ -595,7 +597,7 @@ def _fit_section(sel, d, done, fitting):
                    os.path.join(d, "grid_daemon.log"))
             time.sleep(0.5)
             st.rerun()
-        gb2.caption("grid fitter stopped — state is kept; Start "
+        gb2.caption("grid fitter stopped. State is kept; Start "
                     "resumes from the last iteration")
     if os.path.exists(gs_path):
         # copy out and CLOSE: a lingering NpzFile handle makes the
@@ -623,7 +625,7 @@ def _fit_section(sel, d, done, fitting):
                        f"{float(z['corr_slow']):+.2f}")
         _age = time.time() - os.path.getmtime(gs_path)
         st.caption(f"iteration {int(z['iteration'])}, updated "
-                   f"{_age:.0f}s ago — {n_g}x{n_g} cells of "
+                   f"{_age:.0f}s ago; {n_g}x{n_g} cells of "
                    f"{cell:.1f} mm; the state IS the texture: one "
                    "c-axis per cell, scatter predicted at its grain "
                    "boundaries, ToF from its phase delays; robust-TV "
@@ -674,7 +676,7 @@ def _fit_section(sel, d, done, fitting):
             mfig.update_layout(
                 template="plotly_dark", height=160,
                 yaxis_title="misfit", xaxis_title="iteration (recent)",
-                title="misfit descent — flat means converged for the "
+                title="misfit descent; flat means converged for the "
                       "data it has; steps are new azimuths or fit "
                       "updates arriving",
                 margin=dict(l=30, r=30, t=40, b=20))
@@ -703,7 +705,7 @@ def _fit_section(sel, d, done, fitting):
         else:
             h1, h2 = st.columns(2)
             second = (("kappa_grid",
-                       "fabric concentration κ per cell — ONE "
+                       "fabric concentration κ per cell; ONE "
                        "inversion from ToF + coda jointly")
                       if "kappa_grid" in z else
                       ("d_slow",
@@ -765,23 +767,23 @@ def _fit_section(sel, d, done, fitting):
             xaxis_title="x (mm)", yaxis_title="y (mm)",
             yaxis_scaleanchor="x",
             title="absolute c-axis error per cell: θ = arccos|a_true "
-                  "· a_cell| — LIVE from the texture inversion "
+                  "· a_cell|, LIVE from the texture inversion "
                   f"at iteration {int(z['iteration'])}",
             margin=dict(l=30, r=30, t=40, b=20))
         st.plotly_chart(hm, width="stretch", key="caxis_error_map")
-        _cap = (f"median θ {float(np.nanmedian(live_theta)):.1f}° — "
+        _cap = (f"median θ {float(np.nanmedian(live_theta)):.1f}°. "
                 "THE product: per-cell inverted c-axis vs the true "
                 "local crystals, live each iteration.")
         if "theta_gauge" in z:
             _tg = float(np.nanmedian(np.asarray(z["theta_gauge"],
                                                 float)))
             _cap += (f" Gauge-aware median {_tg:.1f}° (best of the "
-                     "cell's mirror pair — diameters-only geometry "
+                     "cell's mirror pair; diameters-only geometry "
                      "cannot distinguish a cell axis from its "
                      "reflection about the local beam line, so raw θ "
                      "partly grades the initialisation; the gauge "
                      "number grades what the data determined).")
-        _cap += (" Out-of-plane truth tilt sets an honest floor — "
+        _cap += (" Out-of-plane truth tilt sets an honest floor: "
                  "the in-plane rig cannot see tilt.")
         st.caption(_cap)
         return
@@ -807,7 +809,7 @@ def _fit_section(sel, d, done, fitting):
         time.sleep(0.5)
         st.rerun()
     if _map_active(d):
-        g2.info("map building — it will appear here automatically")
+        g2.info("map building; it will appear here automatically")
     if os.path.exists(tm_path):
         with np.load(tm_path) as zf:
             ang = np.asarray(zf["angle_err_deg"])
@@ -834,10 +836,10 @@ def _fit_section(sel, d, done, fitting):
         st.plotly_chart(hm, width="stretch", key="caxis_error_map")
         _age = time.time() - os.path.getmtime(tm_path)
         st.caption(f"map rebuilt {_age:.0f}s ago against the fitted "
-                   f"axis {alpha_fit:.2f}° — a static "
+                   f"axis {alpha_fit:.2f}°; a static "
                    "image means the axis estimate is stable, not that "
                    "updates stopped. "
-                   f"median θ {float(np.nanmedian(ang)):.1f}° — for a "
+                   f"median θ {float(np.nanmedian(ang)):.1f}°. For a "
                    "homogeneous fabric this is the crystals' own "
                    "Watson scatter about the (correctly) recovered "
                    "axis; localized bright patches on a structured "

@@ -1,0 +1,43 @@
+================================================================================================
+LATTICE PROBE  2026-08-04 18:22:40   isotropic homogeneous medium, no interface
+  ssg ppw 6 ran in 8 s
+
+SSG ppw 6   N 158  h 0.3208 mm  dt 16.9265 ns
+  along +x, A*r in dB against the largest, cells beyond 4.0 mm
+       0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.1   -0.1
+      -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1
+      -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1
+  cell-to-cell: mean |step| 0.01 dB, largest step 0.01 dB
+  offsets with all three components of one parity: mean -0.07 dB (n 18)
+  offsets with mixed parity:                        mean -0.07 dB (n 19)
+  SPLIT BETWEEN THE TWO CLASSES: -0.00 dB
+  spread over all cells beyond the near field: 0.14 dB
+  along the +x+z diagonal, A*r in dB against the largest, cells beyond 4.0 mm
+       0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0   -0.0
+      -0.0   -0.0   -0.0   -0.0   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1   -0.1
+  cell-to-cell: mean |step| 0.01 dB, largest step 0.01 dB
+  offsets with all three components of one parity: mean -0.04 dB (n 13)
+  offsets with mixed parity:                        mean -0.04 dB (n 14)
+  SPLIT BETWEEN THE TWO CLASSES: -0.00 dB
+  spread over all cells beyond the near field: 0.08 dB
+  rsg ppw 6 ran in 87 s
+
+RSG ppw 6   N 158  h 0.3208 mm  dt 6.7706 ns
+  along +x, A*r in dB against the largest, cells beyond 4.0 mm
+      -4.4   -3.4   -4.0   -3.0   -3.7   -2.7   -3.4   -2.4   -3.1   -2.2   -2.8   -1.9   -2.6   -1.7
+      -2.4   -1.5   -2.1   -1.3   -2.0   -1.1   -1.8   -1.0   -1.6   -0.8   -1.4   -0.7   -1.3   -0.5
+      -1.1   -0.4   -1.0   -0.2   -0.9   -0.1   -0.7    0.0   -0.6
+  cell-to-cell: mean |step| 0.74 dB, largest step 1.06 dB
+  offsets with all three components of one parity: mean -1.39 dB (n 18)
+  offsets with mixed parity:                        mean -2.15 dB (n 19)
+  SPLIT BETWEEN THE TWO CLASSES: 0.76 dB
+  spread over all cells beyond the near field: 4.41 dB
+  along the +x+z diagonal, A*r in dB against the largest, cells beyond 4.0 mm
+      -1.8   -2.3   -2.0   -1.9   -1.9   -1.7   -1.6   -1.5   -1.4   -1.3   -1.2   -1.1   -1.0   -0.9
+      -0.8   -0.7   -0.7   -0.6   -0.5   -0.4   -0.4   -0.3   -0.2   -0.2   -0.1   -0.0    0.0
+  cell-to-cell: mean |step| 0.11 dB, largest step 0.52 dB
+  offsets with all three components of one parity: mean -1.00 dB (n 13)
+  offsets with mixed parity:                        mean -0.97 dB (n 14)
+  SPLIT BETWEEN THE TWO CLASSES: -0.03 dB
+  spread over all cells beyond the near field: 2.34 dB
+done

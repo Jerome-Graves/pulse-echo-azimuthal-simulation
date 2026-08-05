@@ -33,12 +33,14 @@ import sys
 import numpy as np
 from scipy.signal import butter, hilbert, sosfiltfilt
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim"))))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 import forward as F                              # noqa: E402
 from specimen import DiskSpecimen                # noqa: E402
 
-OUT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+OUT = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "out", "sweeps")))
 C_REF, F0 = 3850.0, 2.0e6
 CODA_W, BAND = (24e-6, 36e-6), (0.8e6, 3.0e6)
 ELEM, DIA = 6.35e-3, 0.100

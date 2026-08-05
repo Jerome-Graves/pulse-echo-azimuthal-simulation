@@ -47,7 +47,7 @@ REPO = Path(__file__).resolve().parents[2]
 SWEEPS = REPO / "out" / "sweeps"
 
 # Specimens shown, in order of increasing axis error, top row first. All
-# three are single-maximum fabrics fitted by sim/fit_sweep.py; the
+# three are single-maximum fabrics fitted by sim/model/fit_sweep.py; the
 # uniform-ODF control iso_gcal is deliberately not shown here, because it
 # has no axis to recover and belongs with the null tests.
 SPECIMENS = ["rigid_seed11", "kappa8_seed17", "oos_seed23"]
@@ -70,7 +70,7 @@ EDGE_FRACTION = 0.25
 BACKWALL_WINDOW_S = 2e-6
 
 # Half-width of the azimuthal average applied before fitting, as in
-# sim/fit_sweep.py (AZ_SMOOTH_DEG). Azimuths are folded modulo 180 first.
+# sim/model/fit_sweep.py (AZ_SMOOTH_DEG). Azimuths are folded modulo 180 first.
 # The fabric pattern is exactly 180 degree periodic but the measurement is
 # not: re-rasterising the specimen at each azimuth jitters the leading
 # edge between an azimuth and its partner 180 degrees away, and averaging

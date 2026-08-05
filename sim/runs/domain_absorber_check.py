@@ -39,7 +39,9 @@ for _d in ('..',):
     _p = os.path.normpath(os.path.join(_HERE, _d))
     if _p not in sys.path:
         sys.path.insert(0, _p)
-sys.path.insert(0, r'C:\Users\Jerome\Documents\GitHub\openUSCT\simulation')
+        sys.path[:0] = [os.path.join(sys.path[0], _d)
+                        for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 
 import fdtd                                                # noqa: E402
 from rotation_test import rotated_grid                     # noqa: E402

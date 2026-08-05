@@ -65,7 +65,7 @@ from scipy.special import j1
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PO_DIR = os.path.join(HERE, "physical_optics")
-SWD = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+SWD = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "out", "sweeps")))
 if PO_DIR not in sys.path:
     sys.path.insert(0, PO_DIR)
 

@@ -1,0 +1,17 @@
+# Pinned so the reproduction gates return the stored values EXACTLY.
+# The analysis gates compare against archived results at zero
+# difference; scipy 1.18 changes filter internals at the 1e-13 level,
+# which is physically identical but trips the bit-exactness gates by
+# design. With these versions, verified 2026-08-05 in a fresh venv,
+# every gate returns zero. With other versions expect agreement at the
+# 1e-12 level and two modules stopping at their gate on purpose.
+numpy==2.5.1
+scipy==1.17.0
+
+# figures only
+matplotlib==3.11.0
+
+# optional: the Streamlit GUI (gui/app.py) and new solver runs (CUDA).
+# Neither is needed to rerun any analysis in the paper.
+# streamlit
+# cupy-cuda12x

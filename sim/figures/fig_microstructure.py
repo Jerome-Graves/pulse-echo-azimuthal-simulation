@@ -59,6 +59,8 @@ REPO = Path(__file__).resolve().parents[2]
 SWEEPS = REPO / "out" / "sweeps"
 
 sys.path.insert(0, str(REPO / "sim"))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 import specimen as sp                                    # noqa: E402
 
 # The production build labels the grid on the GPU. A figure has no

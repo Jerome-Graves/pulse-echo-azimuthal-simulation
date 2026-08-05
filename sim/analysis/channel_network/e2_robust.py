@@ -15,7 +15,7 @@ from scipy import stats
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0,
-                r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
+                (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim"))))
 
 E = np.load(os.path.join(HERE, "edge23.npz"))
 Z = np.load(os.path.join(HERE, "edge1.npz"))
@@ -59,8 +59,8 @@ sec("G. THE TWO NAMED SPECIMENS AGAINST WHAT THE CHAIN PREDICTS")
 hdr = ("seed  a1_unw  a1_vol   a3    dv_ray   dv_disc  n_cross  level   "
        "ident   i_rank  field  f_rank  scalar")
 print("  " + hdr)
-with np.load(r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim"
-             r"\analysis\tessellation_replication.npz") as z:
+with np.load((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim")) +
+             r"\analysis\tessellation_replication.npz")) as z:
     irank = z["ident_own"][:8, 1]
     frank = z["field"][:8, 1]
     scal = z["scalar_full"][:8, 0]

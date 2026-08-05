@@ -1,0 +1,90 @@
+====================================================================================================
+AUDIT OF THE TWO-WAY REFERENCE, from its own archives
+
+----------------------------------------------------------------------------------------------------
+SSG ppw 6   N 158  h 0.3208 mm  source cell (79,79,79)
+tilt           echo      err dB     tx peak     G pk dB   G en dB    ctr ns   lobes     par  echo off      ENR gate/rec
+0        4.2396e-04        0.00  7.5895e-03        0.00      0.00     -35.0       1    same    -113.3     11.0     1.00
+30       2.2249e-04       -5.60  7.3850e-03       -0.28     -0.41      14.9       1   mixed      17.8     11.0     1.00
+45       2.9663e-04       -3.10  7.8401e-03        0.19     -0.07      -5.6       1   mixed      15.8     53.0     1.00
+60       2.5284e-04       -4.49  7.5355e-03       -0.11     -0.23      17.5       1   mixed      45.8      8.4     1.00
+  columns: G pk is the reference as published (envelope peak); G en is the same arrival measured by ENERGY in the
+  same gate. par is the parity class of the receiver offset from the source cell: "same" means all three
+  components share a parity, which is the sublattice the four body diagonals generate.
+  parity class of all four beam receivers, and tx at each:
+    tilt 0       offsets [[ 0  0 13] [ 0  0 25] [ 0  0 37] [ 0  0 50]]  class mmmS  A*r [0.0001 0.0001 0.0001 0.0001]
+    tilt 30      offsets [[ -6   0  11] [-13   0  22] [-19   0  32] [-25   0  43]]  class mmmm  A*r [0.0001 0.0001 0.0001 0.0001]
+    tilt 45      offsets [[ -9   0   9] [-18   0  18] [-27   0  27] [-35   0  35]]  class mSmm  A*r [0.0001 0.0001 0.0001 0.0001]
+    tilt 60      offsets [[-11   0   6] [-22   0  13] [-32   0  19] [-43   0  25]]  class mmmm  A*r [0.0001 0.0001 0.0001 0.0001]
+
+----------------------------------------------------------------------------------------------------
+SSG ppw 8   N 196  h 0.2406 mm  source cell (98,98,98)
+tilt           echo      err dB     tx peak     G pk dB   G en dB    ctr ns   lobes     par  echo off      ENR gate/rec
+0        2.0242e-04        0.00  4.4439e-03        0.00      0.00     -20.4       1    same     -94.8     63.7     1.00
+30       1.3558e-04       -3.48  4.2822e-03       -0.34     -0.34       6.3       1   mixed       5.3     18.6     1.00
+45       1.6168e-04       -1.95  4.3961e-03       -0.03     -0.04      -6.9       1   mixed     -20.9    143.3     1.00
+60       1.5096e-04       -2.55  4.3676e-03       -0.17     -0.16       7.1       1   mixed      30.2     16.6     1.00
+  columns: G pk is the reference as published (envelope peak); G en is the same arrival measured by ENERGY in the
+  same gate. par is the parity class of the receiver offset from the source cell: "same" means all three
+  components share a parity, which is the sublattice the four body diagonals generate.
+  parity class of all four beam receivers, and tx at each:
+    tilt 0       offsets [[ 0  0 16] [ 0  0 33] [ 0  0 50] [ 0  0 66]]  class SmSS  A*r [7.0978e-05 7.0721e-05 7.0622e-05 7.0575e-05]
+    tilt 30      offsets [[ -8   0  14] [-16   0  29] [-25   0  43] [-33   0  57]]  class Smmm  A*r [6.7925e-05 6.7782e-05 6.7910e-05 6.7865e-05]
+    tilt 45      offsets [[-12   0  12] [-23   0  23] [-35   0  35] [-47   0  47]]  class Smmm  A*r [7.0458e-05 7.0327e-05 7.0354e-05 7.0310e-05]
+    tilt 60      offsets [[-14   0   8] [-29   0  16] [-43   0  25] [-57   0  33]]  class Smmm  A*r [6.9352e-05 6.9164e-05 6.9266e-05 6.9219e-05]
+
+----------------------------------------------------------------------------------------------------
+SSG ppw 10   N 233  h 0.1925 mm  source cell (116,116,116)
+tilt           echo      err dB     tx peak     G pk dB   G en dB    ctr ns   lobes     par  echo off      ENR gate/rec
+0        1.1536e-04        0.00  2.8356e-03        0.00      0.00     -16.6       1   mixed     -19.6    128.3     1.00
+30       8.4936e-05       -2.66  2.7401e-03       -0.31     -0.30       1.8       1   mixed      23.2     47.2     1.00
+45       1.0077e-04       -1.17  2.8083e-03       -0.04     -0.04      -7.2       1   mixed     -19.2    192.8     1.00
+60       9.2794e-05       -1.89  2.7792e-03       -0.14     -0.12       2.0       1    same       3.9     37.2     1.00
+  columns: G pk is the reference as published (envelope peak); G en is the same arrival measured by ENERGY in the
+  same gate. par is the parity class of the receiver offset from the source cell: "same" means all three
+  components share a parity, which is the sublattice the four body diagonals generate.
+  parity class of all four beam receivers, and tx at each:
+    tilt 0       offsets [[ 0  0 21] [ 0  0 42] [ 0  0 62] [ 0  0 83]]  class mSSm  A*r [4.5465e-05 4.5334e-05 4.5325e-05 4.5306e-05]
+    tilt 30      offsets [[-10   0  18] [-21   0  36] [-31   0  54] [-41   0  72]]  class Smmm  A*r [4.3761e-05 4.3746e-05 4.3712e-05 4.3704e-05]
+    tilt 45      offsets [[-15   0  15] [-29   0  29] [-44   0  44] [-59   0  59]]  class mmSm  A*r [4.5214e-05 4.5129e-05 4.5120e-05 4.5107e-05]
+    tilt 60      offsets [[-18   0  10] [-36   0  21] [-54   0  31] [-72   0  42]]  class SmmS  A*r [4.4645e-05 4.4632e-05 4.4599e-05 4.4594e-05]
+
+----------------------------------------------------------------------------------------------------
+RSG ppw 6   N 158  h 0.3208 mm  source cell (79,79,79)
+tilt           echo      err dB     tx peak     G pk dB   G en dB    ctr ns   lobes     par  echo off      ENR gate/rec
+0        1.1598e-11        0.00  1.2226e-09        0.00      0.00     150.9       1    same     242.1      1.4     1.00
+30       7.5145e-12       -3.77  3.3496e-10      -11.29    -11.10     198.9       1   mixed     371.9      0.9     0.86
+45       1.9565e-11        4.54  4.7233e-10       -8.35     -7.64      -3.0       1   mixed     -24.9      1.0     1.00
+60       7.4160e-12       -3.88  3.3404e-10      -11.31    -11.13     196.8       1   mixed     423.6      0.8     0.84
+  columns: G pk is the reference as published (envelope peak); G en is the same arrival measured by ENERGY in the
+  same gate. par is the parity class of the receiver offset from the source cell: "same" means all three
+  components share a parity, which is the sublattice the four body diagonals generate.
+  parity class of all four beam receivers, and tx at each:
+    tilt 0       offsets [[ 0  0 13] [ 0  0 25] [ 0  0 37] [ 0  0 50]]  class mmmS  A*r [1.4241e-11 1.8218e-11 2.0629e-11 1.9612e-11]
+    tilt 30      offsets [[ -6   0  11] [-13   0  22] [-19   0  32] [-25   0  43]]  class mmmm  A*r [4.3239e-12 6.3007e-12 6.9301e-12 5.3454e-12]
+    tilt 45      offsets [[ -9   0   9] [-18   0  18] [-27   0  27] [-35   0  35]]  class mSmm  A*r [5.7229e-12 6.5725e-12 7.1184e-12 7.5008e-12]
+    tilt 60      offsets [[-11   0   6] [-22   0  13] [-32   0  19] [-43   0  25]]  class mmmm  A*r [4.3239e-12 6.3002e-12 6.9296e-12 5.3306e-12]
+
+----------------------------------------------------------------------------------------------------
+RSG ppw 8   N 196  h 0.2406 mm  source cell (98,98,98)
+tilt           echo      err dB     tx peak     G pk dB   G en dB    ctr ns   lobes     par  echo off      ENR gate/rec
+0        5.5503e-12        0.00  8.6134e-10        0.00      0.00     141.4       1    same     141.3      8.7     1.00
+45       1.8018e-11       10.23  3.5565e-10       -7.62     -7.20      -1.3       1   mixed      50.4      7.2     1.00
+  columns: G pk is the reference as published (envelope peak); G en is the same arrival measured by ENERGY in the
+  same gate. par is the parity class of the receiver offset from the source cell: "same" means all three
+  components share a parity, which is the sublattice the four body diagonals generate.
+  parity class of all four beam receivers, and tx at each:
+    tilt 0       offsets [[ 0  0 16] [ 0  0 33] [ 0  0 50] [ 0  0 66]]  class SmSS  A*r [8.2427e-12 1.1508e-11 1.2135e-11 1.3679e-11]
+    tilt 45      offsets [[-12   0  12] [-23   0  23] [-35   0  35] [-47   0  47]]  class Smmm  A*r [3.9341e-12 4.6340e-12 5.2142e-12 5.6881e-12]
+
+----------------------------------------------------------------------------------------------------
+RSG ppw 10   N 233  h 0.1925 mm  source cell (116,116,116)
+tilt           echo      err dB     tx peak     G pk dB   G en dB    ctr ns   lobes     par  echo off      ENR gate/rec
+0        3.6783e-12        0.00  6.4859e-10        0.00      0.00     134.3       1   mixed     187.6     98.8     1.00
+45       1.1589e-11        9.97  2.6453e-10       -7.74     -7.61      -2.1       1   mixed      15.4     29.4     1.00
+  columns: G pk is the reference as published (envelope peak); G en is the same arrival measured by ENERGY in the
+  same gate. par is the parity class of the receiver offset from the source cell: "same" means all three
+  components share a parity, which is the sublattice the four body diagonals generate.
+  parity class of all four beam receivers, and tx at each:
+    tilt 0       offsets [[ 0  0 21] [ 0  0 42] [ 0  0 62] [ 0  0 83]]  class mSSm  A*r [5.9779e-12 7.4601e-12 8.6461e-12 1.0363e-11]
+    tilt 45      offsets [[-15   0  15] [-29   0  29] [-44   0  44] [-59   0  59]]  class mmSm  A*r [2.7373e-12 3.3490e-12 3.8429e-12 4.2489e-12]

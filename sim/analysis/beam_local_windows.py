@@ -92,6 +92,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 SWD = os.path.join(ROOT, "out", "sweeps")
 TESS = os.path.join(ROOT, "out", "tesscache")
 sys.path.insert(0, os.path.join(ROOT, "sim"))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 # forward.py tabulates the quasi-longitudinal velocity surface of ice and
 # imports numpy alone. Nothing else on the solver's path is touched.

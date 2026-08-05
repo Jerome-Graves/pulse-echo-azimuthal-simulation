@@ -20,8 +20,10 @@ import sys
 import numpy as np
 from scipy import stats
 
-ANA = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\analysis"
+ANA = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim", "analysis")))
 sys.path.insert(0, ANA)
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import tof_axis_recovery as TOF                          # noqa: E402
 

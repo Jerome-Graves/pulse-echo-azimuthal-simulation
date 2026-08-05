@@ -34,13 +34,15 @@ import traceback
 import numpy as np
 from scipy import ndimage
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim"))))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 import fdtd                                            # noqa: E402
 from rotation_test import rotated_grid                 # noqa: E402
 from specimen import DiskSpecimen                      # noqa: E402
 
-SWD = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+SWD = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "out", "sweeps")))
 STATUS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                       "master_status.txt")
 C_REF, F0, ORDER, KHM = 3850.0, 2.0e6, 8, 2.0

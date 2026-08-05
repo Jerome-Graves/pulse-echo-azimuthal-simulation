@@ -71,6 +71,8 @@ from scipy.signal import hilbert
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 
 import ensemble_stats as ES                            # noqa: E402
 import tof_axis_recovery as TAR                        # noqa: E402
@@ -78,8 +80,8 @@ import tof_axis_recovery as TAR                        # noqa: E402
 # so specimen must be imported after it and never before.
 import specimen as SP                                  # noqa: E402
 
-SWD = (r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
-       r"\out\sweeps")
+SWD = ((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")) +
+       r"\out\sweeps"))
 
 # Section 3.3. Repeated here rather than imported so that the pick below
 # is a second statement of the method and not a second call to it.

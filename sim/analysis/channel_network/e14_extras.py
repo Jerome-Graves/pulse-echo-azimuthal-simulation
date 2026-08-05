@@ -14,7 +14,7 @@ import sys
 import numpy as np
 from scipy import stats
 
-ANA = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\analysis"
+ANA = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim", "analysis")))
 sys.path.insert(0, ANA)
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -139,8 +139,8 @@ for s in pair_scores:
 # ------------------------------------------------------------------ D
 sec("D. WITHIN-SWEEP BEAM CONTRAST AGAINST CODA LEVEL, SHIFT NULL")
 E = np.load(os.path.join(HERE, "edge23.npz"))
-with np.load(r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim"
-             r"\results\ensemble.npz") as z:
+with np.load((os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim")) +
+             r"\results\ensemble.npz")) as z:
     gaz = z["girdle_azimuth"]
     seeds = z["girdle_seeds"]
 import e23_links as L                                    # noqa: E402

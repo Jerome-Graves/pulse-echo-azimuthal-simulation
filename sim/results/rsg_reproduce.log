@@ -1,0 +1,37 @@
+====================================================================================================
+REPRODUCTION via tilt_rsg.run_rsg and tilt_testbed.echo_amp, ppw 8   2026-08-04 18:28:43
+tilt        dt (ns)  Courant     echo amp    hom peak  growth bi  growth ho        s
+0.0000       5.0779   0.0812   5.5503e-12  2.9934e-08      -8.30      -8.18      592
+45.0000      5.0898   0.0814   1.8018e-11  3.0148e-08     -11.92     -12.49      590
+
+tilt          error dB   Courant vs 0    hom peak vs 0
+0.0000            0.00         0.0000        0.000e+00
+45.0000          10.23         0.0002        7.146e-03
+
+GATE PLACEMENT AND ECHO-TO-NOISE (new; the gate is the published
+one, +-0.5 us about 2d/v + 1.2/f0, and ENR divides the gated
+envelope peak by the largest envelope value outside the gate and
+a +-1.0 us guard).
+tilt      gate ctr us  echo pk us   offset ns       ENR  rec max us  gate/rec
+0.0000          4.525       4.667       141.3       8.7       4.667      1.00
+45.0000         4.525       4.576        50.4       7.2       4.576      1.00
+====================================================================================================
+REPRODUCTION via tilt_rsg.run_rsg and tilt_testbed.echo_amp, ppw 10   2026-08-04 19:09:42
+tilt        dt (ns)  Courant     echo amp    hom peak  growth bi  growth ho        s
+====================================================================================================
+REPRODUCTION via tilt_rsg.run_rsg and tilt_testbed.echo_amp, ppw 10   2026-08-04 19:33:55
+tilt        dt (ns)  Courant     echo amp    hom peak  growth bi  growth ho        s
+0.0000       4.0624   0.0812   3.6783e-12  2.4182e-08      -7.48      -7.45     1361
+45.0000      4.0718   0.0814   1.1589e-11  2.3516e-08     -11.69     -11.10     1340
+
+tilt          error dB   Courant vs 0    hom peak vs 0
+0.0000            0.00         0.0000        0.000e+00
+45.0000           9.97         0.0002       -2.757e-02
+
+GATE PLACEMENT AND ECHO-TO-NOISE (new; the gate is the published
+one, +-0.5 us about 2d/v + 1.2/f0, and ENR divides the gated
+envelope peak by the largest envelope value outside the gate and
+a +-1.0 us guard).
+tilt      gate ctr us  echo pk us   offset ns       ENR  rec max us  gate/rec
+0.0000          4.549       4.737       187.6      98.8       4.737      1.00
+45.0000         4.549       4.565        15.4      29.4       4.565      1.00

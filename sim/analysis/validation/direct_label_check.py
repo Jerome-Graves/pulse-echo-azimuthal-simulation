@@ -14,7 +14,9 @@ import numpy as np
 from scipy.spatial import cKDTree
 
 SCRATCH = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "sim"))))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 from labforensics3 import rot_indices, H          # noqa: E402
 from labforensics2 import harm360                 # noqa: E402
 from mitigation_check import stats, ER            # noqa: E402

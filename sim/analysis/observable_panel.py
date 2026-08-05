@@ -4,13 +4,20 @@ import numpy as np
 from scipy.signal import hilbert
 from scipy.stats import kurtosis, skew
 
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim")
-sys.path.insert(0, r"C:\Users\Jerome\Documents\GitHub\openUSCT\simulation")
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_ROOT = os.path.dirname(os.path.dirname(_HERE))
+sys.path.insert(0, os.path.join(_ROOT, "sim"))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 import forward as F
 from specimen import DiskSpecimen
 
-OUT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
-CACHE = r"C:\Users\Jerome\AppData\Local\Temp\claude\C--Users-Jerome\72aa31c0-c0c1-48de-881e-9470fe03e8ba\scratchpad"
+OUT = os.path.join(_ROOT, "out", "sweeps")
+# stored copies of the E[R^2] builds; regenerable, but a rebuild rasterises
+# on the GPU (see fabric_pred), so the cache ships with the repo
+CACHE = os.path.join(_HERE, "predcache")
+os.makedirs(CACHE, exist_ok=True)
 C_REF, F0 = 3850.0, 2.0e6
 CODA = (24e-6, 36e-6)
 

@@ -9,11 +9,12 @@ Ice constants are taken from the project's own material module so that
 they are consistent with the simulations. The metal constants are
 standard literature values and are flagged for verification.
 """
+import os
 import sys
 
 import numpy as np
 
-sys.path.insert(0, r'C:\Users\Jerome\Documents\GitHub\openUSCT\simulation')
+sys.path.insert(0, (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "vendor"))))
 from ringfwi import anisotropy as an   # noqa: E402
 
 

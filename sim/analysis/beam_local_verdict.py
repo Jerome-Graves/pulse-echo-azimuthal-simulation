@@ -78,8 +78,10 @@ import numpy as np
 from scipy.signal import butter, hilbert, sosfiltfilt
 from scipy.stats import binomtest, chi2, wilcoxon
 
-SIM = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
+SIM = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")))
 sys.path.insert(0, os.path.join(SIM, "sim"))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 import forward as F                                        # noqa: E402
 
 SWD = os.path.join(SIM, "out", "sweeps")

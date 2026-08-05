@@ -79,7 +79,7 @@ import sys
 import numpy as np
 from scipy.signal import butter, hilbert, sosfiltfilt
 
-SWD = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+SWD = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "out", "sweeps")))
 
 # Acquisition constants, Section 3: 2 MHz Ricker, 100 mm disc, reference
 # longitudinal speed 3850 m/s. Coda gate and analysis band as Table 1.

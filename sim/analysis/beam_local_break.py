@@ -43,10 +43,12 @@ import numpy as np
 from scipy.signal import butter, hilbert, sosfiltfilt
 from scipy.stats import chi2, wilcoxon
 
-ROOT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
+ROOT = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")))
 SWD = os.path.join(ROOT, "out", "sweeps")
 TESS = os.path.join(ROOT, "out", "tesscache")
 sys.path.insert(0, os.path.join(ROOT, "sim"))
+sys.path[:0] = [os.path.join(sys.path[0], _d)
+                for _d in ('core', 'model', 'pipeline', 'fe_crosscheck', 'fw_checks')]
 import forward as F                                        # noqa: E402
 
 C_REF, F0, DIA = 3850.0, 2.0e6, 0.100

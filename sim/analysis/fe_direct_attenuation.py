@@ -37,7 +37,7 @@ import os
 import numpy as np
 from scipy.signal import hilbert
 
-SIM = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim"
+SIM = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "sim")))
 F0 = 1.0e6                                  # arbiter centre frequency
 C_REF = 4046.0                              # c-axis speed used for timing
 PATH_LEN = 0.009                            # both placements are 9 mm

@@ -1,0 +1,50 @@
+16:20:17  ========================================================================
+16:20:17  two-way reference, SSG, n_lambda = 8, psi_b = 51
+16:20:17  tilt        dt (ns)         echo     tx at 2d        noise        s
+16:20:28  0.0000      12.6949   2.0242e-04   4.4439e-03   3.1787e-06       11
+16:20:39  30.0000     13.0192   1.3558e-04   4.2822e-03   7.2748e-06       11
+16:20:50  45.0000     12.7244   1.6168e-04   4.3961e-03   1.1280e-06       11
+16:21:01  60.0000     12.7607   1.5096e-04   4.3676e-03   9.0886e-06       11
+16:21:01  saved C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\results\rsg_twoway_ssg_ppw8.npz
+16:21:25  ========================================================================
+16:21:25  two-way reference, SSG, n_lambda = 6, psi_b = 51
+16:21:25  tilt        dt (ns)         echo     tx at 2d        noise        s
+16:21:33  0.0000      16.9265   4.2396e-04   7.5895e-03   3.8690e-05        8
+16:21:41  30.0000     17.3590   2.2249e-04   7.3850e-03   2.0247e-05        7
+16:21:48  45.0000     16.9659   2.9663e-04   7.8401e-03   5.6012e-06        8
+16:21:55  60.0000     17.0142   2.5284e-04   7.5355e-03   3.0191e-05        7
+16:21:55  saved C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\results\rsg_twoway_ssg_ppw6.npz
+16:21:57  ========================================================================
+16:21:57  two-way reference, SSG, n_lambda = 10, psi_b = 51
+16:21:57  tilt        dt (ns)         echo     tx at 2d        noise        s
+16:22:15  0.0000      10.1559   1.1536e-04   2.8356e-03   8.9945e-07       18
+16:22:33  30.0000     10.4154   8.4936e-05   2.7401e-03   1.7988e-06       18
+16:22:51  45.0000     10.1796   1.0077e-04   2.8083e-03   5.2256e-07       18
+16:23:09  60.0000     10.2085   9.2794e-05   2.7792e-03   2.4972e-06       18
+16:23:09  saved C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\results\rsg_twoway_ssg_ppw10.npz
+16:23:20  ========================================================================
+16:23:20  two-way reference, RSG, n_lambda = 6, psi_b = 51
+16:23:20  tilt        dt (ns)         echo     tx at 2d        noise        s
+16:26:25  0.0000       6.7706   1.1598e-11   1.2226e-09   8.1542e-12      184
+16:29:26  30.0000      6.9436   7.5145e-12   3.3496e-10   8.7438e-12      181
+16:32:32  45.0000      6.7864   1.9565e-11   4.7233e-10   1.8991e-11      186
+16:35:37  60.0000      6.8057   7.4160e-12   3.3404e-10   8.8206e-12      186
+16:35:37  saved C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\results\rsg_twoway_rsg_ppw6.npz
+16:35:39  ========================================================================
+16:35:39  two-way reference, RSG, n_lambda = 8, psi_b = 51
+16:35:39  tilt        dt (ns)         echo     tx at 2d        noise        s
+16:45:27  0.0000       5.0779   5.5503e-12   8.6134e-10   6.4073e-13      589
+16:55:12  45.0000      5.0898   1.8018e-11   3.5565e-10   2.5183e-12      585
+16:55:12  saved C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\results\rsg_twoway_rsg_ppw8.npz
+16:55:13  ========================================================================
+16:55:13  two-way reference, RSG, n_lambda = 10, psi_b = 51
+16:55:13  tilt        dt (ns)         echo     tx at 2d        noise        s
+17:16:54  0.0000       4.0624   3.6783e-12   6.4859e-10   3.7212e-14     1300
+17:27:54  ========================================================================
+17:27:54  two-way reference, RSG, n_lambda = 10, psi_b = 51
+17:27:54  tilt        dt (ns)         echo     tx at 2d        noise        s
+17:48:59  45.0000      4.0718   1.1589e-11   2.6453e-10   3.9410e-13     1265
+17:48:59  saved C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\sim\results\rsg_twoway_rsg_ppw10.npz
+17:49:01  ========================================================================
+17:49:01  two-way reference, RSG, n_lambda = 8, psi_b = 51
+17:49:01  tilt        dt (ns)         echo     tx at 2d        noise        s

@@ -7,7 +7,7 @@ import os
 import numpy as np
 from scipy.signal import hilbert
 
-SWD = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim\out\sweeps"
+SWD = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "out", "sweeps")))
 C, F0, DIA = 3850.0, 2.0e6, 0.100
 GATE = (24e-6, 36e-6)
 

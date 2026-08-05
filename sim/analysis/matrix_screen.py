@@ -69,7 +69,7 @@ from scipy.cluster.hierarchy import fcluster, linkage
 from scipy.spatial.distance import squareform
 from scipy.stats import rankdata
 
-ROOT = r"C:\Users\Jerome\Documents\GitHub\pulse-echo-cof-sim"
+ROOT = (os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")))
 SAMPLE = os.path.join(ROOT, "sim", "results", "sample_matrix.npz")
 SAMPLE_AZ = os.path.join(ROOT, "sim", "results", "sample_matrix_azimuth.npz")
 OBS = os.path.join(ROOT, "out", "observables", "observable_matrix.npz")
