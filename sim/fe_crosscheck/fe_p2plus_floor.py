@@ -17,10 +17,9 @@ Context chain: P1 floor -26.8 dB (0.5% dispersion) -> ML2n15 dispersion
 0.046% at lambda/8 -> projected floor ~ -47 dB. Target <= -45.
 
 Inputs: fe_p2_floor1.npz and fe_p2_floor2.npz in the working
-directory. Both mesh npz files are archived out of the repo as
-regenerable bulk; run() loads without rebuilding, so run
-fe_p2_floor.py first (its get_mesh remeshes and saves both) or
-restore them from pulse-echo-azimuthal-simulation_archive.
+directory. Both mesh npz files are not versioned (regenerable bulk);
+run() loads without rebuilding, so run fe_p2_floor.py first (its
+get_mesh remeshes and saves both).
 """
 import time
 

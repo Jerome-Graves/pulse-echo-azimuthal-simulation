@@ -109,8 +109,7 @@ traces: inputs to the paper's figures; regenerable but keep them. The
 FE cross-check trace archives (`fe_arbiter_round1_baseline*_traces.npz`) sit next to
 their scripts in `fe_crosscheck/`. `../out/sweeps/<name>/` holds sweep
 sessions (config + one npz per azimuth + fit results). The large
-`fe_*.npz` arbiter meshes were moved to the sibling
-`pulse-echo-azimuthal-simulation_archive/` directory in the 2026-08 cleanup; the ab
+`fe_*.npz` arbiter meshes are not versioned (regenerable bulk); the ab
 scripts rebuild them if rerun.
 
 ## How to run the common things

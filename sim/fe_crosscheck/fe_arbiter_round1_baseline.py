@@ -13,10 +13,9 @@ FDTD grain signal (-42.8 dB): the P2+ floor is what makes this shot
 meaningful where CST (-26.8) and HRZ-TET10 could not referee.
 
 Input: fe_p2_floor1.npz (the 0.54 mm TET10 remesh) in the working
-directory. The mesh npz files are archived out of the repo as
-regenerable bulk; np.load here does not rebuild, so run fe_p2_floor.py
-first (its get_mesh remeshes and saves both floor meshes) or restore
-the file from pulse-echo-azimuthal-simulation_archive.
+directory. The mesh npz files are not versioned (regenerable bulk);
+np.load here does not rebuild, so run fe_p2_floor.py first (its
+get_mesh remeshes and saves both floor meshes).
 """
 import time
 
