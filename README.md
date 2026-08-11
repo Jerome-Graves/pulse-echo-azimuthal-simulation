@@ -127,14 +127,3 @@ The full list, with paper PDFs as they become available, is at
 [jeromegraves.com](https://jeromegraves.com/#publications). An archived
 DOI for this repository will be added on publication of the 2026
 papers.
-
-## Archive note (2026-08 cleanup)
-
-Before release, 1.1 GB of regenerable FE arbiter mesh npz was moved out
-of the working tree to the sibling directory
-`pulse-echo-azimuthal-simulation_archive/` (same layout as the repo).
-The ab scripts rebuild those meshes if rerun; nothing in the analysis
-layer reads them. About 30 dead files (superseded experiments) were
-deleted from the tree; all of them remain recoverable from git history.
-Everything the paper cites, every stored npz a result depends on, and
-every documented negative result was kept.
