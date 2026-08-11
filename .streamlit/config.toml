@@ -6,6 +6,10 @@
 runOnSave = true
 fileWatcherType = "auto"
 
+[client]
+# Hide the Deploy button and developer toolbar in the top-right corner.
+toolbarMode = "minimal"
+
 [browser]
 gatherUsageStats = false
 

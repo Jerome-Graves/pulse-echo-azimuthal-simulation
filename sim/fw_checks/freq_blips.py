@@ -124,7 +124,7 @@ def _sym_ricker(f0, dt):
 def fw_blip_table(npz_path, build, f0=None):
     """Measured blip-above-local-background from a full-wave trace.
 
-    Two corrections landed 2026-07-31 (adversarial review of the
+    Two corrections landed 2026-07-31 (review of the
     'blips are dead' verdict), measured on singlemax_seed11_ppw6_rigid2 pooled over
     360 azimuths / 3238 boundary tests:
       (1) SOURCE DELAY - fdtd.ricker peaks at t0 = 1.2/f0 (0.60 us at

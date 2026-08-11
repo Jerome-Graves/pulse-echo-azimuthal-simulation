@@ -54,7 +54,7 @@ def build_seeds(ppw, kappa, axis, seed):
 
 
 def build_spec(ppw, kappa, axis, seed, cache=True):
-    """DiskSpecimen build with an on-disk cache in the scratchpad."""
+    """DiskSpecimen build with an on-disk cache beside this module."""
     from specimen import DiskSpecimen
     h = C_REF / F0 / ppw
     tag = f"t4build_s{seed}_p{ppw:g}_k{kappa:g}.npz"

@@ -1,0 +1,80 @@
+% Pulse-Echo Azimuthal Simulation: the simulation manual.
+%
+% Build with build.ps1 (XeLaTeX, two passes), or:
+%   xelatex simulation-manual.tex && xelatex simulation-manual.tex
+%
+% Each chapter lives in its own numbered folder; each section is a
+% separate .tex file, \input from the chapter list below, so individual
+% sections can be updated without touching the rest of the document.
+
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage[hidelinks,
+  pdftitle={Pulse-Echo Azimuthal Simulation: Manual},
+  pdfauthor={Jerome Graves},
+  pdfsubject={Simulation and inversion of rotational pulse-echo ultrasound on polycrystalline ice}]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstset{basicstyle=\ttfamily\small, frame=single, framerule=0.3pt,
+        columns=fullflexible, keepspaces=true, breaklines=true,
+        xleftmargin=0.5em, aboveskip=0.8em, belowskip=0.8em}
+
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{1cm}
+  \includegraphics[width=2.2cm]{figures/logo.png}\\[1.2em]
+  {\Huge Pulse-Echo Azimuthal Simulation}\\[0.6em]
+  {\Large Simulation Manual}\\[2em]
+  \includegraphics[width=0.95\textwidth]{figures/specimen-3d.png}\\
+  \vfill
+  {\large Jerome Graves}\\[0.3em]
+  \href{https://jeromegraves.com}{jeromegraves.com}\\[0.4em]
+  \today
+\end{titlepage}
+
+\tableofcontents
+
+\chapter{Overview}\label{ch:overview}
+\input{01-overview/01-what-it-is}
+\input{01-overview/02-quick-start}
+\input{01-overview/03-reproducibility}
+
+\chapter{Specimen and fabric model}\label{ch:specimen}
+\input{02-specimen/01-grains}
+\input{02-specimen/02-fabric}
+
+\chapter{Forward model and validation}\label{ch:forward}
+\input{03-forward/01-solver}
+\input{03-forward/02-discretisation}
+\input{03-forward/03-validation-chain}
+
+\chapter{Acquisition and the error model}\label{ch:acquisition}
+\input{04-acquisition/01-probe}
+\input{04-acquisition/02-sweeps}
+\input{04-acquisition/03-errors}
+
+\chapter{Analysis and inversion}\label{ch:analysis}
+\input{05-analysis/01-fitting}
+\input{05-analysis/02-scattering}
+\input{05-analysis/03-negative-results}
+
+\chapter{Software}\label{ch:software}
+\input{06-software/01-architecture}
+\input{06-software/02-gui}
+\input{06-software/03-data}
+
+\input{07-publications/01-list}
+
+\end{document}

@@ -28,8 +28,8 @@ Implementation choices that matter:
     sliver elements set the bound, not the mean shape).
   * damping shell is RATE-scaled: damp = exp(-shell_rate*dt*q^2), so
     the absorbed fraction per unit TIME is dt-invariant (the per-step
-    shell in fe_solver/fe_solver_p2 changes physics with dt - the
-    adversarial fleet's confirmed bug, kept there for history).
+    shell in fe_solver_p1/fe_solver_p2 changes physics with dt, a
+    confirmed bug kept there unfixed for the record).
 """
 import os
 import os as _os, sys as _sys

@@ -1,0 +1,20 @@
+\section{Discretisation rules}
+
+The production discretisation was fixed by convergence study, not
+convention, and the settled rules are enforced as defaults:
+
+\begin{itemize}
+  \item at least 6 grid cells per wavelength at the source centre
+    frequency,
+  \item eighth-order spatial finite differences,
+  \item boundary damping factor 0.02 in the absorbing layers.
+\end{itemize}
+
+Runs below these settings show visible numerical dispersion in the
+coda and are suitable only for previews (the GUI's specimen preview
+deliberately rasterises coarser, and says so). One historical trap is
+documented for future users: early reference traces generated before
+the absorbing-boundary settings were finalised carried a boundary
+artefact that contaminated apparent scattering floors; the clean
+reference set in \cmd{sim/ref/} postdates that fix, and the analysis
+modules that measured the difference are kept as evidence.

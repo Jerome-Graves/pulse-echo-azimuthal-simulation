@@ -347,7 +347,7 @@ C2T_VER = "c2t1-w3036"      # cache version (window + estimator)
 # truth on both rigid sweeps, beta landed at the known artifact
 # phase"). It was also dead code: NUIS_2T was re-assigned False further
 # down, so the later definition won. Removed. The live nuisance block
-# (measured, and OFF) is with _lab_2theta below; the adversarial review
+# (measured, and OFF) is with _lab_2theta below; the review
 # subsequently showed the naive estimator is biased on the psi-frame
 # keep band and that a free lab-frame 2-theta collapses onto alpha+90,
 # i.e. it is a kappa degeneracy, not an artifact measurement.

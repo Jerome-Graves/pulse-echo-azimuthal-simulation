@@ -446,7 +446,7 @@ def report_floor(store):
 def report_axis(store):
     print()
     print("=" * 74)
-    print("3. THE AXIS. T1 and a nineteen-observable adversarial bank,")
+    print("3. THE AXIS. T1 and a nineteen-observable bank,")
     print("   exact circular-shift FWER, 15 distinct alignments, floor")
     print("   1/15 = 0.0667. Specimen AND both zero-scattering controls.")
     print("=" * 74)

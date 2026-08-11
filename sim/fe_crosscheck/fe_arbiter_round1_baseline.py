@@ -16,7 +16,7 @@ Input: fe_p2_floor1.npz (the 0.54 mm TET10 remesh) in the working
 directory. The mesh npz files are archived out of the repo as
 regenerable bulk; np.load here does not rebuild, so run fe_p2_floor.py
 first (its get_mesh remeshes and saves both floor meshes) or restore
-the file from pulse-echo-cof-sim_archive.
+the file from pulse-echo-azimuthal-simulation_archive.
 """
 import time
 

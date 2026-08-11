@@ -1,0 +1,42 @@
+\section{Data layout and environments}
+
+\subsection{Where data lives}
+
+\begin{description}
+  \item[out/sweeps/] one directory per sweep session: a
+    \cmd{config.json}, one trace archive per completed azimuth, and
+    fit results. Resumable and analysable while incomplete.
+  \item[out/tesscache/, out/observables/] the tessellation cache and
+    observable matrices, regenerated on demand.
+  \item[sim/analysis/*/ (stored npz)] each analysis theme stores its
+    own results beside its code.
+  \item[sim/ref/] the clean reference traces behind the paper's
+    figures.
+\end{description}
+
+None of \cmd{out/} is version-controlled; it is deposited with the
+paper. \cmd{DATA\_MANIFEST.md} records the mapping. The archive
+sibling directory holds 1.1 GB of regenerable finite-element meshes
+moved out of the tree before release; the meshing scripts rebuild
+them if rerun.
+
+\subsection{Environments}
+
+Three usage tiers, in increasing weight:
+
+\begin{enumerate}
+  \item \textbf{Analysis only} (no GPU): the pinned numpy and scipy
+    of \cmd{requirements.txt}. Every stored result reproduces on
+    CPU.
+  \item \textbf{GUI}: the pinned set plus streamlit and plotly
+    (matplotlib is already required for figures). The launcher's
+    private runtime installs exactly this.
+  \item \textbf{New solver runs}: additionally CUDA and cupy. Only
+    needed to regenerate sweeps or reference traces.
+\end{enumerate}
+
+\subsection{The manual}
+
+This document builds from \cmd{docs/} with \cmd{build.ps1} (XeLaTeX,
+two passes). Each chapter is a numbered folder and each section a
+separate file, so updates touch a single small file.

@@ -1,6 +1,6 @@
-"""Shared loader for the adversarial review. READ-ONLY on the repo:
+"""Shared loader for the robustness review. READ-ONLY on the repo:
 observables / geo envelopes for sweeps that lack a repo cache are
-computed here and cached in the SCRATCHPAD."""
+computed here and cached beside this module."""
 import json
 import os
 import sys
@@ -43,7 +43,7 @@ def fitres(name):
 
 
 # ── observables: exact replica of FS.sweep_data's per-azimuth block,
-# but cached in the scratchpad so nothing is written to the repo ──────
+# but cached beside this module so no analysis result is altered ──────
 def _obs_one(d, az, cfg, nb):
     with np.load(os.path.join(d, f"az{az:03d}.npz")) as z:
         tr = np.array(z["trace"], float).ravel()
@@ -98,7 +98,7 @@ def _obs_one(d, az, cfg, nb):
 
 
 def sweep_rows(name, smooth=True):
-    """FS.sweep_data-equivalent rows, scratchpad-cached."""
+    """FS.sweep_data-equivalent rows, cached beside this module."""
     cfg = cfg_of(name)
     d = SW.sweep_dir(name)
     nb = FS._fd_bands(cfg["f0_mhz"])
@@ -142,7 +142,7 @@ def sweep_rows(name, smooth=True):
 
 
 def sweep_geo(name, rots):
-    """geo, geo_tail: repo cache if valid, else scratchpad cache."""
+    """geo, geo_tail: repo cache if valid, else the local cache."""
     cfg = cfg_of(name)
     rp = os.path.join(SW.sweep_dir(name), "fit_geo_cache.npz")
     have = {}

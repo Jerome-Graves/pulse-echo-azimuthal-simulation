@@ -1,0 +1,22 @@
+\section{The studio GUI}
+
+The GUI (\cmd{gui/app.py}, Streamlit) presents the pipeline as a
+gated workflow across tabs: Specimen \& Fabric, Probe \& Excitation,
+Error model, Acquisition, then Backscatter and COF reconstruction,
+the last two unlocking only once acquired data exists in the
+session. The FW sweep tab (\cmd{gui/sweep\_tab.py}) configures,
+launches and monitors full-wave sweeps through the sweep engine.
+
+The specimen views are worth knowing about even for command-line
+users, since they are the fastest way to sanity-check a fabric: a 3D
+per-grain isosurface rendering coloured by c-axis, a c-axis vector
+field, an equal-area pole figure with orientation-tensor
+eigenvalues, and 2D slices of the grain and azimuth fields.
+
+One engineering note recorded here because it is invisible in the
+code's behaviour and expensive to rediscover: the GUI never probes
+the GPU at import time. Streamlit executes the script in a worker
+thread, and initialising CUDA off the main thread crashes the whole
+server without a traceback; the backend is therefore detected by
+inspection (is cupy importable, is a CUDA path configured) and the
+solvers touch the driver only when actually run.

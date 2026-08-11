@@ -102,7 +102,7 @@ def optimised_coeffs(order, kh_max=1.6, n_grid=400, multistart=True):
     # start does NOT converge: on order 8 / kh_max 1.6 it stalls at
     # peak error 4.36e-4, while restarting from perturbed simplices
     # reaches 5.99e-5 on the IDENTICAL objective - 7.3x better for a
-    # few milliseconds of extra CPU. Found by an adversarial review of
+    # few milliseconds of extra CPU. Found by a review of
     # the grid-noise pathology; the stalled solve was leaving free
     # accuracy on the table in exactly the 3-5 MHz band where the
     # staircase noise lives.

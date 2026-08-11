@@ -1,4 +1,4 @@
-"""ADVERSARIAL TEST 1: does the measured coda level track sigma_d^2 ACROSS
+"""STRESS TEST 1: does the measured coda level track sigma_d^2 ACROSS
 fabrics, at FIXED solver settings?  Theory says eta ~ sigma_d^2, so in dB the
 level must move 1:1 with 10log10(sigma_d^2).  A non-grain floor would be flat.
 

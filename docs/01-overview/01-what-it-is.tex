@@ -1,0 +1,38 @@
+\section{What this software is}
+
+This repository is the digital twin of the pulse-echo azimuthal
+measurement: a rotational single-transducer ultrasound method that
+recovers the crystal orientation fabric (COF) of a polycrystalline ice
+disk from the azimuthal variation of diametral sound velocity. The
+physical instrument is documented in its own repository and manual;
+this codebase answers the questions an instrument cannot: what should
+the measurement see for a known fabric, which parts of the received
+signal carry fabric information, how do acquisition errors corrupt it,
+and how well can the fabric be recovered.
+
+The pipeline has four stages, mirrored by the GUI tabs:
+
+\begin{enumerate}
+  \item \textbf{Specimen.} Build a synthetic disk: Voronoi grain
+    structure with controlled size distribution, and a Watson
+    orientation distribution with controlled strength and mean
+    direction (Chapter~\ref{ch:specimen}).
+  \item \textbf{Forward model.} Propagate pulses through the disk,
+    either with the fast ray model (interactive) or the label-indexed
+    anisotropic FDTD solver (full-wave, GPU), which is itself
+    validated against an independent finite-element solver
+    (Chapter~\ref{ch:forward}).
+  \item \textbf{Acquisition and errors.} Simulate the rotational
+    acquisition of the physical machine, with its error model
+    (Chapter~\ref{ch:acquisition}).
+  \item \textbf{Analysis and inversion.} Recover the fabric from the
+    simulated traces and quantify what is and is not recoverable
+    (Chapter~\ref{ch:analysis}).
+\end{enumerate}
+
+The repository doubles as the evidence base for the journal
+manuscript on the method. The working convention throughout: every
+number quoted in the paper traces to a module here, and the expected
+output is recorded in that module's docstring. Negative results are
+kept deliberately, because ruling a signal path out is as much a part
+of the argument as ruling one in.

@@ -1,78 +1,140 @@
-# pulse-echo-cof-sim
+# <img src="gui/icon.png" width="38" alt="project logo"/> Pulse-Echo Azimuthal Simulation
 
-The simulation and analysis code behind the Ultrasonics manuscript on
-pulse-echo azimuthal measurement of crystal-orientation fabric (COF) in
-ice. Everything the paper claims traces to a script in this repository,
-usually with the quoted numbers recorded in that script's docstring.
-Negative results are kept deliberately: they are part of the evidence
-chain, not clutter.
+<p align="center">
+  <img src="docs/figures/specimen-3d.png" width="760"
+       alt="3D rendering of a simulated polycrystalline ice disk, each grain coloured by its c-axis azimuth"/>
+</p>
+
+The digital twin of the pulse-echo azimuthal measurement: everything
+needed to simulate, corrupt, and invert rotational single-transducer
+ultrasound on a polycrystalline ice disk. The code builds synthetic
+disks with controlled crystal orientation fabric (COF), propagates
+pulses through them with a validated anisotropic FDTD solver
+(cross-checked against an independent finite-element solver), applies
+the acquisition error model of the physical machine, and reconstructs
+the fabric from the simulated echoes.
+
+It is the simulation companion to the
+[Pulse-Echo Azimuthal Scanner](https://github.com/Jerome-Graves/pulse-echo-azimuthal-scanner),
+the physical instrument, and the evidence base for the journal
+manuscript on the method. Everything the paper claims traces to a
+script in this repository, usually with the quoted numbers recorded in
+that script's docstring. Negative results are kept deliberately: they
+are part of the evidence chain, not clutter.
+
+## The GUI
+
+Double-click **`Run Simulation GUI.bat`**. The first run installs a
+private Python runtime into `gui/runtime/` (internet required, a few
+minutes); afterwards it starts offline, creates an icon-bearing
+shortcut for day-to-day use, and opens at http://localhost:8552.
+
+The studio walks the whole pipeline in tabs: build a specimen (disk
+geometry, grain count, fabric strength and direction), configure the
+probe and excitation, choose the error model, run the acquisition, and
+reconstruct. The FW sweep tab drives the full-wave azimuth sweep
+engine. Running new full-wave simulations needs CUDA and cupy; the
+specimen builder, ray model, error model and every analysis view run
+on CPU.
+
+<p align="center">
+  <img src="docs/figures/arc-backprojection.png" width="760"
+       alt="Coherent arc backprojection of a simulated sweep"/>
+</p>
+
+## Reproduce a paper number in three commands
+
+No GPU required. This recomputes the Appendix A direct-arrival
+attenuation agreement between the two solvers from the archived
+arbiter traces:
+
+```
+git clone <this repository>
+cd pulse-echo-azimuthal-simulation/sim/analysis
+python fe_direct_attenuation.py
+```
+
+Expected: a table of the five cross-check rounds ending with FDTD
+-1.367 dB against FE -1.341 dB (0.027 dB gap) for the 6-15 mm
+placement, and agreement spanning 0.014 to 0.068 dB over the three
+valid rounds. Any cited module works the same way: run it from its own
+directory and compare the printed numbers against the ones recorded in
+its docstring.
 
 ## Directory map
 
 | path | what it is |
 |---|---|
-| `sim/` | The solver and production stack, in five role-named groups (below). Read `sim/README.md` first: it is the ground-truth document for what every file is and why it exists. |
-| `sim/core/` | The solver and specimen machinery: label-indexed anisotropic FDTD (`fdtd.py`), pseudospectral solver, specimen builder, rotation machinery, bit-equivalence gate (`validate_labels.py`). |
-| `sim/model/` | Forward models and inversion: the born ladder, fabric inversion (`fit_fabric.py`, `fit_sweep.py`), gridded inversion and its daemon, the studio ray model. |
-| `sim/pipeline/` | Drivers: the resumable sweep engine (`sweep_runner.py`), the original azimuth study, trace lab, arc backprojection, visualisation. |
-| `sim/fe_crosscheck/` | The FE arbiter that cross-checks the staircase: mesher, solvers, probes, the five cross-check rounds and their trace archives. |
-| `sim/fw_checks/` | Solver validation and acceptance studies: full-wave references and crop/corridor licenses, oblique and pseudospectral validation, anisotropy and convergence checks. |
-| `sim/analysis/` | About 75 analysis modules plus their stored `.npz` results, in subdirectories by theme (channel_network, fabric_channel, facet_model, frequency, independent_check, physical_optics, statistics, validation). See `sim/analysis/README.md`. |
+| `sim/` | The solver and production stack. Read `sim/README.md` first: it is the ground-truth document for what every file is and why it exists. |
+| `sim/core/` | The solver and specimen machinery: label-indexed anisotropic FDTD, pseudospectral solver, specimen builder, rotation machinery, bit-equivalence gate. |
+| `sim/model/` | Forward models and inversion: the born ladder, fabric inversion, gridded inversion and its daemon, the studio ray model. |
+| `sim/pipeline/` | Drivers: the resumable sweep engine, the original azimuth study, trace lab, arc backprojection, visualisation. |
+| `sim/fe_crosscheck/` | The FE arbiter that cross-checks the solver: mesher, solvers, probes, the five cross-check rounds and their trace archives. |
+| `sim/fw_checks/` | Solver validation and acceptance studies: full-wave references, oblique and pseudospectral validation, anisotropy and convergence checks. |
+| `sim/analysis/` | About 75 analysis modules plus their stored results, in subdirectories by theme. See `sim/analysis/README.md`. |
 | `sim/validation/` | Rotated-staggered-grid and exact reflection-coefficient studies. |
 | `sim/ref/` | Clean reference traces (inputs to the paper's figures). |
-| `sim/runs/` | Batch run drivers for the GPU campaigns. |
-| `sim/figures/` | The paper's figure scripts; the built PDFs live in the paper repository. |
-| `sim/results/` | Stored results from the run campaigns. |
-| `gui/` | Streamlit app: the studio pipeline plus the FW sweep tab that drives `sim/pipeline/sweep_runner.py`. |
-| `out/sweeps/` | Sweep sessions: one directory per sweep with `config.json`, one npz per completed azimuth, and fit results. The analysis layer reads these. |
-| `out/tesscache/`, `out/observables/` | Tessellation cache and observable matrices. |
+| `sim/runs/`, `sim/results/` | Batch drivers for the GPU campaigns and their stored results. |
+| `sim/figures/` | The paper's figure scripts. |
+| `gui/` | The Streamlit studio and FW sweep tab, plus the launcher runtime scripts. |
+| `docs/` | The LaTeX simulation manual. |
+| `out/` | Sweep sessions, tessellation cache and observables (not versioned; deposited with the paper). |
 
 ## Environment
 
-Python 3.12 with numpy and scipy. That is the whole requirement for the
-analysis layer: every module under `sim/analysis/` reads stored sweeps,
-reference traces, or its own stored npz, and runs on CPU with no CUDA
-anywhere in sight.
+Python 3.12. The version pins in `requirements.txt` are a reproduction
+contract, not a suggestion: the analysis gates compare against archived
+results at zero difference, and other library versions move floating
+point at the 1e-13 level, which trips the bit-exactness gates by
+design. The launcher installs exactly the pinned versions.
 
-CUDA and cupy are needed only to RUN the solver (`sim/core/fdtd.py`,
-`sim/pipeline/sweep_runner.py`, the FE solvers and their probes) and so
-to regenerate sweeps or reference traces. `sim/core/specimen.py` uses
-the GPU for labelling but falls back to CPU. matplotlib is needed for `sim/figures/`; streamlit
-and plotly for `gui/`.
+CUDA and cupy are needed only to run the solvers and so to regenerate
+sweeps or reference traces; every module under `sim/analysis/` runs on
+CPU from stored data.
 
-## Reproduce a paper number in three commands
+## Documentation
 
-No GPU required. This recomputes the Appendix A direct-arrival
-attenuation agreement between the two solvers from the archived arbiter
-traces:
+The simulation manual (model, solver validation chain, error model,
+inversion, software architecture) is in
+[docs/simulation-manual.pdf](docs/simulation-manual.pdf), built from
+the LaTeX sources alongside it. `sim/README.md` remains the
+authoritative file-by-file map.
 
-```
-git clone <this repository>
-cd pulse-echo-cof-sim/sim/analysis
-python fe_direct_attenuation.py
-```
+## Related publications
 
-Expected: a table of the five cross-check rounds ending with FDTD
--1.367 dB against FE -1.341 dB (0.027 dB gap) for the 6-15 mm placement,
-and agreement spanning 0.014 to 0.068 dB over the three valid rounds.
-Any cited module works the same way: run it from its own directory and
-compare the printed numbers against the ones recorded in its docstring.
+- J. Graves, S. Harput, B. Lishman.
+  *A Finite-Difference Simulation Framework for Ultrasonic Crystal
+  Orientation Fabric Estimation in Ice: Timing Methodology, Forward
+  Model Selection, and the Cramer-Rao Accuracy Limit.*
+  IEEE International Ultrasonics Symposium, 2026 (accepted). The paper
+  this repository underpins.
+- J. Graves, S. Harput, B. Lishman.
+  *Non-Destructive Ultrasonic Estimation of Ice Crystal Orientation
+  Fabric: Multi-Frequency Experimental Validation and Failure Mode
+  Characterisation.* IEEE International Ultrasonics Symposium, 2026
+  (accepted). The experimental companion, measured on the
+  [physical scanner](https://github.com/Jerome-Graves/pulse-echo-azimuthal-scanner).
+- J. Graves, B. Lishman, S. Harput.
+  *Measuring Predominant Orientations of Ice Crystal Fabrics From
+  Ultrasonic Measurements of Ice Cores.* Preprint.
+- J. Graves, B. Lishman, S. Harput.
+  *Determining the Grain Geometry From Ultrasonic Measurements of
+  Large-Grained Temperate Ice Cores.* IEEE International Ultrasonics
+  Symposium, 2023.
+  [doi:10.1109/ius51837.2023.10307539](https://doi.org/10.1109/ius51837.2023.10307539)
 
-## Where to read next
-
-- `sim/README.md`: the production stack, the solver validation chain,
-  the FE arbiter evidence chain, the frame-convention warning, and how
-  to run a sweep. This is the authoritative map of `sim/`.
-- `sim/analysis/README.md`: the analysis modules and their stored
-  results.
+The full list, with paper PDFs as they become available, is at
+[jeromegraves.com](https://jeromegraves.com/#publications). An archived
+DOI for this repository will be added on publication of the 2026
+papers.
 
 ## Archive note (2026-08 cleanup)
 
 Before release, 1.1 GB of regenerable FE arbiter mesh npz was moved out
 of the working tree to the sibling directory
-`pulse-echo-cof-sim_archive/` (same layout as the repo). The ab scripts
-rebuild those meshes if rerun; nothing in the analysis layer reads them.
-About 30 dead files (superseded experiments) were deleted from the tree;
-all of them remain recoverable from git history. Everything the paper
-cites, every stored npz a result depends on, and every documented
-negative result was kept.
+`pulse-echo-azimuthal-simulation_archive/` (same layout as the repo).
+The ab scripts rebuild those meshes if rerun; nothing in the analysis
+layer reads them. About 30 dead files (superseded experiments) were
+deleted from the tree; all of them remain recoverable from git history.
+Everything the paper cites, every stored npz a result depends on, and
+every documented negative result was kept.

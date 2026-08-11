@@ -20,7 +20,7 @@ Inputs: fe_p2_floor1.npz and fe_p2_floor2.npz in the working
 directory. Both mesh npz files are archived out of the repo as
 regenerable bulk; run() loads without rebuilding, so run
 fe_p2_floor.py first (its get_mesh remeshes and saves both) or
-restore them from pulse-echo-cof-sim_archive.
+restore them from pulse-echo-azimuthal-simulation_archive.
 """
 import time
 

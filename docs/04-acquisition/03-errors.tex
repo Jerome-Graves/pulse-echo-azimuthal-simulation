@@ -1,0 +1,17 @@
+\section{The error model}
+
+The error model corrupts ideal simulated acquisitions with the
+distortions the physical machine actually exhibits, so inversion
+robustness is tested against the right enemies rather than generic
+noise. The configurable terms mirror the instrument's error budget:
+timing jitter, per-dock coupling variation (the re-seated couplant
+film), angular error on the commanded azimuth, slow drift across a
+sweep (the thermal term the machine corrects with reference
+revisits), and additive noise at the receiver.
+
+Because the same fabric can be re-acquired with different error
+draws, the pipeline separates what limits recovery: fabric ambiguity
+(Chapter~\ref{ch:analysis}), acquisition corruption, or both. The
+studio's gated workflow enforces the order: an error model is chosen
+before acquisition, and the acquired dataset records the model that
+produced it.

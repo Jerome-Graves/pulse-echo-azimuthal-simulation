@@ -1,4 +1,4 @@
-"""Pulse-Echo COF Studio - rotational pulse-echo ultrasound on an ice disk.
+"""Pulse-Echo Azimuthal Simulation - rotational pulse-echo ultrasound on an ice disk.
 
 Layout deliberately mirrors OpenUSCT Studio: tabbed workflow across the top,
 configuration tabs first, then a gated ACQUISITION tab, then reconstruction
@@ -24,24 +24,39 @@ import reconstruct as RECON                # noqa: E402
 from specimen import DiskSpecimen          # noqa: E402
 from config import Config                  # noqa: E402
 
-# Do NOT probe the GPU here. Streamlit runs this script in a worker thread and
-# initialising CUDA off the main thread segfaults the whole server with no
-# traceback. The ray forward model is pure numpy anyway; the GPU is only needed
-# by the full-wave reference solver, which probes lazily when it is actually
-# run. Detect by inspection, never by touching the driver.
+# Do NOT probe the GPU in this process. Streamlit runs this script in a
+# worker thread and initialising CUDA off the main thread segfaults the
+# whole server with no traceback. Instead, probe in a short-lived
+# subprocess (cached, so it runs once per server): pip cupy wheels bundle
+# their own CUDA runtime, so environment variables alone cannot tell
+# whether the GPU actually works.
+@st.cache_resource(show_spinner=False)
 def _backend_name():
     import importlib.util
     if importlib.util.find_spec("cupy") is None:
         return "CPU (numpy)"
-    have_cuda = any(os.environ.get(v) for v in ("CUDA_PATH", "CUDA_HOME"))
-    return "numpy forward, CUDA available for full-wave" if have_cuda \
-        else "CPU (numpy), cupy present but no CUDA_PATH"
+    import subprocess
+    try:
+        r = subprocess.run(
+            [sys.executable, "-c",
+             "import warnings; warnings.filterwarnings('ignore'); "
+             "import cupy; cupy.zeros(1).sum(); "
+             "print(cupy.cuda.runtime.getDeviceProperties(0)['name']"
+             ".decode())"],
+            capture_output=True, text=True, timeout=60)
+        if r.returncode == 0 and r.stdout.strip():
+            gpu = r.stdout.strip().splitlines()[-1]
+            return f"numpy forward, CUDA full-wave on {gpu}"
+    except Exception:
+        pass
+    return "CPU (numpy); cupy present but CUDA failed to initialise"
 
 
 BACKEND_NAME = _backend_name()
 
-st.set_page_config(page_title="Pulse-Echo COF Studio", layout="wide",
-                   page_icon="\U0001f9ca")
+_ICON = os.path.join(HERE, "icon.png")
+st.set_page_config(page_title="Pulse-Echo Azimuthal Simulation", layout="wide",
+                   page_icon=_ICON if os.path.exists(_ICON) else "\U0001f9ca")
 
 st.markdown(
     '<div style="display:flex;align-items:center;gap:0.8rem;padding:0.2rem 0 0.6rem 0;">'
@@ -54,7 +69,7 @@ st.markdown(
     'stroke-width="8" stroke-dasharray="18 14"/>'
     '<rect x="-250" y="-34" width="56" height="68" rx="8" fill="#1b4f72"/>'
     '<circle r="22" fill="#2f7fb8"/></g></svg>'
-    '<span style="font-size:2.4rem;font-weight:700;">Pulse-Echo COF Studio</span>'
+    '<span style="font-size:2.4rem;font-weight:700;">Pulse-Echo Azimuthal Simulation</span>'
     "</div>", unsafe_allow_html=True)
 st.caption("Rotational single-transducer pulse-echo on an ice disk: forward "
            f"simulation, error model and COF reconstruction. Backend: {BACKEND_NAME}.")

@@ -1,0 +1,28 @@
+\section{Solvers}
+
+Three forward models coexist, used at different costs for different
+questions:
+
+\begin{description}
+  \item[Ray model] (\cmd{sim/model/}, used by the studio). Pure
+    numpy, interactive speed. Propagates diametral transits through
+    the per-grain slowness field to predict travel times and the
+    azimuthal velocity pattern. This is the model the inversion
+    inverts, and the GUI's default backend.
+  \item[Anisotropic FDTD] (\cmd{sim/core/fdtd.py}). The full-wave
+    workhorse: a label-indexed elastic finite-difference solver in
+    which every cell's stiffness comes from its grain's orientation.
+    Runs on GPU through cupy; produces the synthetic pulse-echo
+    traces the analysis layer consumes. A pseudospectral solver
+    provides an independent numerical scheme for validation.
+  \item[Finite-element arbiter] (\cmd{sim/fe\_crosscheck/}). A
+    completely independent solver stack (its own mesher, elements
+    and probes) used to adjudicate the FDTD results. When two
+    unrelated discretisations of the same physics agree, the result
+    is a property of the physics rather than the scheme.
+\end{description}
+
+The rotation machinery rotates the specimen rather than the probe,
+matching the physical machine, and the bit-equivalence gate
+(\cmd{validate\_labels.py}) guarantees the rotated label field feeds
+the solver exactly the specimen the builder produced.

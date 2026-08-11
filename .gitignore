@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------
-#  pulse-echo-cof-sim
+#  pulse-echo-azimuthal-simulation
 #
 #  The rule that matters here: large binary artefacts must never enter
 #  git history. Once committed they are permanent even if deleted in a
@@ -68,3 +68,15 @@ Thumbs.db
 *.swp
 *~
 .idea/
+
+# --- GUI launcher ----------------------------------------------------
+#  Self-installed Python runtime and the machine-specific shortcut,
+#  both rebuilt by "Run Simulation GUI.bat".
+/gui/runtime/
+*.lnk
+
+# --- Manual build artefacts ------------------------------------------
+/docs/*.aux
+/docs/*.log
+/docs/*.out
+/docs/*.toc

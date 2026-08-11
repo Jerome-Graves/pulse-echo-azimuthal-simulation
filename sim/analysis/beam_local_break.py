@@ -1,4 +1,4 @@
-"""Adversarial adjudication of the beam-local predictor of Section 5.2.
+"""Adjudication of the beam-local predictor of Section 5.2.
 
 The claim under attack is the last paragraph of the subsection: that a
 weak crystallographic orientation channel is visible in an earlier

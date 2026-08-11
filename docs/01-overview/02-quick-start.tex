@@ -1,0 +1,37 @@
+\section{Quick start}
+
+\subsection{The GUI}
+
+Double-click \cmd{Run Simulation GUI.bat} in the repository root. The
+first launch installs a private Python runtime into \cmd{gui/runtime/}
+(internet required, a few minutes) with the repository's pinned
+package versions plus the GUI extras; afterwards it starts offline,
+creates an icon-bearing shortcut, and opens at
+\cmd{http://localhost:8552}.
+
+The studio walks the pipeline as a gated workflow: Specimen \&
+Fabric, Probe \& Excitation, Error model, then Acquisition; the
+Backscatter and COF reconstruction tabs unlock once acquired data
+exists. The FW sweep tab drives the resumable full-wave azimuth sweep
+engine.
+
+Everything interactive (specimen builder, ray forward model, error
+model, reconstruction views) runs on CPU. New full-wave runs need
+CUDA and cupy in the running Python environment; the GUI detects the
+backend by inspection and reports it under the title.
+
+\subsection{Reproducing a stored result}
+
+No GPU is needed to reproduce any analysis in the paper. For example,
+the finite-element cross-check of direct-arrival attenuation:
+
+\begin{lstlisting}
+cd sim/analysis
+python fe_direct_attenuation.py
+\end{lstlisting}
+
+prints a table of the five cross-check rounds; the expected values,
+including the 0.027 dB solver agreement for the 6 to 15 mm placement,
+are recorded in the module docstring. Every cited module follows the
+same pattern: run it from its own directory, compare the printed
+numbers with the docstring.

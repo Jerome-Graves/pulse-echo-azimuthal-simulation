@@ -1,0 +1,35 @@
+\section{Repository architecture}
+
+The code is organised by role, and \cmd{sim/README.md} is the
+authoritative file-by-file map; this section gives the shape.
+
+\begin{description}
+  \item[sim/core/] the solver and specimen machinery: the
+    label-indexed anisotropic FDTD solver, the pseudospectral
+    solver, the specimen builder, rotation machinery, and the
+    bit-equivalence gate.
+  \item[sim/model/] forward models and inversion: the born ladder,
+    the fabric and sweep fits, the gridded inversion and its daemon,
+    and the ray model the studio uses.
+  \item[sim/pipeline/] drivers: the resumable sweep engine, trace
+    lab, arc backprojection and visualisation.
+  \item[sim/fe\_crosscheck/] the independent finite-element arbiter
+    and its archived cross-check rounds.
+  \item[sim/fw\_checks/ and sim/validation/] the validation chain of
+    Chapter~\ref{ch:forward}.
+  \item[sim/analysis/] roughly 75 analysis modules with their stored
+    results, grouped by theme, each self-contained and runnable from
+    its own directory.
+  \item[sim/ref/, sim/runs/, sim/results/, sim/figures/] reference
+    traces, batch campaign drivers, stored campaign results, and the
+    paper's figure scripts.
+  \item[gui/] the Streamlit studio, the sweep tab, and the launcher
+    runtime scripts.
+  \item[vendor/] vendored dependencies, so the repository is
+    self-contained.
+\end{description}
+
+Two conventions hold everywhere: modules read stored inputs relative
+to their own location, so they run from their own directory with no
+environment setup; and expected outputs are recorded in docstrings,
+so checking a module means running it and comparing.

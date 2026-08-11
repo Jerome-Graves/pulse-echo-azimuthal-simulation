@@ -61,7 +61,7 @@ specimen classes (three-specimen + isotropic-sweep tests). Mitigations:
 per-sweep fit-level 2θ nuisance vector (in fit_sweep), ppw 8 (~3.4×
 cost), or same-class template. It is a digital-twin numerics artifact:
 the physical rig does not rasterise ice. Evidence: isotropic_seed41_ppw6_calibration sweep +
-scratchpad studies (az_harmonic_decomp / g_fine / threetests npz).
+side studies outside this repository (az_harmonic_decomp / g_fine / threetests npz).
 
 ## Solver validation chain (the paper's verification section)
 
@@ -110,7 +110,7 @@ FE cross-check trace archives (`fe_arbiter_round1_baseline*_traces.npz`) sit nex
 their scripts in `fe_crosscheck/`. `../out/sweeps/<name>/` holds sweep
 sessions (config + one npz per azimuth + fit results). The large
 `fe_*.npz` arbiter meshes were moved to the sibling
-`pulse-echo-cof-sim_archive/` directory in the 2026-08 cleanup; the ab
+`pulse-echo-azimuthal-simulation_archive/` directory in the 2026-08 cleanup; the ab
 scripts rebuild them if rerun.
 
 ## How to run the common things
